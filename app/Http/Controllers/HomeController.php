@@ -12,10 +12,6 @@ class HomeController extends Controller
      * @return view
     */
     public function index(){
-        if(auth()->user()){
-            return view('home');
-        }else{
-            return view('auth.login');
-        }
+        return view('home');
     }
 }

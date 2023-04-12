@@ -18,7 +18,6 @@ class UserSeeder extends Seeder
             'name' => 'admin',
 			'email' => 'admin@hotmail.com',
 			'password' => bcrypt('12345'),
-            'tipo_acceso' => 'Admin',
 			'remember_token'=>NULL,
 			'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
 			'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
