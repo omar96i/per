@@ -19,7 +19,9 @@
     "highlight.js": "~9.17.1",
     "jquery": "~3.5.1",
     "masonry-layout": "~4.2.1",
-    "perfect-scrollbar": "~1.5.1"
+    "perfect-scrollbar": "~1.5.1",
+    "vue": "^3.2.36",
+    "vue-loader": "^17.0.1"
   },
   "devDependencies": {
     "axios": "^0.25",
