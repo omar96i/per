@@ -1,8 +1,7 @@
 import { createApp } from 'vue';
-import ExampleComponent from './components/ExampleComponent.vue';
+import UserIndex from './components/User/Index.vue';
 
 const app = createApp({});
 
-app.component('example-component', ExampleComponent);
-
+app.component('user-index', UserIndex);
 app.mount('#app');

@@ -15,9 +15,13 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => 'admin',
+            'nombre' => 'admin',
+            'apellido'=>'admin',
 			'email' => 'admin@hotmail.com',
+            'documento'=>'12345',
+            'usuario'=>'admin',
 			'password' => bcrypt('12345'),
+            'tipo_acceso'=>'admin',
 			'remember_token'=>NULL,
 			'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
 			'updated_at' => \Carbon\Carbon::now()->toDateTimeString()

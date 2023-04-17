@@ -5,6 +5,33 @@
       "name": "Home",
       "icon": "menu-icon tf-icons bx bx-home-circle",
       "slug": "home-index"
+    },
+    {
+      "url": "/user/",
+      "name": "Usuarios",
+      "icon": "menu-icon tf-icons bx bxs-user",
+      "slug": "user-index"
+    },
+    
+
+    {
+      "url": "/dependencia/",
+      "name": "Dependencias",
+      "icon": "menu-icon tf-icons bx bxs-bar-chart-alt-2",
+      "slug": "dependencias-index"
+    },
+    {
+      "url": "/",
+      "name": "Periodos",
+      "icon": "menu-icon tf-icons bx bxs-calendar",
+      "slug": "periodos-index"
+    },
+    {
+      "url": "/",
+      "name": "Unidades de Medida",
+      "icon": "menu-icon tf-icons bx bxs-detail",
+      "slug": "unidadMedida-index"
     }
   ]
+
 }
