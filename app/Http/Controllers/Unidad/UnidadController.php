@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class UnidadController extends Controller
 {
     public function index(){
-        return view('Unidades.index');
+        return view('unidades.index');
     }
 
     public function get(){
@@ -36,5 +36,5 @@ class UnidadController extends Controller
         $unidad->delete();
         return response()->json(['status' => true]);
     }
-    
+
 }

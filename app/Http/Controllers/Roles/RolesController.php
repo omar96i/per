@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class RolesController extends Controller
 {
     public function index(){
-        return view('Roles.index');
+        return view('roles.index');
     }
 
     public function get(){
@@ -36,5 +36,5 @@ class RolesController extends Controller
         $roles->delete();
         return response()->json(['status' => true]);
     }
-    
+
 }

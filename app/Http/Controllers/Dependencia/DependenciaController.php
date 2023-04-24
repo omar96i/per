@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class DependenciaController extends Controller
 {
     public function index(){
-        return view('Dependencias.index');
+        return view('dependencias.index');
     }
 
     public function get(){
@@ -36,5 +36,5 @@ class DependenciaController extends Controller
         $dependencia->delete();
         return response()->json(['status' => true]);
     }
-    
+
 }
