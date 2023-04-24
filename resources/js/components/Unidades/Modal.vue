@@ -1,6 +1,6 @@
 <template>
     <!-- Modal -->
-    <div class="modal fade" id="modalUser" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="modalUnidad" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-fullscreen" role="document">
             <div class="modal-content" v-if="!loading_data">
                 <div class="modal-header">
@@ -14,51 +14,12 @@
                 </div>
                     <div class="modal-body">
                         <div class="card-body row">
-                            <Label>Datos Personales</Label>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Nombre</label>
                                     <div class="input-group input-group-merge">
-                                        <input type="text" class="form-control" v-model="user.nombre" >
+                                        <input type="text" class="form-control" v-model="unidad.nombre" >
                                     </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">Apellido</label>
-                                <div class="input-group input-group-merge">
-                                    <input type="text" class="form-control" v-model="user.apellido" >
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">E-Mail</label>
-                                <div class="input-group input-group-merge">
-                                    <input type="text" class="form-control" v-model="user.email" >
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">Documento</label>
-                                <div class="input-group input-group-merge">
-                                    <input type="text" class="form-control" v-model="user.documento" >
-                                </div>
-                            </div>
-                            <label>Datos de Ingreso</label>
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">Usuario</label>
-                                <div class="input-group input-group-merge">
-                                    <input type="text" class="form-control" v-model="user.usuario" >
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">Password</label>
-                                <div class="input-group input-group-merge">
-                                    <input type="text" class="form-control" v-model="user.password" >
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">Tipo De Acceso</label>
-                                <select class="form-select" v-model="user.tipo_acceso">
-                                    <option value="Admin">Admin</option>
-                                    <option value="Usuario">Usuario</option>
-                                </select>
-                            </div>
+                            </div>                            
                         </div>
                     </div>  
                 <div class="modal-footer" v-if="!loading">
@@ -84,14 +45,8 @@
             return{
                 
                 data:{},
-                user:{
-                    nombre:"",
-                    apellido:"",
-                    email:"",
-                    documento:"",
-                    usuario:"",
-                    password:"",
-                    tipo_acceso:""    
+                unidad:{
+                    nombre:""  
                 
                 },
                 tipo: '',
@@ -106,10 +61,10 @@
             
             
             getData(id){
-            axios.get(`/user/getData/${id}`).then(res=>{
+            axios.get(`/unidad/getData/${id}`).then(res=>{
                 
-                this.user = res.data.user;
-                console.log("Datos Usuario", this.user)
+                this.unidad = res.data.unidad;
+                console.log("Datos Usuario", this.unidad)
                 this.loading_data = false
             }).catch(res=>{
                 
@@ -142,9 +97,9 @@
             },
 
             action(){
-                console.log(this.user)
+                console.log(this.unidad)
         
-            axios.post((this.tipo == 'insert') ? '/user/store' : `/user/update/${this.user.id}`,this.user).then(res=>{
+            axios.post((this.tipo == 'insert') ? '/unidad/store' : `/unidad/update/${this.unidad.id}`,this.unidad).then(res=>{
                 this.loading = false
                 
                 console.log(res.data)
@@ -165,7 +120,7 @@
                 this.loading = false
             })
             }
-        },    
+        }
 }
                 
 </script>

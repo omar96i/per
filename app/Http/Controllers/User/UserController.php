@@ -12,9 +12,6 @@ class UserController extends Controller
         return view('Users.index');
     }
 
-    // public function get(){
-    //     return response()->json(['data' => User::with('User')->get()]);
-    // }
     public function get(){
         return response()->json(['status' => true, 'user' => User::get()]);
     }
@@ -29,9 +26,6 @@ class UserController extends Controller
 
 
     public function store(Request $request){
-        // $user = new User($request->all());
-        // $user->save();
-        // return response()->json(['status' => true]);
         $user = User::create($request->post());
         return response()->json([
             'user'=>$user

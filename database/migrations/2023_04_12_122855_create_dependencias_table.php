@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('dependencias', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nombre');
             $table->string('descripcion');
             $table->string('info_dependencia');
             $table->string('mision');

@@ -3,22 +3,22 @@
 namespace App\Http\Controllers\Dependencia;
 
 use App\Http\Controllers\Controller;
-use App\Models\Dependencia;
+use App\Models\Dependencias;
 use Illuminate\Http\Request;
 
 class DependenciaController extends Controller
 {
     public function index(){
-        return view('Dependencia.index');
+        return view('Dependencias.index');
     }
 
     public function get(){
-        return response()->json(['status' => true, 'dependencia' => Dependencia::get()]);
+        return response()->json(['status' => true, 'dependencia' => Dependencias::get()]);
     }
-    public function getData(Dependencia $dependencia){
-        return response()->json(['data' => $dependencia]);
+    public function getData(Dependencias $dependencia){
+        return response()->json(['dependencia' => $dependencia]);
     }
-    public function update(Dependencia $dependencia, Request $request){
+    public function update(Dependencias $dependencia, Request $request){
         $dependencia->update($request->all());
         $dependencia->save();
         return response()->json(['saved' => true]);
@@ -26,13 +26,14 @@ class DependenciaController extends Controller
 
 
     public function store(Request $request){
-        $dependencia = new Dependencia($request->all());
-        $dependencia->save();
-        return response()->json(['status' => true]);
+        $dependencia = Dependencias::create($request->post());
+        return response()->json([
+            'dependencia'=>$dependencia
+        ]);
     }
 
-    public function delete(Dependencia $dependencia){
-        $user->delete();
+    public function delete(Dependencias $dependencia){
+        $dependencia->delete();
         return response()->json(['status' => true]);
     }
     

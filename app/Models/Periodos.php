@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Periodos extends Model
 {
     use HasFactory;
-
+    protected $table = 'periodos';
     protected $fillable = [
         'nombre',
         'fecha_ini',
         'fecha_fin',
-        'permiso_programacion',
+        'permiso_programacion'
     ];
 }

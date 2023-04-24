@@ -7,6 +7,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,8 +21,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
             
             UserSeeder::class,
-            
+            RolesSeeder::class,
+        
         ]);
+
+        $user=User::find(1);
+        $user->assignRole('Admin');
         
     }
 }

@@ -12,8 +12,6 @@
       "icon": "menu-icon tf-icons bx bxs-user",
       "slug": "user-index"
     },
-    
-
     {
       "url": "/dependencia/",
       "name": "Dependencias",
@@ -21,16 +19,22 @@
       "slug": "dependencias-index"
     },
     {
-      "url": "/",
+      "url": "/periodo/",
       "name": "Periodos",
       "icon": "menu-icon tf-icons bx bxs-calendar",
-      "slug": "periodos-index"
+      "slug": "periodo-index"
     },
     {
-      "url": "/",
+      "url": "/unidad/",
       "name": "Unidades de Medida",
       "icon": "menu-icon tf-icons bx bxs-detail",
       "slug": "unidadMedida-index"
+    },
+    {
+      "url": "/roles/",
+      "name": "Roles",
+      "icon": "menu-icon tf-icons bx bxs-detail",
+      "slug": "roles-index"
     }
   ]
 
