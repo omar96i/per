@@ -15,11 +15,6 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
     protected $table = 'users';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'nombre',
         'apellido',
@@ -27,22 +22,17 @@ class User extends Authenticatable
         'documento',
         'usuario',
         'password',
-        'tipo_acceso'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    
+    public function periodos(){
+        return $this->hasMany(UserPeriodo::class, 'user_id');
+    }
+
+    public function metas(){
+        return $this->hasMany(MetaDeProducto::class, 'user_id');
+    }
 }

@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('documento');
             $table->string('usuario');
             $table->string('password');
-            $table->string('tipo_acceso');
             $table->rememberToken();
             $table->timestamps();
         });

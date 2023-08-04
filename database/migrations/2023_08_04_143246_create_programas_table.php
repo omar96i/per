@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('periodos', function (Blueprint $table) {
+        Schema::create('programas', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('periodo_id');
+            $table->unsignedBigInteger('hecho_id');
+            $table->unsignedBigInteger('politica_id');
             $table->string('nombre');
-            $table->date('fecha_ini');
-            $table->date('fecha_fin');
-            $table->enum('estado', ['activo', 'inactivo'])->default('activo');
+            $table->string('peso');
+            $table->text('descripcion');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('periodos');
+        Schema::dropIfExists('programas');
     }
 };

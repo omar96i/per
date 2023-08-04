@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('periodos', function (Blueprint $table) {
+        Schema::create('users_periodos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->date('fecha_ini');
-            $table->date('fecha_fin');
-            $table->enum('estado', ['activo', 'inactivo'])->default('activo');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('periodo_id');
+            $table->string('tipo_acceso');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('periodos');
+        Schema::dropIfExists('users_periodos');
     }
 };

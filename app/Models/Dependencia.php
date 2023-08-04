@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dependencias extends Model
+class Dependencia extends Model
 {
     use HasFactory;
+
     protected $table = 'dependencias';
 
     protected $fillable = [

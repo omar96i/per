@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Periodos extends Model
+class Unidad extends Model
 {
     use HasFactory;
-    protected $table = 'periodos';
+
+    protected $table = 'unidades';
+
     protected $fillable = [
-        'nombre',
-        'fecha_ini',
-        'fecha_fin',
-        'permiso_programacion'
+        'nombre'
     ];
 }
