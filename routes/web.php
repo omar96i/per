@@ -5,6 +5,10 @@ use App\Http\Controllers\Periodo\PeriodoController;
 use App\Http\Controllers\Dependencia\DependenciaController;
 use App\Http\Controllers\Roles\RolesController;
 use App\Http\Controllers\Permisos\PermisosController;
+use App\Http\Controllers\Programacion\HechoController;
+use App\Http\Controllers\Programacion\MetaDeProductoController;
+use App\Http\Controllers\Programacion\PoliticaController;
+use App\Http\Controllers\Programacion\ProgramaController;
 use App\Models\Users;
 use App\Models\Unidades;
 use App\Models\Periodos;
@@ -84,3 +88,9 @@ Route::prefix('permisos')->controller(PermisosController::class)->group(function
     Route::post('/update/{permisos}', 'update')->name('permisos.update');
     Route::get('/getData/{permisos}', 'getData')->name('permisos.get.data');
 });
+
+Route::resource('hechos', HechoController::class);
+Route::get('/hechos-get', [HechoController::class, 'get'])->name('hechos.get');
+Route::resource('politicas', PoliticaController::class);
+Route::resource('programas', ProgramaController::class);
+Route::resource('metas-productos', MetaDeProductoController::class);
