@@ -12,6 +12,8 @@ import PoliticasIndex from './components/Programacion/Politicas/Index.vue';
 import ProgramasIndex from './components/Programacion/Programas/Index.vue';
 import MetasIndex from './components/Programacion/Metas/Index.vue';
 
+import PlanOperativo from './components/PlanOperativo/Index.vue';
+
 const app = createApp({});
 
 app.component('user-index', UserIndex);
@@ -23,4 +25,5 @@ app.component('hechos-index', HechosIndex);
 app.component('politicas-index', PoliticasIndex);
 app.component('programas-index', ProgramasIndex);
 app.component('metas-index', MetasIndex);
+app.component('plan-operativo-index', PlanOperativo);
 app.mount('#app');
