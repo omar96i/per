@@ -7,7 +7,7 @@
                 Nuevo registro
             </button>
         </div>
-        <div class="table-responsive">        
+        <div class="table-responsive">
             <table class="table table-bordered table-periodo" id="tablaperiodo" width="100%" cellspacing="0" >
                 <thead>
                     <tr>
@@ -15,7 +15,6 @@
                         <th>Nombre</th>
                         <th>Fecha Inicio</th>
                         <th>Fecha Final</th>
-                        <th>Permiso de Programacion</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -25,7 +24,6 @@
                         <th>Nombre</th>
                         <th>Fecha Inicio</th>
                         <th>Fecha Final</th>
-                        <th>Permiso de Programacion</th>
                         <th>Acciones</th>
                     </tr>
                 </tfoot>
@@ -34,7 +32,6 @@
                         <td>{{ periodo.nombre }}</td>
                         <td>{{ periodo.fecha_ini }}</td>
                         <td>{{ periodo.fecha_fin }}</td>
-                        <td>{{ periodo.permiso_programacion }}</td>
                         <td class="text-center">
                             <button type="button" class="btn btn-info btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#modalPeriodo" @click="action('edit',periodo.id)"><i class='bx bxs-edit' ></i></button>
                             <button class="btn btn-danger btn-circle btn-sm"  @click="deleteData(periodo.id)"><i class='bx bxs-trash' ></i></button>
@@ -49,29 +46,29 @@
     </div>
 </template>
 <script>
-    import axios from "axios";    	
+    import axios from "axios";
     import Modal from "./Modal.vue";
 
-    
+
     export default{
-        
+
         components: {
             'modal-periodo' : Modal,
         },
         data(){
             return{
-                
+
                 items: {},
                 loading: false,
                 load: false,
                 periodos:{},
             }
-        }, 
+        },
         created(){
             this.getData()
 
         },
-               
+
         methods:{
             action(tipo,id){
                 this.$refs.modal_form.setData(tipo,id)
@@ -93,8 +90,8 @@
                         return
                     },
 
-            
-            },  
+
+            },
     }
 
 </script>

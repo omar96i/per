@@ -60,7 +60,7 @@
                                 </select>
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 <div class="modal-footer" v-if="!loading">
                     <button type="button" id="cierrame" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                     Close
@@ -77,12 +77,12 @@
 
     import axios from 'axios';
     export default {
-        
+
         props:['id', 'tipo'],
 
         data(){
             return{
-                
+
                 data:{},
                 user:{
                     nombre:"",
@@ -91,45 +91,46 @@
                     documento:"",
                     usuario:"",
                     password:"",
-                    tipo_acceso:""    
-                
+                    tipo_acceso:""
+
                 },
                 tipo: '',
                 loading: false,
                 loading_data : false,
-                ruta:''
-                
-                
+                ruta:'',
+                options : []
             }
         },
         methods:{
-            
-            
+
+
             getData(id){
-            axios.get(`/user/getData/${id}`).then(res=>{
-                
-                this.user = res.data.user;
-                console.log("Datos Usuario", this.user)
-                this.loading_data = false
-            }).catch(res=>{
-                
-                console.log(res.response)
-            })
+                axios.get(`/user/getData/${id}`).then(res=>{
+
+                    this.user = res.data.user;
+                    console.log("Datos Usuario", this.user)
+                    this.loading_data = false
+                }).catch(res=>{
+
+                    console.log(res.response)
+                })
             },
-            
-            setData(tipo, id){
-                console.log(tipo + ' ' + id)
-                
+
+            setData(tipo, id, roles){
+                this.options = []
+                roles.forEach(role => {
+                    this.options.push({
+                        'name' : role.name,
+                    })
+                });
                 if(tipo == 'insert'){
                     this.loading_data = true
-                    console.log(tipo)
                     this.resetData()
                     this.tipo = tipo
 
                 }
                 if(tipo == 'edit'){
                     this.loading_data = true
-                    console.log(tipo)
                     this.getData(id)
                     this.tipo = tipo
                 }
@@ -143,29 +144,29 @@
 
             action(){
                 console.log(this.user)
-        
-            axios.post((this.tipo == 'insert') ? '/user/store' : `/user/update/${this.user.id}`,this.user).then(res=>{
-                this.loading = false
-                
-                console.log(res.data)
-                
-                if(res.data.status){
-                    this.alert('Registro', (this.tipo=='insert') ? 'Agregado' : 'Actualizado', 'success')
-                }
-                this.$parent.getData()
-                
-                setTimeout(()=>{
-                   document.getElementById("cierrame").click()  
-                },200)
-                
-                
-            }).catch(res=>{
-                this.alert('Registro', 'Error en el servidor', 'error')
-                console.log(res.response)
-                this.loading = false
-            })
+
+                axios.post((this.tipo == 'insert') ? '/user/store' : `/user/update/${this.user.id}`,this.user).then(res=>{
+                    this.loading = false
+
+                    console.log(res.data)
+
+                    if(res.data.status){
+                        this.alert('Registro', (this.tipo=='insert') ? 'Agregado' : 'Actualizado', 'success')
+                    }
+                    this.$parent.getData()
+
+                    setTimeout(()=>{
+                    document.getElementById("cierrame").click()
+                    },200)
+
+
+                }).catch(res=>{
+                    this.alert('Registro', 'Error en el servidor', 'error')
+                    console.log(res.response)
+                    this.loading = false
+                })
             }
         }
 }
-                
+
 </script>

@@ -35,4 +35,10 @@ class User extends Authenticatable
     public function metas(){
         return $this->hasMany(MetaDeProducto::class, 'user_id');
     }
+
+    ////Auto encriptado
+    public function setPasswordAttribute($value)
+	{
+		$this->attributes['password'] = bcrypt($value);
+	}
 }

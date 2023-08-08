@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Roles;
 
 use App\Http\Controllers\Controller;
-use App\Models\Roles;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class RolesController extends Controller
 {
@@ -13,12 +13,14 @@ class RolesController extends Controller
     }
 
     public function get(){
-        return response()->json(['status' => true, 'roles' => Roles::get()]);
+        return response()->json(['status' => true, 'roles' => Role::get()]);
     }
-    public function getData(Roles $roles){
+
+    public function getData(Role $roles){
         return response()->json(['roles' => $roles]);
     }
-    public function update(Roles $roles, Request $request){
+
+    public function update(Role $roles, Request $request){
         $roles->update($request->all());
         $roles->save();
         return response()->json(['saved' => true]);
@@ -26,13 +28,13 @@ class RolesController extends Controller
 
 
     public function store(Request $request){
-        $roles = Roles::create($request->post());
+        $roles = Role::create($request->post());
         return response()->json([
             'roles'=>$roles
         ]);
     }
 
-    public function delete(Roles $roles){
+    public function delete(Role $roles){
         $roles->delete();
         return response()->json(['status' => true]);
     }
