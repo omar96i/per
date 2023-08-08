@@ -12,6 +12,7 @@ class ProyectoMovimientoFinanciero extends Model
     protected $fillable = [
         'proyecto_presupuesto_id',
         'valor',
+        'tipo_movimiento',
     ];
 
     public function presupuesto(){
