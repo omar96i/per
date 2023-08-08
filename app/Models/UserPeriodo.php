@@ -9,9 +9,12 @@ class UserPeriodo extends Model
 {
     use HasFactory;
 
+    protected $table = 'users_periodos';
+
     protected $fillable = [
         'user_id',
         'periodo_id',
+        'tipo_acceso'
     ];
 
     public function user(){
