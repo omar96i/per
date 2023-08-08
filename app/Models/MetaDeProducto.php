@@ -9,6 +9,8 @@ class MetaDeProducto extends Model
 {
     use HasFactory;
 
+    protected $table = 'meta_de_productos';
+
     protected $fillable = [
         'periodo_id',
         'hecho_id',
@@ -18,6 +20,7 @@ class MetaDeProducto extends Model
         'user_id',
         'codigo',
         'nombre',
+        'indicador_meta',
         'peso',
         'linea_base',
         'year',
@@ -31,7 +34,6 @@ class MetaDeProducto extends Model
         'recurso_year_3',
         'recurso_year_4',
         'recurso_cuatrienio',
-        'descripcion',
     ];
 
     public function hecho(){

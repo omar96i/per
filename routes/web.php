@@ -5,6 +5,10 @@ use App\Http\Controllers\Periodo\PeriodoController;
 use App\Http\Controllers\Dependencia\DependenciaController;
 use App\Http\Controllers\Roles\RolesController;
 use App\Http\Controllers\Permisos\PermisosController;
+use App\Http\Controllers\Programacion\HechoController;
+use App\Http\Controllers\Programacion\MetaDeProductoController;
+use App\Http\Controllers\Programacion\PoliticaController;
+use App\Http\Controllers\Programacion\ProgramaController;
 use App\Models\Users;
 use App\Models\Unidades;
 use App\Models\Periodos;
@@ -106,6 +110,16 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/update/{permisos}', 'update')->name('permisos.update');
         Route::get('/getData/{permisos}', 'getData')->name('permisos.get.data');
     });
+
+    Route::resource('hechos', HechoController::class);
+    Route::get('/hechos-get', [HechoController::class, 'get'])->name('hechos.get');
+    Route::resource('politicas', PoliticaController::class);
+    Route::get('/politicas-get', [PoliticaController::class, 'get'])->name('politicas.get');
+    Route::resource('programas', ProgramaController::class);
+    Route::get('/programas-get', [ProgramaController::class, 'get'])->name('programas.get');
+    Route::resource('metas-productos', MetaDeProductoController::class);
+    Route::get('/metas-productos-get', [MetaDeProductoController::class, 'get'])->name('metas-productos.get');
 });
+
 
 
