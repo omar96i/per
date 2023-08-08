@@ -5,7 +5,6 @@ use App\Http\Controllers\Periodo\PeriodoController;
 use App\Http\Controllers\Dependencia\DependenciaController;
 use App\Http\Controllers\Roles\RolesController;
 use App\Http\Controllers\Permisos\PermisosController;
-use App\Http\Controllers\PlanOperativo\PlanOperativoController;
 use App\Http\Controllers\Programacion\HechoController;
 use App\Http\Controllers\Programacion\MetaDeProductoController;
 use App\Http\Controllers\Programacion\PoliticaController;
@@ -77,7 +76,9 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('periodo')->controller(PeriodoController::class)->group(function () {
         Route::get('/', 'index')->name('periodo.index');
         Route::post('/store', 'store')->name('periodo.store');
+        Route::post('/asignar', 'asignar')->name('periodo.asignar');
         Route::get('/get', 'get')->name('periodo.get');
+        Route::get('/delete/asignacion/{relacion}', 'deleteAsignacion')->name('periodo.delete.asignacion');
         Route::get('/delete/{periodo}', 'delete')->name('periodo.delete');
         Route::post('/update/{periodo}', 'update')->name('periodo.update');
         Route::get('/getData/{periodo}', 'getData')->name('periodo.get.data');
@@ -110,23 +111,17 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/getData/{permisos}', 'getData')->name('permisos.get.data');
     });
 
-    // programacion
     Route::resource('hechos', HechoController::class);
     Route::get('/hechos-get', [HechoController::class, 'get'])->name('hechos.get');
-
     Route::resource('politicas', PoliticaController::class);
     Route::get('/politicas-get', [PoliticaController::class, 'get'])->name('politicas.get');
-
     Route::resource('programas', ProgramaController::class);
     Route::get('/programas-get', [ProgramaController::class, 'get'])->name('programas.get');
-
     Route::resource('metas-productos', MetaDeProductoController::class);
     Route::get('/metas-productos-get', [MetaDeProductoController::class, 'get'])->name('metas-productos.get');
 
     //plan operativo anual
     Route::resource('plan-operativo', PlanOperativoController::class);
-
 });
-
 
 

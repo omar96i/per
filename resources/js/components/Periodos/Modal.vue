@@ -34,13 +34,14 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">Permiso de Programacion</label>
-                                <div class="input-group input-group-merge">
-                                    <input type="text" class="form-control" v-model="periodo.permiso_programacion" >
-                                </div>
+                                <label class="form-label" for="basic-default-fullname"></label>
+                                <select class="form-select" v-model="periodo.estado">
+                                    <option value="activo">Activo</option>
+                                    <option value="inactivo">Inactivo</option>
+                                </select>
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 <div class="modal-footer" v-if="!loading">
                     <button type="button" id="cierrame" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                     Close
@@ -57,46 +58,39 @@
 
     import axios from 'axios';
     export default {
-        
+
         props:['id', 'tipo'],
 
         data(){
             return{
-                
                 data:{},
                 periodo:{
                     nombre:"",
                     fecha_ini:"",
                     fecha_fin:"",
-                    permiso_programacion:""  
-                
+                    estado:""
+
                 },
                 tipo: '',
                 loading: false,
                 loading_data : false,
                 ruta:''
-                
-                
             }
         },
         methods:{
-            
-            
             getData(id){
-            axios.get(`/periodo/getData/${id}`).then(res=>{
-                
-                this.periodo = res.data.periodo;
-                console.log("Datos Usuario", this.periodo)
-                this.loading_data = false
-            }).catch(res=>{
-                
-                console.log(res.response)
-            })
+                axios.get(`/periodo/getData/${id}`).then(res=>{
+
+                    this.periodo = res.data.periodo;
+                    console.log("Datos Usuario", this.periodo)
+                    this.loading_data = false
+                }).catch(res=>{
+
+                    console.log(res.response)
+                })
             },
-            
+
             setData(tipo, id){
-                console.log(tipo + ' ' + id)
-                
                 if(tipo == 'insert'){
                     this.loading_data = true
                     console.log(tipo)
@@ -111,6 +105,7 @@
                     this.tipo = tipo
                 }
             },
+
             resetData(){
                 this.data = {}
                 setTimeout(()=>{
@@ -119,30 +114,20 @@
             },
 
             action(){
-                console.log(this.periodo)
-        
-            axios.post((this.tipo == 'insert') ? '/periodo/store' : `/periodo/update/${this.periodo.id}`,this.periodo).then(res=>{
-                this.loading = false
-                
-                console.log(res.data)
-                
-                if(res.data.status){
-                    this.alert('Registro', (this.tipo=='insert') ? 'Agregado' : 'Actualizado', 'success')
-                }
-                this.$parent.getData()
-                
-                setTimeout(()=>{
-                   document.getElementById("cierrame").click()  
-                },200)
-                
-                
-            }).catch(res=>{
-                this.alert('Registro', 'Error en el servidor', 'error')
-                console.log(res.response)
-                this.loading = false
-            })
+                axios.post((this.tipo == 'insert') ? '/periodo/store' : `/periodo/update/${this.periodo.id}`,this.periodo).then(res=>{
+                    this.loading = false
+                    this.$parent.getData()
+                    setTimeout(()=>{
+                    document.getElementById("cierrame").click()
+                    },200)
+
+
+                }).catch(res=>{
+                    console.log(res.response)
+                    this.loading = false
+                })
             }
         }
 }
-                
+
 </script>
