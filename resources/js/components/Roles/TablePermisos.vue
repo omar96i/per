@@ -7,7 +7,7 @@
                 Nuevo registro
             </button>
         </div>
-        <div class="table-responsive">        
+        <div class="table-responsive">
             <table class="table table-bordered table-permisos" id="tablapermisos" width="100%" cellspacing="0" >
                 <thead>
                     <tr>
@@ -39,36 +39,36 @@
         </div>
     </div>
     <div>
-        <modal-permisos ref="modal_form"></modal-permisos>
+        <modal-permisos ref="modal_form_permission"></modal-permisos>
     </div>
 </template>
 <script>
-    import axios from "axios";    	    
+    import axios from "axios";
     import ModalPermisos from "./ModalPermisos.vue";
 
-    
+
     export default{
-        
+
         components: {
             'modal-permisos' : ModalPermisos,
         },
         data(){
             return{
-                
+
                 items: {},
                 loading: false,
                 load: false,
-                permisos:{},
+                permisos:[],
             }
-        }, 
+        },
         created(){
             this.getData()
 
         },
-               
+
         methods:{
             action(tipo,id){
-                this.$refs.modal_form.setData(tipo,id)
+                this.$refs.modal_form_permission.setData(tipo,id)
             },
             getData(){
                 axios.get('/permisos/get').then(res=>{
@@ -78,17 +78,15 @@
                 })
             },
             deleteData(id){
-                console.log(id)
-                        axios.get(`/permisos/delete/${id}`).then(res=>{
-                            if(res.data.status){
-                                this.getData()
-                            }
-                        })
-                        return
-                    },
+                axios.get(`/permisos/delete/${id}`).then(res=>{
+                    if(res.data.status){
+                        this.getData()
+                    }
+                })
+            },
 
-            
-            },  
+
+        },
     }
 
 </script>

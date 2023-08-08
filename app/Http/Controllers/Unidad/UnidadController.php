@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Unidad;
 
 use App\Http\Controllers\Controller;
-use App\Models\Unidades;
+use App\Models\Unidad;
 use Illuminate\Http\Request;
 
 class UnidadController extends Controller
@@ -13,12 +13,12 @@ class UnidadController extends Controller
     }
 
     public function get(){
-        return response()->json(['status' => true, 'unidad' => Unidades::get()]);
+        return response()->json(['status' => true, 'unidad' => Unidad::get()]);
     }
-    public function getData(Unidades $unidad){
+    public function getData(Unidad $unidad){
         return response()->json(['unidad' => $unidad]);
     }
-    public function update(Unidades $unidad, Request $request){
+    public function update(Unidad $unidad, Request $request){
         $unidad->update($request->all());
         $unidad->save();
         return response()->json(['saved' => true]);
@@ -26,13 +26,13 @@ class UnidadController extends Controller
 
 
     public function store(Request $request){
-        $unidad = Unidades::create($request->post());
+        $unidad = Unidad::create($request->post());
         return response()->json([
             'unidad'=>$unidad
         ]);
     }
 
-    public function delete(Unidades $unidad){
+    public function delete(Unidad $unidad){
         $unidad->delete();
         return response()->json(['status' => true]);
     }

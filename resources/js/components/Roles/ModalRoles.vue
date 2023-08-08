@@ -20,15 +20,10 @@
                                     <div class="input-group input-group-merge">
                                         <input type="text" class="form-control" v-model="roles.name" >
                                     </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">Guard Name</label>
-                                <div class="input-group input-group-merge">
-                                    <input type="text" class="form-control" v-model="roles.guard_name" >
-                                </div>
+                                    <v-select :options="options" label="country" :reduce="country => country.code" />
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 <div class="modal-footer" v-if="!loading">
                     <button type="button" id="cierrame" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                     Close
@@ -45,44 +40,39 @@
 
     import axios from 'axios';
     export default {
-        
+
         props:['id', 'tipo'],
 
         data(){
             return{
-                
+
                 data:{},
                 roles:{
                     name:"",
-                    guard_name:""  
-                
+
                 },
                 tipo: '',
                 loading: false,
                 loading_data : false,
-                ruta:''
-                
-                
+                ruta:'',
+                options : [{country: 'Canada', code: 'CA'},{country: 'usa', code: 'ds'}]
+
             }
         },
         methods:{
-            
-            
             getData(id){
-            axios.get(`/roles/getData/${id}`).then(res=>{
-                
-                this.roles = res.data.roles;
-                console.log("Datos de Roles", this.roles)
-                this.loading_data = false
-            }).catch(res=>{
-                
-                console.log(res.response)
-            })
+                axios.get(`/roles/getData/${id}`).then(res=>{
+
+                    this.roles = res.data.roles;
+                    console.log("Datos de Roles", this.roles)
+                    this.loading_data = false
+                }).catch(res=>{
+
+                    console.log(res.response)
+                })
             },
-            
+
             setData(tipo, id){
-                console.log(tipo + ' ' + id)
-                
                 if(tipo == 'insert'){
                     this.loading_data = true
                     console.log(tipo)
@@ -97,6 +87,7 @@
                     this.tipo = tipo
                 }
             },
+
             resetData(){
                 this.data = {}
                 setTimeout(()=>{
@@ -105,31 +96,27 @@
             },
 
             action(){
-                console.log(this.roles)
-        
-            axios.post((this.tipo == 'insert') ? '/roles/store' : `/roles/update/${this.roles.id}`,this.roles
-            ).then(res=>{
-                this.loading = false
-                
-                console.log(res.data)
-                
-                if(res.data.status){
-                    this.alert('Registro', (this.tipo=='insert') ? 'Agregado' : 'Actualizado', 'success')
-                }
-                this.$parent.getData()
-                
-                setTimeout(()=>{
-                   document.getElementById("cierrame").click()  
-                },200)
-                
-                
-            }).catch(res=>{
-                this.alert('Registro', 'Error en el servidor', 'error')
-                console.log(res.response)
-                this.loading = false
-            })
+                axios.post((this.tipo == 'insert') ? '/roles/store' : `/roles/update/${this.roles.id}`,this.roles
+                ).then(res=>{
+                    this.loading = false
+
+                    console.log(res.data)
+
+                    if(res.data.status){
+                    }
+                    this.$parent.getData()
+
+                    setTimeout(()=>{
+                    document.getElementById("cierrame").click()
+                    },200)
+
+
+                }).catch(res=>{
+                    console.log(res.response)
+                    this.loading = false
+                })
             }
         }
 }
-                
+
 </script>

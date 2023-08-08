@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Permisos;
 
 use App\Http\Controllers\Controller;
-use App\Models\Permisos;
+
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 
 class PermisosController extends Controller
 {
@@ -13,12 +14,14 @@ class PermisosController extends Controller
     }
 
     public function get(){
-        return response()->json(['status' => true, 'permisos' => Permisos::get()]);
+        return response()->json(['status' => true, 'permisos' => Permission::get()]);
     }
-    public function getData(Permisos $permisos){
+
+    public function getData(Permission $permisos){
         return response()->json(['permisos' => $permisos]);
     }
-    public function update(Permisos $permisos, Request $request){
+
+    public function update(Permission $permisos, Request $request){
         $permisos->update($request->all());
         $permisos->save();
         return response()->json(['saved' => true]);
@@ -26,13 +29,13 @@ class PermisosController extends Controller
 
 
     public function store(Request $request){
-        $permisos = Permisos::create($request->post());
+        $permisos = Permission::create($request->post());
         return response()->json([
             'permisos'=>$permisos
         ]);
     }
 
-    public function delete(Permisos $permisos){
+    public function delete(Permission $permisos){
         $permisos->delete();
         return response()->json(['status' => true]);
     }

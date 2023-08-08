@@ -21,14 +21,8 @@
                                         <input type="text" class="form-control" v-model="permisos.name" >
                                     </div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">Guard Name</label>
-                                <div class="input-group input-group-merge">
-                                    <input type="text" class="form-control" v-model="permisos.guard_name" >
-                                </div>
-                            </div>
                         </div>
-                    </div>  
+                    </div>
                 <div class="modal-footer" v-if="!loading">
                     <button type="button" id="cierrame" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                     Close
@@ -45,44 +39,31 @@
 
     import axios from 'axios';
     export default {
-        
-        props:['id', 'tipo'],
 
         data(){
             return{
-                
                 data:{},
                 permisos:{
                     name:"",
-                    guard_name:""  
-                
+
                 },
-                tipo: '',
                 loading: false,
                 loading_data : false,
-                ruta:''
-                
-                
+                ruta:'',
+                tipo : 'insert'
             }
         },
         methods:{
-            
-            
             getData(id){
-            axios.get(`/permisos/getData/${id}`).then(res=>{
-                
-                this.permisos = res.data.permisos;
-                console.log("Datos de Permiso", this.permisos)
-                this.loading_data = false
-            }).catch(res=>{
-                
-                console.log(res.response)
-            })
+                axios.get(`/permisos/getData/${id}`).then(res=>{
+                    this.permisos = res.data.permisos;
+                    this.loading_data = false
+                }).catch(res=>{
+                    console.log(res.response)
+                })
             },
-            
+
             setData(tipo, id){
-                console.log(tipo + ' ' + id)
-                
                 if(tipo == 'insert'){
                     this.loading_data = true
                     console.log(tipo)
@@ -97,6 +78,7 @@
                     this.tipo = tipo
                 }
             },
+
             resetData(){
                 this.data = {}
                 setTimeout(()=>{
@@ -105,31 +87,17 @@
             },
 
             action(){
-                console.log(this.permisos)
-        
-            axios.post((this.tipo == 'insert') ? '/permisos/store' : `/permisos/update/${this.permisos.id}`,this.permisos
-            ).then(res=>{
-                this.loading = false
-                
-                console.log(res.data)
-                
-                if(res.data.status){
-                    this.alert('Registro', (this.tipo=='insert') ? 'Agregado' : 'Actualizado', 'success')
-                }
-                this.$parent.getData()
-                
-                setTimeout(()=>{
-                   document.getElementById("cierrame").click()  
-                },200)
-                
-                
-            }).catch(res=>{
-                this.alert('Registro', 'Error en el servidor', 'error')
-                console.log(res.response)
-                this.loading = false
-            })
+                axios.post((this.tipo == 'insert') ? '/permisos/store' : `/permisos/update/${this.permisos.id}`,this.permisos
+                ).then(res=>{
+                    this.$parent.getData()
+                    setTimeout(()=>{
+                        document.getElementById("cierrame").click()
+                    },200)
+                }).catch(error=>{
+                    console.log(error.response)
+                })
             }
         }
-}
-                
+    }
+
 </script>

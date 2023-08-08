@@ -7,7 +7,7 @@
                 Nuevo registro
             </button>
         </div>
-        <div class="table-responsive">        
+        <div class="table-responsive">
             <table class="table table-bordered table-user" id="tablauser" width="100%" cellspacing="0" >
                 <thead>
                     <tr>
@@ -18,7 +18,6 @@
                         <th>Documento</th>
                         <th>Usuario</th>
                         <th>Password</th>
-                        <th>Tipo de Acceso</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -31,7 +30,6 @@
                         <th>Documento</th>
                         <th>Usuario</th>
                         <th>Password</th>
-                        <th>Tipo de Acceso</th>
                         <th>Acciones</th>
                     </tr>
                 </tfoot>
@@ -43,7 +41,6 @@
                         <td>{{ user.documento }}</td>
                         <td >{{ user.usuario }}</td>
                         <td>{{ user.password }}</td>
-                        <td>{{ user.tipo_acceso }}</td>
                         <td class="text-center">
                             <button type="button" class="btn btn-info btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#modalUser" @click="action('edit',user.id)"><i class='bx bxs-edit' ></i></button>
                             <button class="btn btn-danger btn-circle btn-sm"  @click="deleteData(user.id)"><i class='bx bxs-trash' ></i></button>
@@ -58,33 +55,34 @@
     </div>
 </template>
 <script>
-    import axios from "axios";    	
+    import axios from "axios";
     import Modal from "./Modal.vue";
-
-    
     export default{
-        
+
         components: {
             'modal-user' : Modal,
         },
         data(){
             return{
-                
+
                 items: {},
                 loading: false,
                 load: false,
                 users:{},
+                roles: []
             }
-        }, 
+        },
         created(){
             this.getData()
-
+            this.getRoles()
         },
-               
+
         methods:{
+
             action(tipo,id){
-                this.$refs.modal_form.setData(tipo,id)
+                this.$refs.modal_form.setData(tipo,id, this.roles)
             },
+
             getData(){
                 axios.get('/user/get').then(res=>{
                     this.users = res.data.user
@@ -92,18 +90,23 @@
                     this.loading=true
                 })
             },
-            deleteData(id){
-                console.log(id)
-                        axios.get(`/user/delete/${id}`).then(res=>{
-                            if(res.data.status){
-                                this.getData()
-                            }
-                        })
-                        return
-                    },
 
-            
-            },  
+            deleteData(id){
+                axios.get(`/user/delete/${id}`).then(res=>{
+                    if(res.data.status){
+                        this.getData()
+                    }
+                })
+            },
+
+            getRoles(){
+                axios.get('/roles/get').then(res=>{
+                    this.roles = res.data.roles
+                })
+            }
+
+
+        },
     }
 
 </script>

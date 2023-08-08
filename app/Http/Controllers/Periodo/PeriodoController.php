@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Periodo;
 
 use App\Http\Controllers\Controller;
-use App\Models\Periodos;
+use App\Models\Periodo;
 use Illuminate\Http\Request;
 
 class PeriodoController extends Controller
@@ -13,12 +13,12 @@ class PeriodoController extends Controller
     }
 
     public function get(){
-        return response()->json(['status' => true, 'periodo' => Periodos::get()]);
+        return response()->json(['status' => true, 'periodo' => Periodo::get()]);
     }
-    public function getData(Periodos $periodo){
+    public function getData(Periodo $periodo){
         return response()->json(['periodo' => $periodo]);
     }
-    public function update(Periodos $periodo, Request $request){
+    public function update(Periodo $periodo, Request $request){
         $periodo->update($request->all());
         $periodo->save();
         return response()->json(['saved' => true]);
@@ -26,13 +26,13 @@ class PeriodoController extends Controller
 
 
     public function store(Request $request){
-        $periodo = Periodos::create($request->post());
+        $periodo = Periodo::create($request->post());
         return response()->json([
             'periodo'=>$periodo
         ]);
     }
 
-    public function delete(Periodos $periodo){
+    public function delete(Periodo $periodo){
         $periodo->delete();
         return response()->json(['status' => true]);
     }
