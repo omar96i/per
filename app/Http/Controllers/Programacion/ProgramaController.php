@@ -15,8 +15,13 @@ class ProgramaController extends Controller
      */
     public function index()
     {
-        $programas = Programa::all();
-        return view('programacion.programas.index', compact('programas'));
+        return view('programacion.programas.index');
+    }
+
+    public function get()
+    {
+        $programas = Programa::with('hecho', 'politica')->get();
+        return response()->json(['programas' => $programas]);
     }
 
     /**
@@ -39,7 +44,7 @@ class ProgramaController extends Controller
     {
         Programa::create($request->all());
 
-        return redirect()->route('programas.index')->with('success', 'Creado correctamente.');
+        return response()->json(['status' => true, 'message' => 'Creado correctamente.']);
     }
 
     /**
@@ -75,7 +80,7 @@ class ProgramaController extends Controller
     {
         Programa::find($id)->update($request->all());
 
-        return redirect()->route('programas.index')->with('success', 'Actualizado correctamente.');
+        return response()->json(['status' => true, 'message' => 'Actualizado correctamente.']);
     }
 
     /**
@@ -89,6 +94,6 @@ class ProgramaController extends Controller
         // Eliminar el producto de la base de datos
         Programa::find($id)->delete();
 
-        return redirect()->route('programas.index')->with('success', 'Eliminado correctamente.');
+        return response()->json(['status' => true, 'message' => 'Eliminado correctamente.']);
     }
 }

@@ -92,5 +92,8 @@ Route::prefix('permisos')->controller(PermisosController::class)->group(function
 Route::resource('hechos', HechoController::class);
 Route::get('/hechos-get', [HechoController::class, 'get'])->name('hechos.get');
 Route::resource('politicas', PoliticaController::class);
+Route::get('/politicas-get', [PoliticaController::class, 'get'])->name('politicas.get');
 Route::resource('programas', ProgramaController::class);
+Route::get('/programas-get', [ProgramaController::class, 'get'])->name('programas.get');
 Route::resource('metas-productos', MetaDeProductoController::class);
+Route::get('/metas-productos-get', [MetaDeProductoController::class, 'get'])->name('metas-productos.get');

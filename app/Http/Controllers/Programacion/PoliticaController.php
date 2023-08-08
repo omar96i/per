@@ -15,8 +15,13 @@ class PoliticaController extends Controller
      */
     public function index()
     {
-        $politicas = Politica::all();
-        return view('programacion.politicas.index', compact('politicas'));
+        return view('programacion.politicas.index');
+    }
+
+    public function get()
+    {
+        $politicas = Politica::with('hecho', 'politica')->get();
+        return response()->json(['politicas' => $politicas]);
     }
 
     /**
@@ -39,7 +44,7 @@ class PoliticaController extends Controller
     {
         Politica::create($request->all());
 
-        return redirect()->route('politicas.index')->with('success', 'Creado correctamente.');
+        return response()->json(['status' => true, 'message' => 'Creado correctamente.']);
     }
 
     /**
@@ -75,7 +80,8 @@ class PoliticaController extends Controller
     {
         Politica::find($id)->update($request->all());
 
-        return redirect()->route('politicas.index')->with('success', 'Actualizado correctamente.');
+        return response()->json(['status' => true, 'message' => 'Actualizado correctamente.']);
+
     }
 
     /**
@@ -88,6 +94,7 @@ class PoliticaController extends Controller
     {
         Politica::find($id)->delete();
 
-        return redirect()->route('politicas.index')->with('success', 'Creado correctamente.');
+        return response()->json(['status' => true, 'message' => 'Eliminado correctamente.']);
+
     }
 }

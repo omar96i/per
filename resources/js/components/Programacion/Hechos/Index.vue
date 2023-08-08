@@ -1,12 +1,12 @@
 <template>
     <div class="col-12">
+        <h5 class="my-1">Periodo establecido desde: 01/01/2021 hasta: 31/12/2024</h5>
         <div class="col-12">
-            <button type="button" class="btn btn-info" @click="openFormModal('insert', null)">
+            <button type="button" class="btn btn-info my-2" @click="openFormModal('insert', null)">
                 Nuevo registro
             </button>
         </div>
         <div class="table-responsive">
-            <h5 class="my-2">Periodo establecido desde: 01/01/2021 hasta: 31/12/2024</h5>
             <table class="table table-bordered table-periodo" width="100%" cellspacing="0" >
                 <thead>
                     <tr>
@@ -24,7 +24,7 @@
                         <td>{{ hecho.peso }}</td>
                         <td>{{ hecho.descripcion }}</td>
                         <td class="text-center">
-                            <button type="button" class="btn btn-info btn-circle btn-sm" @click="openFormModal('edit', hecho)"><i class='bx bxs-edit' ></i></button>
+                            <button type="button" class="btn btn-info btn-circle btn-sm me-1" @click="openFormModal('edit', hecho)"><i class='bx bxs-edit' ></i></button>
                             <button class="btn btn-danger btn-circle btn-sm"  @click="deleteData(hecho.id)"><i class='bx bxs-trash' ></i></button>
                         </td>
                     </tr>

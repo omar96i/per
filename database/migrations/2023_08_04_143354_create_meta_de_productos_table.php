@@ -23,6 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('codigo');
             $table->string('nombre');
+            $table->string('indicador_meta');
             $table->string('peso');
             $table->string('linea_base');
             $table->string('year');
@@ -36,7 +37,6 @@ return new class extends Migration
             $table->string('recurso_year_3');
             $table->string('recurso_year_4');
             $table->string('recurso_cuatrienio');
-            $table->text('descripcion');
             $table->timestamps();
         });
     }

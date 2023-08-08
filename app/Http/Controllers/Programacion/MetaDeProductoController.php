@@ -15,8 +15,14 @@ class MetaDeProductoController extends Controller
      */
     public function index()
     {
-        $metas = MetaDeProducto::all();
-        return view('programacion.metas.index', compact('metas'));
+        return view('programacion.metas.index');
+    }
+
+    public function get()
+    {
+        $metas = MetaDeProducto::with('hecho', 'politica', 'programa', 'periodo')->get();
+
+        return response()->json(['metas' => $metas]);
     }
 
     /**
@@ -37,7 +43,7 @@ class MetaDeProductoController extends Controller
      */
     public function store(Request $request)
     {
-        MetaDeProducto::created($request->all());
+        MetaDeProducto::create($request->all());
 
         return response()->json(['status' => true, 'message' => 'Creado correctamente.']);
     }
