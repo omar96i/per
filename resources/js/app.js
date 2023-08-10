@@ -11,6 +11,8 @@ import HechosIndex from './components/Programacion/Hechos/Index.vue';
 import PoliticasIndex from './components/Programacion/Politicas/Index.vue';
 import ProgramasIndex from './components/Programacion/Programas/Index.vue';
 import MetasIndex from './components/Programacion/Metas/Index.vue';
+import EjecucionMetaIndex from './components/EjecucionMetas/Index.vue'
+import EjecucionMetaForm from './components/EjecucionMetas/Form.vue'
 
 const app = createApp({});
 
@@ -23,4 +25,6 @@ app.component('hechos-index', HechosIndex);
 app.component('politicas-index', PoliticasIndex);
 app.component('programas-index', ProgramasIndex);
 app.component('metas-index', MetasIndex);
+app.component('ejecucion-meta-index', EjecucionMetaIndex);
+app.component('ejecucion-meta-form', EjecucionMetaForm);
 app.mount('#app');

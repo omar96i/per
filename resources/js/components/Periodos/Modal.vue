@@ -114,6 +114,7 @@
             },
 
             action(){
+                console.log(this.periodo)
                 axios.post((this.tipo == 'insert') ? '/periodo/store' : `/periodo/update/${this.periodo.id}`,this.periodo).then(res=>{
                     this.loading = false
                     this.$parent.getData()

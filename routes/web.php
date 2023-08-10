@@ -111,6 +111,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/getData/{permisos}', 'getData')->name('permisos.get.data');
     });
 
+    Route::prefix('metas-productos')->controller(MetaDeProductoController::class)->group(function () {
+        Route::post('/store/evidencias', 'storeEvidencias')->name('metas-productos.store.evidencias');
+        Route::get('/evidencias', 'indexEvidencias')->name('metas-productos.evidencias.index');
+        Route::get('/evidencias/form/{meta}', 'indexEvidenciasForm')->name('metas-productos.evidencias.form.index');
+    });
+
     Route::resource('hechos', HechoController::class);
     Route::get('/hechos-get', [HechoController::class, 'get'])->name('hechos.get');
     Route::resource('politicas', PoliticaController::class);
@@ -119,6 +125,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/programas-get', [ProgramaController::class, 'get'])->name('programas.get');
     Route::resource('metas-productos', MetaDeProductoController::class);
     Route::get('/metas-productos-get', [MetaDeProductoController::class, 'get'])->name('metas-productos.get');
+    Route::get('/metas-productos-get-by-user', [MetaDeProductoController::class, 'getByUser'])->name('metas-productos.get.by.user');
 });
 
 

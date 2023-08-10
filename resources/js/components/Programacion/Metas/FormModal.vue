@@ -185,7 +185,6 @@ export default {
         },
         getHechos(){
             axios.get('/hechos-get').then(res=>{
-                console.log(res);
                 this.hechos = res.data.hechos
             }).catch(error => {
                 console.log(error);
@@ -201,7 +200,6 @@ export default {
         },
         getProgramas(){
             axios.get('/programas-get').then(res=>{
-                console.log(res);
                 this.programas = res.data.programas
             }).catch(error => {
                 console.log(error);

@@ -22,8 +22,11 @@ class PeriodoController extends Controller
     public function update(Periodo $periodo, Request $request){
         if($request->estado == 'activo'){
             $aux = Periodo::where('estado', 'activo')->get()->first();
-            $aux->estado = "inactivo";
-            $aux->update();
+            if($aux){
+                $aux->estado = "inactivo";
+                $aux->update();
+            }
+
         }
         $periodo->update($request->all());
         $periodo->save();
@@ -34,8 +37,10 @@ class PeriodoController extends Controller
     public function store(Request $request){
         if($request->estado == 'activo'){
             $aux = Periodo::where('estado', 'activo')->get()->first();
-            $aux->estado = "inactivo";
-            $aux->update();
+            if($aux){
+                $aux->estado = "inactivo";
+                $aux->update();
+            }
         }
         $periodo = Periodo::create($request->post());
         return response()->json([

@@ -20,7 +20,7 @@ class PoliticaController extends Controller
 
     public function get()
     {
-        $politicas = Politica::with('hecho', 'politica')->get();
+        $politicas = Politica::with('hecho', 'periodo')->get();
         return response()->json(['politicas' => $politicas]);
     }
 

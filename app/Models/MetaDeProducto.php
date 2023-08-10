@@ -59,4 +59,8 @@ class MetaDeProducto extends Model
     public function user_asignado(){
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function evidencias(){
+        return $this->hasMany(MetaDeProductoEvidencia::class);
+    }
 }
