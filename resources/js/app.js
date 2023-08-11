@@ -27,10 +27,7 @@ app.component('hechos-index', HechosIndex);
 app.component('politicas-index', PoliticasIndex);
 app.component('programas-index', ProgramasIndex);
 app.component('metas-index', MetasIndex);
-<<<<<<< HEAD
 app.component('plan-operativo-index', PlanOperativo);
-=======
 app.component('ejecucion-meta-index', EjecucionMetaIndex);
 app.component('ejecucion-meta-form', EjecucionMetaForm);
->>>>>>> 0f9d8f4e8e254a505ec977ce3afa64037f9aabb1
 app.mount('#app');
