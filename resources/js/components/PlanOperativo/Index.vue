@@ -58,7 +58,7 @@
                         </tr>
                     </thead>
                     <tbody v-for="proyecto in proyectos">
-                        <tr v-for="(presupuesto, index) in proyecto.presupuestos" :key="index">
+                        <tr v-if="proyecto.presupuestos.length > 0" v-for="(presupuesto, index) in proyecto.presupuestos" :key="index">
                             <td rowspan="0" v-if="index == 0">{{ proyecto.nombre }}</td>
                             <td>{{presupuesto.codigo}}</td>
                             <td>{{presupuesto.inicial}}</td>
@@ -73,6 +73,26 @@
                                 </p>
                             </td>
                             <td rowspan="0" v-if="index == 0">
+                                <button class="col-12 btn btn-sm btn-primary mb-1" @click="openFormModal(proyecto.id)"><i class='bx bxs-edit-alt'></i> Editar</button>
+                                <button class="col-12 btn btn-sm btn-primary mb-1"><i class='bx bx-plus'></i> Movimientos financieros</button>
+                                <button class="col-12 btn btn-sm btn-primary mb-1"><i class='bx bx-plus'></i> Certificado</button>
+                            </td>
+                        </tr>
+                        <tr v-else>
+                            <td rowspan="0">{{ proyecto.nombre }}</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td rowspan="0">
+                                <!-- for de las metas (creo) -->
+                                <p v-for="producto in proyecto.productos">
+                                    {{ producto.meta_producto.nombre }}
+                                </p>
+                            </td>
+                            <td rowspan="0">
                                 <button class="col-12 btn btn-sm btn-primary mb-1" @click="openFormModal(proyecto.id)"><i class='bx bxs-edit-alt'></i> Editar</button>
                                 <button class="col-12 btn btn-sm btn-primary mb-1"><i class='bx bx-plus'></i> Movimientos financieros</button>
                                 <button class="col-12 btn btn-sm btn-primary mb-1"><i class='bx bx-plus'></i> Certificado</button>
