@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Programacion;
 
 use App\Http\Controllers\Controller;
 use App\Models\MetaDeProducto;
+use App\Models\MetaDeProductoEvidencia;
 use Illuminate\Http\Request;
 
 class MetaDeProductoController extends Controller
@@ -21,6 +22,13 @@ class MetaDeProductoController extends Controller
     public function get()
     {
         $metas = MetaDeProducto::with('hecho', 'politica', 'programa', 'periodo')->get();
+
+        return response()->json(['metas' => $metas]);
+    }
+
+    public function getByUser()
+    {
+        $metas = MetaDeProducto::with('hecho', 'politica', 'programa', 'periodo')->where('user_id', auth()->user()->id)->get();
 
         return response()->json(['metas' => $metas]);
     }
@@ -95,5 +103,64 @@ class MetaDeProductoController extends Controller
         MetaDeProducto::find($id)->delete();
 
         return response()->json(['status' => true, 'message' => 'Eliminado correctamente.']);
+    }
+
+    public function indexEvidencias(){
+        return view('ejecucion_metas.index');
+    }
+
+    public function storeEvidencias(Request $request){
+        $archivosNombres = [];
+
+        if ($request->hasFile('archivos')) {
+            foreach ($request->file('archivos') as $archivo) {
+                $nombreArchivo = $archivo->getClientOriginalName();
+                $carpetaDestino = $this->obtenerCarpetaDestino($request->input('tipo'));
+                $rutaArchivo = $archivo->store($carpetaDestino, 'public');
+                $archivosNombres[] = $nombreArchivo;
+            }
+        }else{
+            return response()->json(['status' => true, 'message' => "no tengo archivo"]);
+        }
+
+        $metaEvidencia = MetaDeProductoEvidencia::create([
+            'meta_de_producto_id' => $request->input('meta_de_producto_id'),
+            'meta_alcanzada' => $request->input('meta_alcanzada'),
+            'nueva_actividad' => $request->input('nueva_actividad'),
+            'localizacion' => $request->input('localizacion'),
+            'linea_base' => $request->input('linea_base'),
+            'definiciones' => $request->input('definiciones'),
+            'medicion' => $request->input('medicion'),
+            'formula' => $request->input('formula'),
+            'variables' => $request->input('variables'),
+            'fuente' => $request->input('fuente'),
+            'poblacion' => $request->input('poblacion'),
+            'periocidad' => $request->input('periocidad'),
+            'observaciones' => $request->input('observaciones'),
+            'actividades_realizadas' => $request->input('actividades_realizadas'),
+            'codigo' => $request->input('codigo'),
+            'tipo' => $request->input('tipo'),
+            'archivos' => json_encode($archivosNombres),
+        ]);
+
+        return response()->json(['message' => 'Evidencia guardada con éxito']);
+
+    }
+
+    protected function obtenerCarpetaDestino($tipo)
+    {
+        if ($tipo === 'imagen') {
+            return 'imagenes';
+        } elseif ($tipo === 'documento') {
+            return 'documentos';
+        } elseif ($tipo === 'video') {
+            return 'videos';
+        } else {
+            return 'otros';
+        }
+    }
+
+    public function indexEvidenciasForm(MetaDeProducto $meta){
+        return view('ejecucion_metas.form', ['meta' => $meta]);
     }
 }
