@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\PlanOperativo;
+namespace App\Http\Controllers\Proyecto;
 
 use App\Http\Controllers\Controller;
+use App\Models\Proyecto;
 use Illuminate\Http\Request;
 
-class PlanOperativoController extends Controller
+class ProyectosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,21 @@ class PlanOperativoController extends Controller
      */
     public function index()
     {
-        return view('plan_operativo.index');
+        return view('proyectos.index');
+    }
+
+    public function get()
+    {
+        $proyectos = Proyecto::with('presupuestos', 'productos.meta_producto')->get();
+
+        return response()->json(['proyectos' => $proyectos]);
+    }
+
+    public function getAll($id)
+    {
+        $proyecto = Proyecto::with('productos.meta_producto', 'presupuestos.movimiento_financieros')->where('id', $id)->first();
+
+        return response()->json(['proyecto' => $proyecto]);
     }
 
     /**
@@ -35,7 +50,9 @@ class PlanOperativoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Proyecto::create($request->all());
+
+        return response()->json(['status' => true, 'message' => 'Creado correctamente.']);
     }
 
     /**

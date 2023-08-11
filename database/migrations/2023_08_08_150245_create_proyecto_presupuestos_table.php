@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('proyecto_id');
             $table->string('codigo');
-            $table->string('presupuesto_inicial');
             $table->string('inicial');
             $table->string('definitivo');
             $table->string('certificado');

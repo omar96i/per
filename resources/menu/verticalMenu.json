@@ -64,7 +64,7 @@
         ]
     },
     {
-        "url": "/plan-operativo",
+        "url": "/proyectos",
         "name": "Plan Operativo",
         "icon": "menu-icon tf-icons bx bx-notepad",
         "slug": "plan-operativo"
