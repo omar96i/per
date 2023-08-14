@@ -15,6 +15,7 @@ import EjecucionMetaIndex from './components/EjecucionMetas/Index.vue'
 import EjecucionMetaForm from './components/EjecucionMetas/Form.vue'
 
 import PlanOperativo from './components/PlanOperativo/Index.vue';
+import Spinner from './components/Spinner.vue'
 
 const app = createApp({});
 
@@ -30,4 +31,5 @@ app.component('metas-index', MetasIndex);
 app.component('plan-operativo-index', PlanOperativo);
 app.component('ejecucion-meta-index', EjecucionMetaIndex);
 app.component('ejecucion-meta-form', EjecucionMetaForm);
+app.component('spinner', Spinner);
 app.mount('#app');

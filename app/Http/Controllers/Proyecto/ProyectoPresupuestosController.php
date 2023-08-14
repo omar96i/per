@@ -72,7 +72,9 @@ class ProyectoPresupuestosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        ProyectoPresupuesto::find($id)->update($request->all());
+
+        return response()->json(['status' => true, 'message' => 'Actualizado correctamente.']);
     }
 
     /**
@@ -83,6 +85,8 @@ class ProyectoPresupuestosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        ProyectoPresupuesto::find($id)->delete();
+
+        return response()->json(['status' => true, 'message' => 'Eliminado correctamente.']);
     }
 }

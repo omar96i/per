@@ -72,7 +72,9 @@ class ProyectoMovimientosFinancierosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        ProyectoMovimientoFinanciero::find($id)->update($request->all());
+
+        return response()->json(['status' => true, 'message' => 'Actualizado correctamente.']);
     }
 
     /**
@@ -83,6 +85,8 @@ class ProyectoMovimientosFinancierosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        ProyectoMovimientoFinanciero::find($id)->delete();
+
+        return response()->json(['status' => true, 'message' => 'Eliminado correctamente.']);
     }
 }

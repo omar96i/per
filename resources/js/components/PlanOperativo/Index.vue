@@ -1,6 +1,6 @@
 <template>
     <div class="col-12">
-        <h5 class="my-2">Periodo establecido desde: 01/01/2021 hasta: 31/12/2024</h5>
+        <h5 class="my-2">Periodo establecido desde: {{ periodo.fecha_ini }} hasta: {{ periodo.fecha_fin }}</h5>
         <div class="col-12 row">
             <div class="col">
                 <label>Hecho:</label>
@@ -74,8 +74,8 @@
                             </td>
                             <td rowspan="0" v-if="index == 0">
                                 <button class="col-12 btn btn-sm btn-primary mb-1" @click="openFormModal(proyecto.id)"><i class='bx bxs-edit-alt'></i> Editar</button>
-                                <button class="col-12 btn btn-sm btn-primary mb-1"><i class='bx bx-plus'></i> Movimientos financieros</button>
-                                <button class="col-12 btn btn-sm btn-primary mb-1"><i class='bx bx-plus'></i> Certificado</button>
+                                <!-- <button class="col-12 btn btn-sm btn-primary mb-1"><i class='bx bx-plus'></i> Movimientos financieros</button> -->
+                                <!-- <button class="col-12 btn btn-sm btn-primary mb-1"><i class='bx bx-plus'></i> Certificado</button> -->
                             </td>
                         </tr>
                         <tr v-else>
@@ -94,15 +94,15 @@
                             </td>
                             <td rowspan="0">
                                 <button class="col-12 btn btn-sm btn-primary mb-1" @click="openFormModal(proyecto.id)"><i class='bx bxs-edit-alt'></i> Editar</button>
-                                <button class="col-12 btn btn-sm btn-primary mb-1"><i class='bx bx-plus'></i> Movimientos financieros</button>
-                                <button class="col-12 btn btn-sm btn-primary mb-1"><i class='bx bx-plus'></i> Certificado</button>
+                                <!-- <button class="col-12 btn btn-sm btn-primary mb-1"><i class='bx bx-plus'></i> Movimientos financieros</button> -->
+                                <!-- <button class="col-12 btn btn-sm btn-primary mb-1"><i class='bx bx-plus'></i> Certificado</button> -->
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <form-modal v-if="form_modal" :proyecto_id="modal_proyecto_id"></form-modal>
+        <form-modal v-if="form_modal" :id="modal_proyecto_id"></form-modal>
     </div>
 </template>
 <script>
@@ -120,7 +120,7 @@ export default{
             select_indicadores: [],
 
             form_modal: false,
-            periodo_id: '',
+            periodo: {},
             hecho_id: '',
             politica_id: '',
             programa_id: '',
@@ -137,12 +137,12 @@ export default{
     methods:{
         getDataSelect(){
             // periodo
-            this.periodo_id = 1
-            // axios.get('/periodo-get').then(res=>{
-            //     console.log(res);
-            // }).catch(error => {
-            //     console.log(error);
-            // })
+            axios.get('/periodo/get-by-user').then(res=>{
+                console.log(res);
+                this.periodo = res.data.periodo.periodo
+            }).catch(error => {
+                console.log(error);
+            })
 
             // hechos
             axios.get('/hechos-get').then(res=>{
@@ -170,7 +170,7 @@ export default{
         },
         getProyectos(){
             axios.get('/proyectos-get').then(res=>{
-                console.log(res);
+                // console.log(res);
                 this.proyectos = res.data.proyectos
             }).catch(error => {
                 console.log(error);

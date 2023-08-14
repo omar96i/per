@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Proyecto;
 
 use App\Http\Controllers\Controller;
 use App\Models\Proyecto;
+use App\Models\UserPeriodo;
 use Illuminate\Http\Request;
 
 class ProyectosController extends Controller
@@ -50,9 +51,8 @@ class ProyectosController extends Controller
      */
     public function store(Request $request)
     {
-        Proyecto::create($request->all());
-
-        return response()->json(['status' => true, 'message' => 'Creado correctamente.']);
+        $proyecto = Proyecto::create($request->all());
+        return response()->json(['status' => true, 'ultimo_creado' => $proyecto->id, 'message' => 'Creado correctamente.']);
     }
 
     /**

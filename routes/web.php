@@ -86,6 +86,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/store', 'store')->name('periodo.store');
         Route::post('/asignar', 'asignar')->name('periodo.asignar');
         Route::get('/get', 'get')->name('periodo.get');
+        Route::get('/get-by-user', 'getUserPeriodo')->name('periodo.get.user.periodo');
         Route::get('/delete/asignacion/{relacion}', 'deleteAsignacion')->name('periodo.delete.asignacion');
         Route::get('/delete/{periodo}', 'delete')->name('periodo.delete');
         Route::post('/update/{periodo}', 'update')->name('periodo.update');

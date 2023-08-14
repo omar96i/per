@@ -83,6 +83,8 @@ class ProyectoProductosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        ProyectoProducto::find($id)->delete();
+
+        return response()->json(['status' => true, 'message' => 'Eliminado correctamente.']);
     }
 }
