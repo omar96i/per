@@ -14,6 +14,9 @@ import MetasIndex from './components/Programacion/Metas/Index.vue';
 import EjecucionMetaIndex from './components/EjecucionMetas/Index.vue'
 import EjecucionMetaForm from './components/EjecucionMetas/Form.vue'
 
+import PlanOperativo from './components/PlanOperativo/Index.vue';
+import Spinner from './components/Spinner.vue'
+
 const app = createApp({});
 
 app.component('user-index', UserIndex);
@@ -25,6 +28,8 @@ app.component('hechos-index', HechosIndex);
 app.component('politicas-index', PoliticasIndex);
 app.component('programas-index', ProgramasIndex);
 app.component('metas-index', MetasIndex);
+app.component('plan-operativo-index', PlanOperativo);
 app.component('ejecucion-meta-index', EjecucionMetaIndex);
 app.component('ejecucion-meta-form', EjecucionMetaForm);
+app.component('spinner', Spinner);
 app.mount('#app');

@@ -35,6 +35,39 @@
       "name": "Roles",
       "icon": "menu-icon tf-icons bx bxs-detail",
       "slug": "roles-index"
+    },
+    {
+        "name": "Programación",
+        "icon": "menu-icon tf-icons bx bxs-buildings",
+        "slug": "programacion",
+        "submenu": [
+            {
+            "url": "/hechos",
+            "name": "Hechos",
+            "slug": "programacion-hechos"
+            },
+            {
+            "url": "/politicas",
+            "name": "Politicas",
+            "slug": "programacion-politicas"
+            },
+            {
+            "url": "/programas",
+            "name": "Programas",
+            "slug": "programacion-programas"
+            },
+            {
+            "url": "/metas-productos",
+            "name": "Meta de producto",
+            "slug": "programacion-metas-productos"
+            }
+        ]
+    },
+    {
+        "url": "/proyectos",
+        "name": "Plan Operativo",
+        "icon": "menu-icon tf-icons bx bx-notepad",
+        "slug": "plan-operativo"
     }
   ]
 

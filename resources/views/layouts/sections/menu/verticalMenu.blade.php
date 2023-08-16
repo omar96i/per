@@ -67,29 +67,6 @@
             @endif
         @endforeach
 
-
-        <li class="menu-item" style="">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bxs-buildings"></i>
-                <div>Programación</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="/hechos" class="menu-link">
-                        <div>Hechos</div>
-                    </a>
-                    <a href="/politicas" class="menu-link">
-                        <div>Politicas</div>
-                    </a>
-                    <a href="/programas" class="menu-link">
-                        <div>Programas</div>
-                    </a>
-                    <a href="/metas-productos" class="menu-link">
-                        <div>Meta de producto</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
         <li class="menu-item" style="">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bxs-buildings"></i>

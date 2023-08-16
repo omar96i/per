@@ -12,7 +12,6 @@ class ProyectoPresupuesto extends Model
     protected $fillable = [
         'proyecto_id',
         'codigo',
-        'presupuesto_inicial',
         'inicial',
         'definitivo',
         'certificado',

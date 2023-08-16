@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Programacion;
+namespace App\Http\Controllers\Proyecto;
 
 use App\Http\Controllers\Controller;
-use App\Models\Politica;
+use App\Models\Proyecto;
+use App\Models\UserPeriodo;
 use Illuminate\Http\Request;
 
-class PoliticaController extends Controller
+class ProyectosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +16,21 @@ class PoliticaController extends Controller
      */
     public function index()
     {
-        return view('programacion.politicas.index');
+        return view('proyectos.index');
     }
 
     public function get()
     {
-        $politicas = Politica::with('hecho')->get();
-        return response()->json(['politicas' => $politicas]);
+        $proyectos = Proyecto::with('presupuestos', 'productos.meta_producto')->get();
+
+        return response()->json(['proyectos' => $proyectos]);
+    }
+
+    public function getAll($id)
+    {
+        $proyecto = Proyecto::with('productos.meta_producto', 'presupuestos.movimiento_financieros')->where('id', $id)->first();
+
+        return response()->json(['proyecto' => $proyecto]);
     }
 
     /**
@@ -42,9 +51,8 @@ class PoliticaController extends Controller
      */
     public function store(Request $request)
     {
-        Politica::create($request->all());
-
-        return response()->json(['status' => true, 'message' => 'Creado correctamente.']);
+        $proyecto = Proyecto::create($request->all());
+        return response()->json(['status' => true, 'ultimo_creado' => $proyecto->id, 'message' => 'Creado correctamente.']);
     }
 
     /**
@@ -78,10 +86,7 @@ class PoliticaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Politica::find($id)->update($request->all());
-
-        return response()->json(['status' => true, 'message' => 'Actualizado correctamente.']);
-
+        //
     }
 
     /**
@@ -92,9 +97,6 @@ class PoliticaController extends Controller
      */
     public function destroy($id)
     {
-        Politica::find($id)->delete();
-
-        return response()->json(['status' => true, 'message' => 'Eliminado correctamente.']);
-
+        //
     }
 }

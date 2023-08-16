@@ -9,12 +9,20 @@ use App\Http\Controllers\Programacion\HechoController;
 use App\Http\Controllers\Programacion\MetaDeProductoController;
 use App\Http\Controllers\Programacion\PoliticaController;
 use App\Http\Controllers\Programacion\ProgramaController;
+use App\Http\Controllers\Proyecto\ProyectoController;
+use App\Http\Controllers\Proyecto\ProyectoMovimientosFinancierosController;
+use App\Http\Controllers\Proyecto\ProyectoPresupuestoController;
+use App\Http\Controllers\Proyecto\ProyectoPresupuestosController;
+use App\Http\Controllers\Proyecto\ProyectoProductosController;
+use App\Http\Controllers\Proyecto\ProyectosController;
 use App\Models\Users;
 use App\Models\Unidades;
 use App\Models\Periodos;
 use App\Models\Dependencias;
 use App\Models\Roles;
 use App\Models\Permisos;
+use App\Models\ProyectoMovimientoFinanciero;
+use App\Models\ProyectoProducto;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -78,6 +86,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/store', 'store')->name('periodo.store');
         Route::post('/asignar', 'asignar')->name('periodo.asignar');
         Route::get('/get', 'get')->name('periodo.get');
+        Route::get('/get-by-user', 'getUserPeriodo')->name('periodo.get.user.periodo');
         Route::get('/delete/asignacion/{relacion}', 'deleteAsignacion')->name('periodo.delete.asignacion');
         Route::get('/delete/{periodo}', 'delete')->name('periodo.delete');
         Route::post('/update/{periodo}', 'update')->name('periodo.update');
@@ -119,14 +128,27 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('hechos', HechoController::class);
     Route::get('/hechos-get', [HechoController::class, 'get'])->name('hechos.get');
+
     Route::resource('politicas', PoliticaController::class);
     Route::get('/politicas-get', [PoliticaController::class, 'get'])->name('politicas.get');
+
     Route::resource('programas', ProgramaController::class);
     Route::get('/programas-get', [ProgramaController::class, 'get'])->name('programas.get');
+
     Route::resource('metas-productos', MetaDeProductoController::class);
     Route::get('/metas-productos-get', [MetaDeProductoController::class, 'get'])->name('metas-productos.get');
     Route::get('/metas-productos-get-by-user', [MetaDeProductoController::class, 'getByUser'])->name('metas-productos.get.by.user');
-});
 
+    //plan operativo anual
+    Route::resource('proyectos', ProyectosController::class);
+    Route::get('/proyectos-get', [ProyectosController::class, 'get'])->name('proyectos.get');
+    Route::get('/proyectos-get-all/{id}', [ProyectosController::class, 'getAll'])->name('proyectos.get.all');
+
+    Route::resource('proyectos-productos', ProyectoProductosController::class);
+
+    Route::resource('proyecto-presupuestos', ProyectoPresupuestosController::class);
+
+    Route::resource('proyectos-movimientos', ProyectoMovimientosFinancierosController::class);
+});
 
 

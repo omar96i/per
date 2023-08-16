@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Programacion;
+namespace App\Http\Controllers\Proyecto;
 
 use App\Http\Controllers\Controller;
-use App\Models\Politica;
+use App\Models\ProyectoPresupuesto;
 use Illuminate\Http\Request;
 
-class PoliticaController extends Controller
+class ProyectoPresupuestosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +15,7 @@ class PoliticaController extends Controller
      */
     public function index()
     {
-        return view('programacion.politicas.index');
-    }
-
-    public function get()
-    {
-        $politicas = Politica::with('hecho')->get();
-        return response()->json(['politicas' => $politicas]);
+        //
     }
 
     /**
@@ -42,7 +36,7 @@ class PoliticaController extends Controller
      */
     public function store(Request $request)
     {
-        Politica::create($request->all());
+        ProyectoPresupuesto::create($request->all());
 
         return response()->json(['status' => true, 'message' => 'Creado correctamente.']);
     }
@@ -78,10 +72,9 @@ class PoliticaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Politica::find($id)->update($request->all());
+        ProyectoPresupuesto::find($id)->update($request->all());
 
         return response()->json(['status' => true, 'message' => 'Actualizado correctamente.']);
-
     }
 
     /**
@@ -92,9 +85,8 @@ class PoliticaController extends Controller
      */
     public function destroy($id)
     {
-        Politica::find($id)->delete();
+        ProyectoPresupuesto::find($id)->delete();
 
         return response()->json(['status' => true, 'message' => 'Eliminado correctamente.']);
-
     }
 }

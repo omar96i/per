@@ -16,6 +16,19 @@ class PeriodoController extends Controller
     public function get(){
         return response()->json(['status' => true, 'periodo' => Periodo::with('users.user')->get()]);
     }
+
+    public function getUserPeriodo()
+    {
+        $periodo = UserPeriodo::where('user_id', auth()->user()->id)
+            ->with(['periodo' => function($query) {
+                $query->where('estado', 'activo');
+            }])
+        ->first();
+
+
+        return response()->json(['periodo' => $periodo]);
+    }
+
     public function getData(Periodo $periodo){
         return response()->json(['periodo' => $periodo]);
     }
