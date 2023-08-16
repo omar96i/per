@@ -15,23 +15,23 @@ return new class extends Migration
     {
         Schema::create('meta_de_producto_evidencias', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('meta_de_producto_id');
-            $table->text('meta_alcanzada');
-            $table->text('nueva_actividad');
-            $table->string('codigo');
-            $table->string('linea_base');
-            $table->text('definiciones');
-            $table->string('medicion');
-            $table->string('formula');
-            $table->string('variables');
-            $table->string('fuente');
-            $table->string('localizacion');
-            $table->string('poblacion');
-            $table->string('periocidad');
-            $table->text('observaciones');
-            $table->text('actividades_realizadas');
-            $table->text('archivos');
-            $table->string('tipo');
+            $table->unsignedBigInteger('meta_de_producto_id')->nullable();
+            $table->text('meta_alcanzada')->nullable();
+            $table->text('nueva_actividad')->nullable();
+            $table->string('codigo')->nullable();
+            $table->string('linea_base')->nullable();
+            $table->text('definiciones')->nullable();
+            $table->string('medicion')->nullable();
+            $table->string('formula')->nullable();
+            $table->string('variables')->nullable();
+            $table->string('fuente')->nullable();
+            $table->string('localizacion')->nullable();
+            $table->string('poblacion')->nullable();
+            $table->string('periocidad')->nullable();
+            $table->text('observaciones')->nullable();
+            $table->text('actividades_realizadas')->nullable();
+            $table->text('archivos')->nullable();
+            $table->string('tipo')->nullable();
             $table->timestamps();
         });
     }

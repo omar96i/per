@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('meta_de_productos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('periodo_id');
-            $table->unsignedBigInteger('hecho_id');
-            $table->unsignedBigInteger('politica_id');
-            $table->unsignedBigInteger('programa_id');
-            $table->unsignedBigInteger('indicador_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('periodo_id')->nullable();
+            $table->unsignedBigInteger('hecho_id')->nullable();
+            $table->unsignedBigInteger('politica_id')->nullable();
+            $table->unsignedBigInteger('programa_id')->nullable();
+            $table->unsignedBigInteger('indicador_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('codigo')->nullable();
             $table->string('nombre')->nullable();
             $table->string('indicador_meta')->nullable();
