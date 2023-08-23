@@ -126,6 +126,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/evidencias/form/{meta}', 'indexEvidenciasForm')->name('metas-productos.evidencias.form.index');
     });
 
+    Route::get('/resultados', function(){
+        return view('resultados.index');
+    })->name('resultados');
+
+
     Route::resource('hechos', HechoController::class);
     Route::get('/hechos-get', [HechoController::class, 'get'])->name('hechos.get');
 

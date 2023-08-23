@@ -22,7 +22,7 @@
             </a>
           </div>
           <!-- /Logo -->
-          <h4 class="mb-2">Bienvenido a PER-pereira! 👋</h4>
+          <h4 class="mb-2">Bienvenido a tablero-rep-pereira! 👋</h4>
           <p class="mb-4">Por favor ingresa tu cuenta para administrar tu pagina</p>
 
           <form id="formAuthentication" class="mb-3" action="{{route('login.submit')}}" method="POST">

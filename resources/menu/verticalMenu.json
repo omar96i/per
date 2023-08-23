@@ -68,6 +68,12 @@
         "name": "Plan Operativo",
         "icon": "menu-icon tf-icons bx bx-notepad",
         "slug": "plan-operativo"
+    },
+    {
+        "url": "/resultados",
+        "name": "Resultados",
+        "icon": "menu-icon tf-icons bx bx-notepad",
+        "slug": "resultados"
     }
   ]
 
