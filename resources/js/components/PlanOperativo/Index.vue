@@ -13,14 +13,18 @@
                 <label>Politica:</label>
                 <select class="form-select" name="" v-model="politica_id" required>
                     <option value="" selected disabled>Seleccionar...</option>
-                    <option v-for="(item, index) in select_politicas" :key="index" :value="item.id">{{ item.nombre }}</option>
+                    <template v-for="(item, index) in select_politicas" :key="index">
+                        <option v-if="hecho_id == item.hecho_id" :value="item.id">{{ item.nombre }}</option>
+                    </template>
                 </select>
             </div>
             <div class="col">
                 <label>Programa:</label>
                 <select class="form-select" name="" v-model="programa_id" required>
                     <option value="" selected disabled>Seleccionar...</option>
-                    <option v-for="(item, index) in select_programas" :key="index" :value="item.id">{{ item.nombre }}</option>
+                    <template v-for="(item, index) in select_programas" :key="index">
+                        <option v-if="politica_id == item.politica_id" :value="item.id">{{ item.nombre }}</option>
+                    </template>
                 </select>
             </div>
             <div class="col">
