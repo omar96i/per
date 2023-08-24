@@ -9,6 +9,7 @@ import RolesIndex from './components/Roles/Index.vue';
 
 import HechosIndex from './components/Programacion/Hechos/Index.vue';
 import PoliticasIndex from './components/Programacion/Politicas/Index.vue';
+import EstrategiasIndex from './components/Programacion/Estrategias/Index.vue';
 import ProgramasIndex from './components/Programacion/Programas/Index.vue';
 import MetasIndex from './components/Programacion/Metas/Index.vue';
 import EjecucionMetaIndex from './components/EjecucionMetas/Index.vue'
@@ -26,6 +27,7 @@ app.component('unidad-index', UnidadIndex);
 app.component('roles-index', RolesIndex);
 app.component('hechos-index', HechosIndex);
 app.component('politicas-index', PoliticasIndex);
+app.component('estrategias-index', EstrategiasIndex);
 app.component('programas-index', ProgramasIndex);
 app.component('metas-index', MetasIndex);
 app.component('plan-operativo-index', PlanOperativo);

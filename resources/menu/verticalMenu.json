@@ -7,39 +7,46 @@
       "slug": "home-index"
     },
     {
-      "url": "/user/",
-      "name": "Usuarios",
-      "icon": "menu-icon tf-icons bx bxs-user",
-      "slug": "user-index"
-    },
-    {
-      "url": "/dependencia/",
-      "name": "Dependencias",
-      "icon": "menu-icon tf-icons bx bxs-bar-chart-alt-2",
-      "slug": "dependencias-index"
-    },
-    {
-      "url": "/periodo/",
-      "name": "Periodos",
-      "icon": "menu-icon tf-icons bx bxs-calendar",
-      "slug": "periodo-index"
-    },
-    {
-      "url": "/unidad/",
-      "name": "Unidades de Medida",
-      "icon": "menu-icon tf-icons bx bxs-detail",
-      "slug": "unidadMedida-index"
+    "url": "/user/",
+    "name": "Usuarios",
+    "icon": "menu-icon tf-icons bx bxs-user",
+    "slug": "User"
     },
     {
       "url": "/roles/",
       "name": "Roles",
       "icon": "menu-icon tf-icons bx bxs-detail",
-      "slug": "roles-index"
+      "slug": "Roles"
+    },
+    {
+        "name": "Administración",
+        "icon": "menu-icon tf-icons bx bxs-buildings",
+        "slug": "Administracion",
+        "submenu": [
+            {
+            "url": "/dependencia/",
+            "name": "Dependencias",
+            "icon": "menu-icon tf-icons bx bxs-bar-chart-alt-2",
+            "slug": "dependencias-index"
+            },
+            {
+            "url": "/periodo/",
+            "name": "Periodos",
+            "icon": "menu-icon tf-icons bx bxs-calendar",
+            "slug": "periodo-index"
+            },
+            {
+            "url": "/unidad/",
+            "name": "Unidades de Medida",
+            "icon": "menu-icon tf-icons bx bxs-detail",
+            "slug": "unidadMedida-index"
+            }
+        ]
     },
     {
         "name": "Programación",
         "icon": "menu-icon tf-icons bx bxs-buildings",
-        "slug": "programacion",
+        "slug": "Programacion",
         "submenu": [
             {
             "url": "/hechos",
@@ -50,6 +57,11 @@
             "url": "/politicas",
             "name": "Politicas",
             "slug": "programacion-politicas"
+            },
+            {
+            "url": "/estrategias",
+            "name": "Estrategias",
+            "slug": "programacion-estrategias"
             },
             {
             "url": "/programas",
@@ -67,13 +79,13 @@
         "url": "/proyectos",
         "name": "Plan Operativo",
         "icon": "menu-icon tf-icons bx bx-notepad",
-        "slug": "plan-operativo"
+        "slug": "PlanOperativo"
     },
     {
         "url": "/resultados",
         "name": "Resultados",
         "icon": "menu-icon tf-icons bx bx-notepad",
-        "slug": "resultados"
+        "slug": "Resultados"
     }
   ]
 

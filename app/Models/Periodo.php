@@ -30,6 +30,10 @@ class Periodo extends Model
         return $this->hasMany(Politica::class, 'periodo_id');
     }
 
+    public function estrategias(){
+        return $this->hasMany(Estrategias::class, 'periodo_id');
+    }
+
     public function programas(){
         return $this->hasMany(Programa::class, 'periodo_id');
     }

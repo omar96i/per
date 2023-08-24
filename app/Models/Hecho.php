@@ -26,6 +26,10 @@ class Hecho extends Model
         return $this->hasMany(Politica::class, 'hecho_id');
     }
 
+    public function estrategias(){
+        return $this->hasMany(Estrategia::class, 'hecho_id');
+    }
+
     public function programas(){
         return $this->hasMany(Programa::class, 'programa_id');
     }

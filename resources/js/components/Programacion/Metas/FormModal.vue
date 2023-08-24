@@ -56,7 +56,7 @@
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Selecciona tipo de indicador</label>
                                     <select class="form-select" name="" v-model="meta.indicador_id" required>
-                                        <option value="1">Ejemplo de indicador</option>
+                                        <option value="">--Seleccionar indicador--</option>
                                         <option v-for="(indicador, index) in indicadores" :key="index" :value="indicador.id">{{ indicador.nombre }}</option>
                                     </select>
                                 </div>
@@ -206,11 +206,12 @@ export default {
             })
         },
         getIndicadores(){
-            // axios.get('/indicadores-get').then(res=>{
-            //     console.log(res);
-            // }).catch(error => {
-            //     console.log(error);
-            // })
+            axios.get('/indicadores-get').then(res=>{
+                console.log(res);
+                this.indicadores = res.data.indicadores
+            }).catch(error => {
+                console.log(error);
+            })
         },
         getGerentes(){
             // axios.get('/gerentes-get').then(res=>{

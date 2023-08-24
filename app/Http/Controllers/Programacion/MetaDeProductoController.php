@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Programacion;
 
 use App\Http\Controllers\Controller;
+use App\Models\Indicador;
 use App\Models\MetaDeProducto;
 use App\Models\MetaDeProductoEvidencia;
 use Illuminate\Http\Request;
@@ -24,6 +25,13 @@ class MetaDeProductoController extends Controller
         $metas = MetaDeProducto::with('hecho', 'politica', 'programa', 'periodo')->get();
 
         return response()->json(['metas' => $metas]);
+    }
+
+    public function getIndicadores()
+    {
+        $indicadores = Indicador::all();
+
+        return response()->json(['indicadores' => $indicadores]);
     }
 
     public function getByUser()

@@ -5,18 +5,17 @@
             <h5>Meta de Productos</h5>
             <form>
                 <div class="mb-2">
-                    <label>Dependencia (metas deproducto):</label>
+                    <label>Dependencia:</label>
                     <select class="form-select"  v-model="form_meta_producto.meta_producto_id">
                         <option value="" selected disabled>Seleccionar...</option>
-                        <option v-for="meta in select_metas_productos" :value="meta.id">{{meta.nombre}}</option>
+                        <option v-for="dependencia in select_dependencias" :value="dependencia.id">{{dependencia.nombre}}</option>
                     </select>
                 </div>
                 <div class="mb-2">
-                    <label for="my-select">Indicadores de Producto:</label>
+                    <label>Indicadores de Producto:</label>
                     <select class="form-select"  v-model="form_meta_producto.indicador_id">
                         <option value="" selected disabled>Seleccionar...</option>
-                        <option value="1">Ejemplo indicador</option>
-                        <!-- <option v-for="meta in select_metas_productos" :value="meta.id">meta.nombre</option> -->
+                        <option v-for="meta in select_metas_productos" :value="meta.id">{{meta.nombre}}</option>
                     </select>
                 </div>
                 <div class="text-center my-3">
@@ -54,12 +53,12 @@ export default {
     data(){
         return{
             select_metas_productos: [],
-            select_indicadores: [],
+            select_dependencias: [],
             lista_metas_productos: [],
             form_meta_producto: {
                 proyecto_id: '',
                 meta_producto_id: '',
-                indicador_id: '1'
+                indicador_id: ''
             },
         }
     },
@@ -74,7 +73,7 @@ export default {
             this.form_meta_producto = {
                 proyecto_id: '',
                 meta_producto_id: '',
-                indicador_id: '1'
+                indicador_id: ''
             }
         },
         getDataSelect(){
@@ -85,7 +84,12 @@ export default {
                 console.log(error);
             })
 
-            //faltaria el axios de indicadores
+            axios.get('/dependencia/get').then(res => {
+                // console.log(res.data);
+                this.select_dependencias = res.data.dependencia
+            }).catch(error => {
+                console.log(error);
+            })
         },
         getProyectoMetas(){
             axios.get(`/proyectos-get-all/${this.proyecto_id}`).then(res => {

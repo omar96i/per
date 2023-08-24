@@ -5,6 +5,7 @@ use App\Http\Controllers\Periodo\PeriodoController;
 use App\Http\Controllers\Dependencia\DependenciaController;
 use App\Http\Controllers\Roles\RolesController;
 use App\Http\Controllers\Permisos\PermisosController;
+use App\Http\Controllers\Programacion\EstrategiaController;
 use App\Http\Controllers\Programacion\HechoController;
 use App\Http\Controllers\Programacion\MetaDeProductoController;
 use App\Http\Controllers\Programacion\PoliticaController;
@@ -19,6 +20,7 @@ use App\Models\Users;
 use App\Models\Unidades;
 use App\Models\Periodos;
 use App\Models\Dependencias;
+use App\Models\Estrategia;
 use App\Models\Roles;
 use App\Models\Permisos;
 use App\Models\ProyectoMovimientoFinanciero;
@@ -137,12 +139,17 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('politicas', PoliticaController::class);
     Route::get('/politicas-get', [PoliticaController::class, 'get'])->name('politicas.get');
 
+    Route::resource('estrategias', EstrategiaController::class);
+    Route::get('/estrategias-get', [EstrategiaController::class, 'get'])->name('politicas.get');
+
     Route::resource('programas', ProgramaController::class);
     Route::get('/programas-get', [ProgramaController::class, 'get'])->name('programas.get');
 
     Route::resource('metas-productos', MetaDeProductoController::class);
     Route::get('/metas-productos-get', [MetaDeProductoController::class, 'get'])->name('metas-productos.get');
     Route::get('/metas-productos-get-by-user', [MetaDeProductoController::class, 'getByUser'])->name('metas-productos.get.by.user');
+
+    Route::get('/indicadores-get', [MetaDeProductoController::class, 'getIndicadores'])->name('indicadores-get');
 
     //plan operativo anual
     Route::resource('proyectos', ProyectosController::class);
@@ -154,6 +161,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('proyecto-presupuestos', ProyectoPresupuestosController::class);
 
     Route::resource('proyectos-movimientos', ProyectoMovimientosFinancierosController::class);
+
+
 });
 
 
