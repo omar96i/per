@@ -1,6 +1,10 @@
 import { createApp } from 'vue';
 window.axios = require('axios');
 
+import Swal from 'sweetalert2';
+import 'sweetalert2/src/sweetalert2.scss'
+
+
 import UserIndex from './components/Users/Index.vue';
 import PeriodosIndex from './components/Periodos/Index.vue';
 import DependenciasIndex from './components/Dependencias/Index.vue';
@@ -17,8 +21,11 @@ import EjecucionMetaForm from './components/EjecucionMetas/Form.vue'
 
 import PlanOperativo from './components/PlanOperativo/Index.vue';
 import Spinner from './components/Spinner.vue'
+import {sweetUtils} from './sweet-alert-utils';
 
 const app = createApp({});
+app.config.globalProperties.$swal = Swal;
+app.config.globalProperties.$swalMini = sweetUtils;
 
 app.component('user-index', UserIndex);
 app.component('periodo-index', PeriodosIndex);

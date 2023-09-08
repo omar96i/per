@@ -16,8 +16,12 @@ return new class extends Migration
         Schema::create('proyecto_productos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('proyecto_id');
+            $table->unsignedBigInteger('dependencia_id');
             $table->unsignedBigInteger('meta_producto_id');
-            $table->unsignedBigInteger('indicador_id');
+            $table->float('porcentaje_definitivo')->default(0);
+            $table->float('porcentaje_disponibilidad')->default(0);
+            $table->float('porcentaje_registros')->default(0);
+            $table->float('porcentaje_pagos')->default(0);
             $table->timestamps();
         });
     }

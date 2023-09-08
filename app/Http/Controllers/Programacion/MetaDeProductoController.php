@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Indicador;
 use App\Models\MetaDeProducto;
 use App\Models\MetaDeProductoEvidencia;
+use App\Models\Periodo;
 use Illuminate\Http\Request;
 
 class MetaDeProductoController extends Controller
@@ -17,7 +18,8 @@ class MetaDeProductoController extends Controller
      */
     public function index()
     {
-        return view('programacion.metas.index');
+        $periodo_activo = Periodo::getPeriodoActivo(auth()->user()->id);
+        return view('programacion.metas.index', compact('periodo_activo'));
     }
 
     public function get()

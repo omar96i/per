@@ -1,22 +1,27 @@
 {
   "menu": [
     {
-      "url": "/",
-      "name": "Home",
-      "icon": "menu-icon tf-icons bx bx-home-circle",
-      "slug": "home-index"
+        "url": "/",
+        "name": "Home",
+        "icon": "menu-icon tf-icons bx bx-home-circle",
+        "slug": "home-index"
     },
     {
-    "url": "/user/",
-    "name": "Usuarios",
-    "icon": "menu-icon tf-icons bx bxs-user",
-    "slug": "User"
-    },
-    {
-      "url": "/roles/",
-      "name": "Roles",
-      "icon": "menu-icon tf-icons bx bxs-detail",
-      "slug": "Roles"
+        "name": "Usuarios",
+        "icon": "menu-icon tf-icons bx bxs-user-detail",
+        "slug": "User",
+        "submenu": [
+            {
+                "url": "/user/",
+                "name": "Usuarios",
+                "slug": "User"
+            },
+            {
+                "url": "/roles/",
+                "name": "Roles",
+                "slug": "Roles"
+            }
+        ]
     },
     {
         "name": "Administración",
@@ -24,67 +29,70 @@
         "slug": "Administracion",
         "submenu": [
             {
-            "url": "/dependencia/",
-            "name": "Dependencias",
-            "icon": "menu-icon tf-icons bx bxs-bar-chart-alt-2",
-            "slug": "dependencias-index"
+                "url": "/dependencia/",
+                "name": "Dependencias",
+                "slug": "dependencias-index"
             },
             {
-            "url": "/periodo/",
-            "name": "Periodos",
-            "icon": "menu-icon tf-icons bx bxs-calendar",
-            "slug": "periodo-index"
+                "url": "/periodo/",
+                "name": "Periodos",
+                "slug": "periodo-index"
             },
             {
-            "url": "/unidad/",
-            "name": "Unidades de Medida",
-            "icon": "menu-icon tf-icons bx bxs-detail",
-            "slug": "unidadMedida-index"
+                "url": "/unidad/",
+                "name": "Unidades de Medidas",
+                "slug": "unidadMedida-index"
             }
         ]
     },
     {
         "name": "Programación",
-        "icon": "menu-icon tf-icons bx bxs-buildings",
+        "icon": "menu-icon tf-icons bx bxs-building",
         "slug": "Programacion",
         "submenu": [
             {
-            "url": "/hechos",
-            "name": "Hechos",
-            "slug": "programacion-hechos"
+                "url": "/hechos",
+                "name": "Hechos",
+                "slug": "programacion-hechos"
             },
             {
-            "url": "/politicas",
-            "name": "Politicas",
-            "slug": "programacion-politicas"
+                "url": "/politicas",
+                "name": "Politicas",
+                "slug": "programacion-politicas"
             },
             {
-            "url": "/estrategias",
-            "name": "Estrategias",
-            "slug": "programacion-estrategias"
+                "url": "/estrategias",
+                "name": "Estrategias",
+                "slug": "programacion-estrategias"
             },
             {
-            "url": "/programas",
-            "name": "Programas",
-            "slug": "programacion-programas"
+                "url": "/programas",
+                "name": "Programas",
+                "slug": "programacion-programas"
             },
             {
-            "url": "/metas-productos",
-            "name": "Meta de producto",
-            "slug": "programacion-metas-productos"
+                "url": "/metas-productos",
+                "name": "Meta de producto",
+                "slug": "programacion-metas-productos"
             }
         ]
     },
     {
         "url": "/proyectos",
         "name": "Plan Operativo",
-        "icon": "menu-icon tf-icons bx bx-notepad",
+        "icon": "menu-icon tf-icons bx bx-trip",
         "slug": "PlanOperativo"
+    },
+    {
+        "url": "/metas-productos/evidencias",
+        "name": "Ejecución",
+        "icon": "menu-icon tf-icons bx bx-calendar-check",
+        "slug": "Programacion"
     },
     {
         "url": "/resultados",
         "name": "Resultados",
-        "icon": "menu-icon tf-icons bx bx-notepad",
+        "icon": "menu-icon tf-icons bx bxs-bar-chart-alt-2",
         "slug": "Resultados"
     }
   ]

@@ -20,14 +20,14 @@ $containerNav = 'container-fluid';
 @section('content')
 <div class="row">
     <div class="col-lg-12 mb-4 order-0">
-        <div class="card" id="app">
+        <div class="card">
             <div class="row row-bordered g-0">
                 <!-- Title -->
                 <div class="col-md-12">
-                    <h5 class="card-header m-0 me-2 pb-3">Usuario</h5>
+                    <h5 class="card-header m-0 me-2 pb-3">Usuarios</h5>
                 </div>
                 <div class="col-md-12">
-                    <div class="card-body" id="app">
+                    <div class="card-body pt-0" id="app">
                         <user-index></user-index>
                     </div>
                 </div>

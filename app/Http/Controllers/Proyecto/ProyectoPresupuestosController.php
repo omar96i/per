@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Proyecto;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProyectoMovimientoFinanciero;
 use App\Models\ProyectoPresupuesto;
 use Illuminate\Http\Request;
 
@@ -18,14 +19,11 @@ class ProyectoPresupuestosController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getPresupuesto($id)
     {
-        //
+        $presupuesto = ProyectoPresupuesto::where('id', $id)->with('proyecto', 'movimiento_financieros')->first();
+
+        return response()->json(['status' => true, 'presupuesto' => $presupuesto]);
     }
 
     /**
@@ -36,10 +34,24 @@ class ProyectoPresupuestosController extends Controller
      */
     public function store(Request $request)
     {
-        ProyectoPresupuesto::create($request->all());
+        $presupuesto = ProyectoPresupuesto::create($request->all());
+        // insertar primer movimiento
+        $movimiento = new ProyectoMovimientoFinanciero();
+        $movimiento->proyecto_presupuesto_id = $presupuesto->id;
+        $movimiento->tipo_movimiento = 'inicial';
+        $movimiento->valor = $presupuesto->inicial;
+        $movimiento->save();
+
+        $presupuesto->definitivo = ProyectoMovimientoFinanciero::TotalMovimientos($presupuesto->id);
+        $presupuesto->save();
 
         return response()->json(['status' => true, 'message' => 'Creado correctamente.']);
     }
+
+    // public function savePresupuestoColumn(Request $request)
+    // {
+
+    // }
 
     /**
      * Display the specified resource.

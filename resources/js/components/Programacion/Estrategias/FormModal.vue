@@ -12,39 +12,43 @@
                     <div class="modal-body py-0">
                             <div class="card-body row">
                                 <div class="mb-3">
-                                    <label class="form-label" for="basic-default-fullname">Selecciona un Hecho</label>
-                                    <select class="form-select" name="" v-model="estrategia.hecho_id">
+                                    <label class="form-label" for="input-hecho">Selecciona un Hecho</label>
+                                    <select id="input-hecho" class="form-select" name="" v-model="estrategia.hecho_id" required>
+                                        <option value="" selected disabled>Seleccionar...</option>
                                         <option v-for="(hecho, index) in hechos" :key="index" :value="hecho.id">{{ hecho.nombre }}</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="basic-default-fullname">Selecciona una Politica</label>
-                                    <select class="form-select" name="" v-model="estrategia.politica_id">
-                                        <option v-for="(politica, index) in politicas" :key="index" :value="politica.id">{{ politica.nombre }}</option>
+                                    <label class="form-label" for="input-politica">Selecciona una Politica</label>
+                                    <select id="input-politica" class="form-select" name="" v-model="estrategia.politica_id" required>
+                                        <option value="" selected disabled>Seleccionar...</option>
+                                        <template v-for="(politica, index) in politicas" :key="index">
+                                            <option v-if="politica.hecho_id == estrategia.hecho_id" :value="politica.id">{{ politica.nombre }}</option>
+                                        </template>
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="basic-default-fullname">Nombre</label>
-                                    <div class="input-group input-group-merge">
-                                        <input type="text" class="form-control" v-model="estrategia.nombre" >
+                                    <label class="form-label" for="input-nombre">Nombre</label>
+                                    <div id="input-nombre" class="input-group input-group-merge">
+                                        <input type="text" class="form-control" v-model="estrategia.nombre" required>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="basic-default-fullname">Peso (%)</label>
-                                    <div class="input-group input-group-merge">
-                                        <input type="number" class="form-control" v-model="estrategia.peso">
+                                    <label class="form-label" for="input-peso">Peso (%)</label>
+                                    <div id="input-peso" class="input-group input-group-merge">
+                                        <input type="number" class="form-control" v-model="estrategia.peso" required>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="basic-default-fullname">Descripción</label>
-                                    <div class="input-group input-group-merge">
-                                        <input type="text" class="form-control" v-model="estrategia.descripcion">
+                                    <label class="form-label" for="input-descripcion">Descripción</label>
+                                    <div id="input-descripcion" class="input-group input-group-merge">
+                                        <input type="text" class="form-control" v-model="estrategia.descripcion" required>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary me-1" @click="$parent.closeFormModal()">Close</button>
+                        <button type="button" class="btn btn-outline-secondary" @click="$parent.closeFormModal()">Cerrar</button>
                         <button type="submit" class="btn btn-primary">{{ !this.estrategia.id ?  'Agregar' : 'Editar' }}</button>
                     </div>
                 </form>
@@ -90,10 +94,10 @@ export default {
         },
         saveProduct(){
             if (this.estrategia.id) {
-                axios.put(`/estrategias/${this.estrategias.id}`, this.estrategia).then(res=>{
+                axios.put(`/estrategias/${this.estrategia.id}`, this.estrategia).then(res=>{
                     console.log(res)
                     if (res.data.status) {
-                        alert(res.data.message)
+                         this.$swalMini('success', `${res.data.message}.`)
                         this.$parent.closeFormModal()
                     }
                 }).catch(error=>{
@@ -103,7 +107,7 @@ export default {
                 axios.post('/estrategias', this.estrategia).then(res=>{
                     console.log(res)
                     if (res.data.status) {
-                        alert(res.data.message)
+                         this.$swalMini('success', `${res.data.message}.`)
                         this.$parent.closeFormModal()
                     }
                 }).catch(error=>{

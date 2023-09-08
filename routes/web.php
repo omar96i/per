@@ -21,11 +21,13 @@ use App\Models\Unidades;
 use App\Models\Periodos;
 use App\Models\Dependencias;
 use App\Models\Estrategia;
+use App\Models\Periodo;
 use App\Models\Roles;
 use App\Models\Permisos;
 use App\Models\ProyectoMovimientoFinanciero;
 use App\Models\ProyectoProducto;
 use App\Models\User;
+use App\Models\UserPeriodo;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,21 +43,21 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/test', function () {
-    $user = new User([
-        'nombre' => 'admin',
-        'apellido' => 'admin',
-        'email' => 'admin@hotmail.com',
-        'documento' => '12345',
-        'usuario' => 'admin',
-        'password' => '12345678',
-
-    ]);
+    $user = User::find(1);
+    $user->password = '12345';
     $user->save();
     return $user;
 });
+Route::get('/test1', function () {
+    return $data = Periodo::where('estado', 'activo')
+        ->with(['users' => function($query)  {
+            $query->where('user_id', 1);
+        }])
+    ->first();
+});
 // Main Page Route
 
-Route::get('/login', [App\Http\Controllers\Auth\AuthController::class, 'login'])->name('login-index');
+Route::get('/login', [App\Http\Controllers\Auth\AuthController::class, 'login'])->name('login');
 Route::redirect('/', '/login', 301);
 
 Route::post('/login', [App\Http\Controllers\Auth\AuthController::class, 'log'])->name('login.submit');
@@ -148,8 +150,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('metas-productos', MetaDeProductoController::class);
     Route::get('/metas-productos-get', [MetaDeProductoController::class, 'get'])->name('metas-productos.get');
     Route::get('/metas-productos-get-by-user', [MetaDeProductoController::class, 'getByUser'])->name('metas-productos.get.by.user');
-
     Route::get('/indicadores-get', [MetaDeProductoController::class, 'getIndicadores'])->name('indicadores-get');
+
 
     //plan operativo anual
     Route::resource('proyectos', ProyectosController::class);
@@ -157,8 +159,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/proyectos-get-all/{id}', [ProyectosController::class, 'getAll'])->name('proyectos.get.all');
 
     Route::resource('proyectos-productos', ProyectoProductosController::class);
+    Route::post('/save-porcentaje-metas', [ProyectoProductosController::class, 'savePorcentajesMetas'])->name('savePorcentajesMetas');
 
     Route::resource('proyecto-presupuestos', ProyectoPresupuestosController::class);
+    Route::get('/get-presupuesto/{id}', [ProyectoPresupuestosController::class, 'getPresupuesto'])->name('proyecto-presupuestos.getPresupuesto');
+    // Route::post('/save-presupuesto-column/{id}', [ProyectoPresupuestosController::class, 'savePresupuestoColumn'])->name('proyecto-presupuestos.savePresupuestoColumn');
 
     Route::resource('proyectos-movimientos', ProyectoMovimientosFinancierosController::class);
 

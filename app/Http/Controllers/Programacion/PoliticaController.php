@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Programacion;
 
 use App\Http\Controllers\Controller;
+use App\Models\Periodo;
 use App\Models\Politica;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,8 @@ class PoliticaController extends Controller
      */
     public function index()
     {
-        return view('programacion.politicas.index');
+        $periodo_activo = Periodo::getPeriodoActivo(auth()->user()->id);
+        return view('programacion.politicas.index', compact('periodo_activo'));
     }
 
     public function get()

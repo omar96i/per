@@ -1,17 +1,12 @@
 <template>
-    <div class="col-12 text-center">
-    </div>
     <div class="col-12">
-        <div class="col-12">
-            <button type="button" class="btn btn-info m-1" data-bs-toggle="modal" data-bs-target="#modalPeriodo" @click="action('insert')">
-                Nuevo registro
-            </button>
-        </div>
+        <button type="button" class="btn btn-info my-3" data-bs-toggle="modal" data-bs-target="#modalPeriodo" @click="action('insert')">
+            Crear nuevo Periodo
+        </button>
         <div class="table-responsive">
             <table class="table table-bordered table-periodo" id="tablaperiodo" width="100%" cellspacing="0" >
                 <thead>
                     <tr>
-                        <!-- <th></th> -->
                         <th>Nombre</th>
                         <th>Fecha Inicio</th>
                         <th>Fecha Final</th>
@@ -19,26 +14,16 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <!-- <th></th> -->
-                        <th>Nombre</th>
-                        <th>Fecha Inicio</th>
-                        <th>Fecha Final</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     <tr v-for="(periodo, index) in periodos" :key="index">
                         <td>{{ periodo.nombre }}</td>
                         <td>{{ periodo.fecha_ini }}</td>
                         <td>{{ periodo.fecha_fin }}</td>
                         <td>{{ periodo.estado }}</td>
-                        <td class="text-center">
-                            <button type="button" class="btn btn-info btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#modalPeriodo" @click="action('edit',periodo.id)"><i class='bx bxs-edit' ></i></button>
-                            <button type="button" class="btn btn-info btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#modalAsignacion" @click="openAsignarModal(periodo)">Asignar</button>
-                            <button class="btn btn-danger btn-circle btn-sm"  @click="deleteData(periodo.id)"><i class='bx bxs-trash' ></i></button>
+                        <td class="d-flex text-center">
+                            <button type="button" class="btn btn-info btn-circle btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#modalPeriodo" @click="action('edit',periodo.id)"><i class='bx bxs-edit' ></i></button>
+                            <button type="button" class="btn btn-info btn-circle btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#modalAsignacion" @click="openAsignarModal(periodo)">Asignar</button>
+                            <button class="btn btn-danger btn-circle btn-sm mx-1"  @click="deleteData(periodo)"><i class='bx bxs-trash' ></i></button>
                         </td>
                     </tr>
                 </tbody>
@@ -47,18 +32,15 @@
     </div>
     <div>
         <modal-periodo ref="modal_form"></modal-periodo>
-        <modal-asignar ref="modal_asignar" :users="users"></modal-asignar>
+        <modal-asignar ref="modal_asignar"></modal-asignar>
     </div>
 </template>
 <script>
-    import axios from "axios";
-    import Modal from "./Modal.vue";
+    import ModalPeriodo from "./Modal.vue";
     import ModalAsignar from "./ModalAsignar.vue"
-
-
     export default{
         components: {
-            'modal-periodo' : Modal,
+            ModalPeriodo,
             ModalAsignar
         },
         data(){
@@ -70,12 +52,9 @@
                 periodos:{},
             }
         },
-
         created(){
             this.getData()
-            this.getUsers()
         },
-
         methods:{
             action(tipo,id){
                 this.$refs.modal_form.setData(tipo,id)
@@ -90,23 +69,26 @@
                     this.loading=true
                 })
             },
-            getUsers(){
-                axios.get('/user/get').then(res=>{
-                    this.users = res.data.user
-                })
-            },
-            deleteData(id){
-                console.log(id)
-                        axios.get(`/periodo/delete/${id}`).then(res=>{
+            deleteData(periodo){
+                this.$swal.fire({
+                    title: `Seguro de eliminar el periodo ${periodo.nombre}`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'Si, eliminar!',
+                    reverseButtons: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.get(`/periodo/delete/${periodo.id}`).then(res=>{
                             if(res.data.status){
                                 this.getData()
+                                this.$swalMini('success', 'Periodo eliminado con exito');
                             }
                         })
-                        return
-                    },
-
-
+                    }
+                })
             },
+        },
     }
 
 </script>

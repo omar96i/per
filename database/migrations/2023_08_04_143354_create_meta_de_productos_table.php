@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('indicador_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('codigo')->nullable();
-            $table->string('nombre')->nullable();
+            $table->text('nombre')->nullable();
             $table->string('indicador_meta')->nullable();
             $table->string('peso')->nullable();
             $table->string('linea_base')->nullable();

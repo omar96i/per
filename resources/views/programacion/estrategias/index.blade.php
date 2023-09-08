@@ -28,7 +28,7 @@ $containerNav = 'container-fluid';
                 </div>
                 <div class="col-md-12">
                     <div class="card-body" id="app">
-                        <estrategias-index></estrategias-index>
+                        <estrategias-index :periodo="{{$periodo_activo}}"></estrategias-index>
                     </div>
                 </div>
             </div>

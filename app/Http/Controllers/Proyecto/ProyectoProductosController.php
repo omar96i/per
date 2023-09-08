@@ -18,6 +18,13 @@ class ProyectoProductosController extends Controller
         //
     }
 
+    public function savePorcentajesMetas(Request $request){
+        foreach ($request->all() as $meta) {
+            ProyectoProducto::find($meta['id'])->update($meta);
+        }
+        return response()->json(['status' => true, 'message' => 'Porcentajes agregados con exito.']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -72,7 +79,9 @@ class ProyectoProductosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        ProyectoProducto::find($id)->update($request->all());
+
+        return response()->json(['status' => true, 'message' => 'Actualizado correctamente.']);
     }
 
     /**

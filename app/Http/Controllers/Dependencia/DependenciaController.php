@@ -28,6 +28,7 @@ class DependenciaController extends Controller
     public function store(Request $request){
         $dependencia = Dependencia::create($request->post());
         return response()->json([
+            'status' => true,
             'dependencia'=>$dependencia
         ]);
     }

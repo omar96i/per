@@ -11,8 +11,12 @@ class ProyectoProducto extends Model
 
     protected $fillable = [
         'proyecto_id',
+        'dependencia_id',
         'meta_producto_id',
-        'indicador_id',
+        'porcentaje_definitivo',
+        'porcentaje_disponibilidad',
+        'porcentaje_registros',
+        'porcentaje_pagos',
     ];
 
     public function proyecto(){
@@ -23,7 +27,7 @@ class ProyectoProducto extends Model
         return $this->belongsTo(MetaDeProducto::class);
     }
 
-    public function indicador(){
-        return $this->belongsTo(Indicador::class);
+    public function dependencia(){
+        return $this->belongsTo(Dependencia::class);
     }
 }

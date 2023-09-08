@@ -110,7 +110,7 @@ mixAssetsDir('vendor/libs/**/!(_)*.scss', (src, dest) =>
 );
 mixAssetsDir('vendor/libs/**/*.{png,jpg,jpeg,gif}', (src, dest) => mix.copy(src, dest));
 // Copy task for form validation plugin as premium plugin don't have npm package
-mixAssetsDir('vendor/libs/formvalidation/dist', (src, dest) => mix.copyDirectory(src, dest));
+// mixAssetsDir('vendor/libs/formvalidation/dist', (src, dest) => mix.copyDirectory(src, dest));
 
 // Fonts
 mixAssetsDir('vendor/fonts/*/*', (src, dest) => mix.copy(src, dest));

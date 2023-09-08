@@ -27,7 +27,7 @@ $containerNav = 'container-fluid';
                     <h5 class="card-header m-0 me-2 pb-3">Unidades de Medida</h5>
                 </div>
                 <div class="col-md-12">
-                    <div class="card-body" id="app">
+                    <div class="card-body pt-0" id="app">
                         <unidad-index></unidad-index>
                     </div>
                 </div>

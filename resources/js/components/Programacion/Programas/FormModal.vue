@@ -13,38 +13,41 @@
                             <div class="card-body row">
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Selecciona un Hecho</label>
-                                    <select class="form-select" name="" v-model="programa.hecho_id">
+                                    <select class="form-select" name="" v-model="programa.hecho_id" required>
                                         <option v-for="(hecho, index) in hechos" :key="index" :value="hecho.id">{{ hecho.nombre }}</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Selecciona una Politica</label>
-                                    <select class="form-select" name="" v-model="programa.politica_id">
-                                        <option v-for="(politica, index) in politicas" :key="index" :value="politica.id">{{ politica.nombre }}</option>
+                                    <select id="input-politica" class="form-select" name="" v-model="programa.politica_id" required>
+                                        <option value="" selected disabled>Seleccionar...</option>
+                                        <template v-for="(politica, index) in politicas" :key="index">
+                                            <option v-if="politica.hecho_id == programa.hecho_id" :value="politica.id">{{ politica.nombre }}</option>
+                                        </template>
                                     </select>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Nombre</label>
                                     <div class="input-group input-group-merge">
-                                        <input type="text" class="form-control" v-model="programa.nombre" >
+                                        <input type="text" class="form-control" v-model="programa.nombre" required>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Peso (%)</label>
                                     <div class="input-group input-group-merge">
-                                        <input type="number" class="form-control" v-model="programa.peso">
+                                        <input type="number" class="form-control" v-model="programa.peso" required>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Descripción</label>
                                     <div class="input-group input-group-merge">
-                                        <input type="text" class="form-control" v-model="programa.descripcion">
+                                        <input type="text" class="form-control" v-model="programa.descripcion" required>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary me-1" @click="$parent.closeFormModal()">Close</button>
+                        <button type="button" class="btn btn-outline-secondary me-1" @click="$parent.closeFormModal()">Cerrar</button>
                         <button type="submit" class="btn btn-primary">{{ !this.programa.id ?  'Agregar' : 'Editar' }}</button>
                     </div>
                 </form>
@@ -93,7 +96,7 @@ export default {
                 axios.put(`/programas/${this.programa.id}`, this.programa).then(res=>{
                     console.log(res)
                     if (res.data.status) {
-                        alert(res.data.message)
+                         this.$swalMini('success', `${res.data.message}.`)
                         this.$parent.closeFormModal()
                     }
                 }).catch(error=>{
@@ -103,7 +106,7 @@ export default {
                 axios.post('/programas', this.programa).then(res=>{
                     console.log(res)
                     if (res.data.status) {
-                        alert(res.data.message)
+                         this.$swalMini('success', `${res.data.message}.`)
                         this.$parent.closeFormModal()
                     }
                 }).catch(error=>{

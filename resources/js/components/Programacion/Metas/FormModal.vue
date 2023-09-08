@@ -144,7 +144,7 @@
                             </div>
                         </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary me-1" @click="$parent.closeFormModal()">Close</button>
+                        <button type="button" class="btn btn-outline-secondary me-1" @click="$parent.closeFormModal()">Cerrar</button>
                         <button type="submit" class="btn btn-primary">{{ !this.meta.id ?  'Agregar' : 'Editar' }}</button>
                     </div>
                 </form>
@@ -175,14 +175,6 @@ export default {
         this.getGerentes()
     },
     methods:{
-        getPerido(){
-            this.meta.periodo_id = 1
-            // axios.get('/periodo-get').then(res=>{
-            //     console.log(res);
-            // }).catch(error => {
-            //     console.log(error);
-            // })
-        },
         getHechos(){
             axios.get('/hechos-get').then(res=>{
                 this.hechos = res.data.hechos
@@ -226,7 +218,7 @@ export default {
                 axios.put(`/metas-productos/${this.meta.id}`, this.meta).then(res=>{
                     console.log(res)
                     if (res.data.status) {
-                        alert(res.data.message)
+                         this.$swalMini('success', `${res.data.message}.`)
                         this.$parent.closeFormModal()
                     }
                 }).catch(error=>{
@@ -236,7 +228,7 @@ export default {
                 axios.post('/metas-productos', this.meta).then(res=>{
                     console.log(res)
                     if (res.data.status) {
-                        alert(res.data.message)
+                         this.$swalMini('success', `${res.data.message}.`)
                         this.$parent.closeFormModal()
                     }
                 }).catch(error=>{

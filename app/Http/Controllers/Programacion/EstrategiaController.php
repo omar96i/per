@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Programacion;
 
 use App\Http\Controllers\Controller;
 use App\Models\Estrategia;
+use App\Models\Periodo;
 use Illuminate\Http\Request;
 
 class EstrategiaController extends Controller
@@ -15,7 +16,8 @@ class EstrategiaController extends Controller
      */
     public function index()
     {
-        return view('programacion.estrategias.index');
+        $periodo_activo = Periodo::getPeriodoActivo(auth()->user()->id);
+        return view('programacion.estrategias.index', compact('periodo_activo'));
     }
 
     public function get()

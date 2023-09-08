@@ -65,20 +65,6 @@
                 @endcan
             @endif
         @endforeach
-
-        <li class="menu-item" style="">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bxs-buildings"></i>
-                <div>Ejecucion de metas</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="/metas-productos/evidencias" class="menu-link">
-                        <div>Home</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
     </ul>
 
 </aside>

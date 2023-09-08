@@ -1,13 +1,11 @@
 <template>
-    <div class="col-12 text-center">
-    </div>
     <div class="col-12">
         <div class="col-12">
-            <button type="button" class="btn btn-info m-1" data-bs-toggle="modal" data-bs-target="#modalUnidad" @click="action('insert')">
+            <button type="button" class="btn btn-info my-3" data-bs-toggle="modal" data-bs-target="#modalUnidad" @click="action('insert')">
                 Nuevo registro
             </button>
         </div>
-        <div class="table-responsive">        
+        <div class="table-responsive">
             <table class="table table-bordered table-unidad" id="tablaunidad" width="100%" cellspacing="0" >
                 <thead>
                     <tr>
@@ -16,21 +14,14 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <!-- <th></th> -->
-                        <th>Nombre</th>
-                        <th>Acciones</th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     <tr v-for="(unidad, index) in unidades" :key="index">
                         <td>{{ unidad.nombre }}</td>
-                        <td class="text-center">
-                            <button type="button" class="btn btn-info btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#modalUnidad" @click="action('edit',unidad.id)"><i class='bx bxs-edit' ></i></button>
+                        <td class="d-flex text-center">
+                            <button type="button" class="btn btn-info btn-circle btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#modalUnidad" @click="action('edit',unidad.id)"><i class='bx bxs-edit' ></i></button>
                             <button class="btn btn-danger btn-circle btn-sm"  @click="deleteData(unidad.id)"><i class='bx bxs-trash' ></i></button>
                         </td>
-                        
+
                     </tr>
                 </tbody>
             </table>
@@ -41,29 +32,29 @@
     </div>
 </template>
 <script>
-    import axios from "axios";    	
+    import axios from "axios";
     import Modal from "./Modal.vue";
 
-    
+
     export default{
-        
+
         components: {
             'modal-unidad' : Modal,
         },
         data(){
             return{
-                
+
                 items: {},
                 loading: false,
                 load: false,
                 unidades:{},
             }
-        }, 
+        },
         created(){
             this.getData()
 
         },
-               
+
         methods:{
             action(tipo,id){
                 this.$refs.modal_form.setData(tipo,id)
@@ -76,17 +67,16 @@
                 })
             },
             deleteData(id){
-                console.log(id)
-                        axios.get(`/unidad/delete/${id}`).then(res=>{
-                            if(res.data.status){
-                                this.getData()
-                            }
-                        })
-                        return
-                    },
-
-            
-            },  
+                // console.log(id)
+                axios.get(`/unidad/delete/${id}`).then(res=>{
+                    if(res.data.status){
+                        this.$swalMini('success', `Unidad eliminada con exito.`);
+                        this.getData()
+                    }
+                })
+                return
+            },
+        },
     }
 
-</script> 
+</script>

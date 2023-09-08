@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('periodo_id');
-            $table->string('tipo_acceso');
+            // $table->string('tipo_acceso');
             $table->timestamps();
         });
     }

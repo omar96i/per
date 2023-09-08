@@ -1,7 +1,7 @@
 <template>
     <div class="col-12">
         <div class="col-12">
-            <h5 class="my-1">Periodo establecido desde: 01/01/2021 hasta: 31/12/2024</h5>
+            <h5>Periodo establecido: <b> {{ periodo.nombre }} </b> <br> desde: <b> {{ periodo.fecha_ini }} </b> hasta: <b> {{ periodo.fecha_fin }} </b></h5>
             <button type="button" class="btn btn-info my-2" @click="openFormModal('insert', null)">
                 Nuevo registro
             </button>
@@ -27,7 +27,7 @@
                         <td>{{ programa.nombre }}</td>
                         <td>{{ programa.peso }}</td>
                         <td>{{ programa.descripcion }}</td>
-                        <td class="text-center">
+                        <td class="d-flex text-center">
                             <button type="button" class="btn btn-info btn-circle btn-sm me-1" @click="openFormModal('edit', programa)"><i class='bx bxs-edit' ></i></button>
                             <button class="btn btn-danger btn-circle btn-sm"  @click="deleteData(programa.id)"><i class='bx bxs-trash' ></i></button>
                         </td>
@@ -41,6 +41,7 @@
 <script>
 import FormModal from './FormModal.vue'
 export default{
+    props: ['periodo'],
     components: {
         FormModal
     },
@@ -53,6 +54,18 @@ export default{
     },
     created(){
         this.getData()
+        if (!this.periodo) {
+            this.$swal.fire({
+                icon: 'error',
+                title: 'Sin periodo activo',
+                text: 'Por favor, active o asigne un período antes de añadir hechos.',
+                showConfirmButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = '/periodo';
+                }
+            })
+        }
     },
     methods:{
         openFormModal(tipo, data){
@@ -62,7 +75,7 @@ export default{
                 this.data_programa = {
                     id: '',
                     hecho_id: '',
-                    politica_id: '',
+                    periodo_id: this.periodo.id,
                     nombre: '',
                     peso: '',
                     descripcion: ''
@@ -93,7 +106,7 @@ export default{
         deleteData(id){
             axios.delete(`/programas/${id}`).then(res=>{
                 if(res.data.status){
-                    alert(res.data.message)
+                     this.$swalMini('success', `${res.data.message}.`)
                     this.getData()
                 }
             }).catch(error => {

@@ -1,8 +1,8 @@
 <template>
     <div class="col-12">
         <div class="col-12">
-            <h5 class="my-1">Periodo establecido desde: 01/01/2021 hasta: 31/12/2024</h5>
-            <button type="button" class="btn btn-info my-2" @click="openFormModal('insert', null)">
+            <h5>Periodo establecido: <b> {{ periodo.nombre }} </b> <br> desde: <b> {{ periodo.fecha_ini }} </b> hasta: <b> {{ periodo.fecha_fin }} </b></h5>
+            <button type="button" class="btn btn-info my-3" @click="openFormModal('insert', null)">
                 Nuevo registro
             </button>
         </div>
@@ -10,7 +10,6 @@
             <table class="table table-bordered table-periodo" width="100%" cellspacing="0" >
                 <thead>
                     <tr>
-                        <!-- <th>Periodo</th> -->
                         <th>Hecho</th>
                         <th>Nombre</th>
                         <th>Peso(%)</th>
@@ -20,12 +19,11 @@
                 </thead>
                 <tbody>
                     <tr v-for="(politica, index) in politicas" :key="index">
-                        <!-- <td>{{ hecho.periodo }}</td> -->
                         <td>{{ politica.hecho.nombre }}</td>
                         <td>{{ politica.nombre }}</td>
                         <td>{{ politica.peso }}</td>
                         <td>{{ politica.descripcion }}</td>
-                        <td class="text-center">
+                        <td class="d-flex text-center">
                             <button type="button" class="btn btn-info btn-circle btn-sm me-1" @click="openFormModal('edit', politica)"><i class='bx bxs-edit' ></i></button>
                             <button class="btn btn-danger btn-circle btn-sm"  @click="deleteData(politica.id)"><i class='bx bxs-trash' ></i></button>
                         </td>
@@ -39,6 +37,7 @@
 <script>
 import FormModal from './FormModal.vue'
 export default{
+    props: ['periodo'],
     components: {
         FormModal
     },
@@ -51,6 +50,18 @@ export default{
     },
     created(){
         this.getData()
+        if (!this.periodo) {
+            this.$swal.fire({
+                icon: 'error',
+                title: 'Sin periodo activo',
+                text: 'Por favor, active o asigne un período antes de añadir hechos.',
+                showConfirmButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = '/periodo';
+                }
+            })
+        }
     },
     methods:{
         openFormModal(tipo, data){
@@ -59,6 +70,7 @@ export default{
                 console.log('entro');
                 this.data_politica = {
                     id: '',
+                    periodo_id: this.periodo.id,
                     hecho_id: '',
                     nombre: '',
                     peso: '',
@@ -90,7 +102,7 @@ export default{
         deleteData(id){
             axios.delete(`/politicas/${id}`).then(res=>{
                 if(res.data.status){
-                    alert(res.data.message)
+                    this.$swalMini('success', `${res.data.message}.`)
                     this.getData()
                 }
             }).catch(error => {

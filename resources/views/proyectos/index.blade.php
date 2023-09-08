@@ -6,7 +6,7 @@ $containerNav = 'container-fluid';
 
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'User')
+@section('title', 'Plan Operativo')
 
 @section('vendor-style')
 @endsection
@@ -28,7 +28,7 @@ $containerNav = 'container-fluid';
                 </div>
                 <div class="col-md-12">
                     <div class="card-body" id="app">
-                        <plan-operativo-index></plan-operativo-index>
+                        <plan-operativo-index :periodo="{{$periodo_activo}}"></plan-operativo-index>
                     </div>
                 </div>
             </div>

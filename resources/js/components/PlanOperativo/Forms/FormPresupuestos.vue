@@ -1,45 +1,27 @@
 <template>
     <!-- metas de productos -->
     <div class="row">
-        <div class="col-5 border-end border-2">
-            <h5>Cifras presupuesto inicial</h5>
-            <form>
-                <div class="mb-2">
-                    <label>Codigo presupestal:</label>
-                    <input id="my-input" class="form-control" type="text"  v-model="form_presupuesto.codigo">
+        <div class="col-12">
+            <h5>Cifras presupuesto inicial:</h5>
+            <form @submit.prevent="savePresupuestos" class="row">
+                <div class="col-12 col-md-6">
+                    <label for="input-codigo">Codigo presupestal:</label>
+                    <input id="input-codigo" class="form-control" type="text" placeholder="Ingresa el codigo presupuestal"  v-model="form_presupuesto.codigo" required>
                 </div>
-                <div class="mb-2">
-                    <label for="my-select">Inicial $:</label>
-                    <input id="my-input" class="form-control" type="text"  v-model="form_presupuesto.inicial">
+                <div class="col-12 col-md-6">
+                    <label for="input-inicial">Valor Inicial $:</label>
+                    <input id="input-inicial" class="form-control" type="text" placeholder="Ingresa el valor inicial"  v-model="form_presupuesto.inicial" required> <!-- poner formato mneda en este input -->
                 </div>
-                <div class="mb-2">
-                    <label for="my-select">Definitivo $:</label>
-                    <input id="my-input" class="form-control" type="text"  v-model="form_presupuesto.definitivo">
-                </div>
-                <div class="mb-2">
-                    <label for="my-select">Certificado $:</label>
-                    <input id="my-input" class="form-control" type="text"  v-model="form_presupuesto.certificado">
-                </div>
-                <div class="mb-2">
-                    <label for="my-select">Comprometido $:</label>
-                    <input id="my-input" class="form-control" type="text"  v-model="form_presupuesto.comprometido">
-                </div>
-                <div class="mb-2">
-                    <label for="my-select">Ordenes de pago $:</label>
-                    <input id="my-input" class="form-control" type="text"  v-model="form_presupuesto.ordenes_de_pago">
-                </div>
-                <div class="text-center my-3">
-                    <button class="btn btn-primary" type="button" @click="savePresupuestos()">
-                        <i class='bx bx-plus'></i>{{ form_presupuesto.id ? 'Actualizar presupuesto' : 'Guardar presupuesto' }}
-                    </button>
+                <div class="col-12 text-center my-3">
+                    <button v-if="form_presupuesto.id" class="btn btn-outline-secondary mx-1" type="button" @click="resetForm()">Cancelar</button>
+                    <button class="btn btn-primary" type="submit">{{ form_presupuesto.id ? 'Actualizar presupuesto' : 'Añadir presupuesto' }}</button>
                 </div>
             </form>
         </div>
-        <div class="col-7 table-responsive">
+        <div class="col-12 table-responsive">
             <table class="table table table-bordered">
                 <thead>
                     <tr class="table-primary">
-                        <th>Id</th>
                         <th>Código Presupuestal</th>
                         <th>Presupuesto Inicial $</th>
                         <th>Opción</th>
@@ -47,7 +29,6 @@
                 </thead>
                 <tbody>
                     <tr v-for="presupuesto in lista_presupuestos">
-                        <td>{{ presupuesto.id }}</td>
                         <td>{{ presupuesto.codigo }}</td>
                         <td>{{ presupuesto.inicial }}</td>
                         <td class="text-center d-flex">
@@ -71,11 +52,7 @@ export default {
             form_presupuesto: {
                 proyecto_id: '',
                 codigo: '',
-                inicial: '',
-                definitivo: '',
-                certificado: '',
-                comprometido: '',
-                ordenes_de_pago: ''
+                inicial: ''
             },
         }
     },
@@ -89,11 +66,7 @@ export default {
             this.form_presupuesto = {
                 proyecto_id: '',
                 codigo: '',
-                inicial: '',
-                definitivo: '',
-                certificado: '',
-                comprometido: '',
-                ordenes_de_pago: ''
+                inicial: ''
             }
         },
         getProyectoPresupuesto(){
@@ -112,7 +85,7 @@ export default {
                 axios.put(`/proyecto-presupuestos/${this.form_presupuesto.id}`, this.form_presupuesto).then(res=>{
                     // console.log(res)
                     if (res.data.status) {
-                        alert(res.data.message)
+                         this.$swalMini('success', `${res.data.message}.`)
                         this.getProyectoPresupuesto()
                         this.resetForm()
                     }
@@ -124,7 +97,7 @@ export default {
                 axios.post('/proyecto-presupuestos', this.form_presupuesto).then(res=>{
                     // console.log(res)
                     if (res.data.status) {
-                        alert(res.data.message)
+                         this.$swalMini('success', `${res.data.message}.`)
                         this.getProyectoPresupuesto()
                         this.resetForm()
                     }
@@ -137,7 +110,7 @@ export default {
             axios.delete(`/proyecto-presupuestos/${id}`).then(res=>{
                 console.log(res)
                 if (res.data.status) {
-                    alert(res.data.message)
+                     this.$swalMini('success', `${res.data.message}.`)
                     this.getProyectoPresupuesto()
                 }
             }).catch(error=>{

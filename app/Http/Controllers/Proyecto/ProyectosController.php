@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Proyecto;
 
 use App\Http\Controllers\Controller;
+use App\Models\Periodo;
 use App\Models\Proyecto;
 use App\Models\UserPeriodo;
 use Illuminate\Http\Request;
@@ -16,19 +17,20 @@ class ProyectosController extends Controller
      */
     public function index()
     {
-        return view('proyectos.index');
+        $periodo_activo = Periodo::getPeriodoActivo(auth()->user()->id);
+        return view('proyectos.index', compact('periodo_activo'));
     }
 
     public function get()
     {
         $proyectos = Proyecto::with('presupuestos', 'productos.meta_producto')->get();
 
-        return response()->json(['proyectos' => $proyectos]);
+        return response()->json(['status' => true, 'proyectos' => $proyectos]);
     }
 
     public function getAll($id)
     {
-        $proyecto = Proyecto::with('productos.meta_producto', 'presupuestos.movimiento_financieros')->where('id', $id)->first();
+        $proyecto = Proyecto::with('presupuestos', 'productos.meta_producto', 'presupuestos.movimiento_financieros')->where('id', $id)->first();
 
         return response()->json(['proyecto' => $proyecto]);
     }
@@ -86,7 +88,9 @@ class ProyectosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Proyecto::find($id)->update($request->all());
+
+        return response()->json(['status' => true, 'message' => 'Actualizado correctamente.']);
     }
 
     /**

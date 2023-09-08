@@ -18,11 +18,12 @@
           <div class="app-brand justify-content-center">
             <a class="app-brand-link gap-2">
               <span class="app-brand-logo demo"><img src="{{ asset('/icono.jpg') }}" style="width: 45px;"></span>
-              <span class="app-brand-text demo text-body fw-bolder">PER</span>
+              <h3 class="app-brand-text fw-bolder my-0">PER</h3>
             </a>
           </div>
           <!-- /Logo -->
-          <h4 class="mb-2">Bienvenido a tablero-rep-pereira! 👋</h4>
+
+          <h4 class="mb-2 text-center">Bienvenido👋</h4>
           <p class="mb-4">Por favor ingresa tu cuenta para administrar tu pagina</p>
 
           <form id="formAuthentication" class="mb-3" action="{{route('login.submit')}}" method="POST">
@@ -49,11 +50,11 @@
             </div>
           </form>
 
-          <p class="text-center">
+          {{-- <p class="text-center">
             <a>
               <span>Crear una cuenta</span>
             </a>
-          </p>
+          </p> --}}
           @if(session('error'))
             <div class="alert alert-danger">
                 {{ session('error') }}

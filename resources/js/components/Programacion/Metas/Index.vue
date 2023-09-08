@@ -1,7 +1,7 @@
 <template>
     <div class="col-12">
         <div class="col-12">
-            <h5 class="my-1">Periodo establecido desde: 01/01/2021 hasta: 31/12/2024</h5>
+            <h5>Periodo establecido: <b> {{ periodo.nombre }} </b> <br> desde: <b> {{ periodo.fecha_ini }} </b> hasta: <b> {{ periodo.fecha_fin }} </b></h5>
             <button type="button" class="btn btn-info my-2" @click="openFormModal('insert', null)">
                 Nuevo registro
             </button>
@@ -50,6 +50,7 @@
 <script>
 import FormModal from './FormModal.vue'
 export default{
+    props: ['periodo'],
     components: {
         FormModal
     },
@@ -62,6 +63,18 @@ export default{
     },
     created(){
         this.getData()
+        if (!this.periodo) {
+            this.$swal.fire({
+                icon: 'error',
+                title: 'Sin periodo activo',
+                text: 'Por favor, active o asigne un período antes de añadir hechos.',
+                showConfirmButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = '/periodo';
+                }
+            })
+        }
     },
     methods:{
         openFormModal(tipo, data){
@@ -70,7 +83,7 @@ export default{
                 console.log('entro');
                 this.data_meta = {
                     id: '',
-                    periodo_id: '',
+                    periodo_id: this.periodo.id,
                     hecho_id: '',
                     politica_id: '',
                     programa_id: '',
@@ -119,7 +132,7 @@ export default{
         deleteData(id){
             axios.delete(`/metas-productos/${id}`).then(res=>{
                 if(res.data.status){
-                    alert(res.data.message)
+                     this.$swalMini('success', `${res.data.message}.`)
                     this.getData()
                 }
             }).catch(error => {

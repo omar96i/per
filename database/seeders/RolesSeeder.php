@@ -66,7 +66,7 @@ class RolesSeeder extends Seeder
             'usuario' => 'admin',
             'password' => '12345',
         ]);
-        // $admin->assignRole($role1);
+        $admin->assignRole($role1);
 
         $usuario = User::create([
             'nombre' => 'felipe',
@@ -76,7 +76,7 @@ class RolesSeeder extends Seeder
             'usuario' => 'felipe',
             'password' => '12345',
         ]);
-        // $usuario->assignRole($role2);
+        $usuario->assignRole($role2);
 
 
     }

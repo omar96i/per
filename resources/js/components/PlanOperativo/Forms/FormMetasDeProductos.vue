@@ -1,31 +1,29 @@
 <template>
     <!-- metas de productos -->
     <div class="row">
-        <div class="col-6 border-end border-2">
-            <h5>Meta de Productos</h5>
-            <form>
-                <div class="mb-2">
+        <div class="col-12">
+            <h5>Metas Asociadas:</h5>
+            <form @submit.prevent="saveMetaDeProductos()" class="row">
+                <div class="col-12 col-md-6">
                     <label>Dependencia:</label>
-                    <select class="form-select"  v-model="form_meta_producto.meta_producto_id">
+                    <select class="form-select"  v-model="form_meta_producto.dependencia_id" required>
                         <option value="" selected disabled>Seleccionar...</option>
                         <option v-for="dependencia in select_dependencias" :value="dependencia.id">{{dependencia.nombre}}</option>
                     </select>
                 </div>
-                <div class="mb-2">
+                <div class="col-12 col-md-6">
                     <label>Indicadores de Producto:</label>
-                    <select class="form-select"  v-model="form_meta_producto.indicador_id">
+                    <select class="form-select"  v-model="form_meta_producto.meta_producto_id" required>
                         <option value="" selected disabled>Seleccionar...</option>
-                        <option v-for="meta in select_metas_productos" :value="meta.id">{{meta.nombre}}</option>
+                        <option v-for="meta in select_metas_productos" :value="meta.id">{{meta.codigo}}</option>
                     </select>
                 </div>
                 <div class="text-center my-3">
-                    <button class="btn btn-primary" type="button" @click="saveMetaDeProductos()">
-                        <i class='bx bx-plus'></i>Guardar Meta de producto
-                    </button>
+                    <button class="btn btn-primary" type="submit">Añadir Meta de producto</button>
                 </div>
             </form>
         </div>
-        <div class="col-6 table-responsive">
+        <div class="col-12 table-responsive">
             <table class="table table-bordered">
                 <thead>
                     <tr class="table-primary">
@@ -35,7 +33,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="meta in lista_metas_productos">
-                        <td>{{ meta.meta_producto.nombre }}</td>
+                        <td>{{ meta.meta_producto.codigo }}</td>
                         <td class="text-center">
                             <button class="btn btn-danger btn-sm" type="button" @click="deleteMetaDeProductos(meta.id)"><i class='bx bx-x'></i></button>
                         </td>
@@ -57,8 +55,8 @@ export default {
             lista_metas_productos: [],
             form_meta_producto: {
                 proyecto_id: '',
-                meta_producto_id: '',
-                indicador_id: ''
+                dependencia_id: '',
+                meta_producto_id: ''
             },
         }
     },
@@ -105,7 +103,7 @@ export default {
                 axios.post('/proyectos-productos', this.form_meta_producto).then(res=>{
                     // console.log(res)
                     if (res.data.status) {
-                        alert(res.data.message)
+                         this.$swalMini('success', `${res.data.message}.`)
                         this.getProyectoMetas()
                         this.resetForm()
                     }
@@ -120,7 +118,7 @@ export default {
             axios.delete(`/proyectos-productos/${id}`).then(res=>{
                 console.log(res)
                 if (res.data.status) {
-                    alert(res.data.message)
+                     this.$swalMini('success', `${res.data.message}.`)
                     this.getProyectoMetas()
                 }
             }).catch(error=>{
