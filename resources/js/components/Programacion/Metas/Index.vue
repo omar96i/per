@@ -80,12 +80,12 @@ export default{
         openFormModal(tipo, data){
             this.form_modal = false
             if (tipo == 'insert') {
-                console.log('entro');
                 this.data_meta = {
                     id: '',
                     periodo_id: this.periodo.id,
                     hecho_id: '',
                     politica_id: '',
+                    estrategia_id: '',
                     programa_id: '',
                     indicador_id: '',
                     user_id: '',
@@ -123,7 +123,7 @@ export default{
         },
         getData(){
             axios.get('/metas-productos-get').then(res=>{
-                console.log(res);
+                // console.log(res);
                 this.metas = res.data.metas
             }).catch(error => {
                 console.log(error);

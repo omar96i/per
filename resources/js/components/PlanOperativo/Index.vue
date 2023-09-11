@@ -81,16 +81,16 @@
                             <td>{{presupuesto.codigo}}</td>
                             <td>{{presupuesto.inicial}}</td>
                             <td class="p-1">
-                                <button type="button" class="col-12 btn btn-label-secondary" title="Añadir movimientos" @click="openModalMovimientos(presupuesto.id)">{{presupuesto.definitivo}}</button>
+                                <button type="button" class="col-12 btn btn-label-secondary text-nowrap"  @click="openModalMovimientos(presupuesto.id)"><i class='bx bx-plus-circle bx-tada bx-rotate-90 mx-1' ></i>{{presupuesto.definitivo}}</button>
                             </td>
                             <td class="p-1">
-                                <button type="button" class="col-12 btn btn-label-secondary"  @click="openModalAdd(presupuesto.id, 'disponibilidad')">{{presupuesto.disponibilidad}}</button>
+                                <button type="button" class="col-12 btn btn-label-secondary text-nowrap"  @click="openModalAdd(presupuesto.id, 'disponibilidad')"><i class='bx bx-plus-circle bx-tada bx-rotate-90 mx-1' ></i>{{presupuesto.disponibilidad}}</button>
                             </td>
                             <td class="p-1">
-                                <button type="button" class="col-12 btn btn-label-secondary" @click="openModalAdd(presupuesto.id, 'registros')">{{presupuesto.registros}}</button>
+                                <button type="button" class="col-12 btn btn-label-secondary text-nowrap" @click="openModalAdd(presupuesto.id, 'registros')"><i class='bx bx-plus-circle bx-tada bx-rotate-90 mx-1' ></i>{{presupuesto.registros}}</button>
                             </td>
                             <td class="p-1">
-                                <button type="button" class="col-12 btn btn-label-secondary" @click="openModalAdd(presupuesto.id, 'pagos')">{{presupuesto.pagos}}</button>
+                                <button type="button" class="col-12 btn btn-label-secondary text-nowrap" @click="openModalAdd(presupuesto.id, 'pagos')"><i class='bx bx-plus-circle bx-tada bx-rotate-90 mx-1' ></i>{{presupuesto.pagos}}</button>
                             </td>
                             <td rowspan="0" v-if="index == 0">
                                 <p v-for="producto in proyecto.productos">
@@ -272,15 +272,16 @@ export default{
                 $('#modalAdd').modal({backdrop: 'static', keyboard: false}).modal('show')
             }, 300);
         },
-        closeModal(ModalId){
+        closeModal(ModalId, reload = true){
             $(`#${ModalId}`).modal('hide')
             setTimeout(() => {
                 this.modal_general = false
                 this.modal_movimientos = false
-                this.getProyectos()
+                if (reload) {
+                    this.getProyectos()
+                }
             }, 300);
         },
-
     },
 }
 </script>

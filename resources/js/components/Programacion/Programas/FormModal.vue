@@ -85,7 +85,7 @@ export default {
     methods:{
         getHechos(){
             axios.get('/hechos-get').then(res=>{
-                console.log(res);
+                // console.log(res);
                 this.hechos = res.data.hechos
             }).catch(error => {
                 console.log(error);
@@ -93,7 +93,7 @@ export default {
         },
         getPoliticas(){
             axios.get('/politicas-get').then(res=>{
-                console.log(res);
+                // console.log(res);
                 this.politicas = res.data.politicas
             }).catch(error => {
                 console.log(error);
@@ -101,7 +101,7 @@ export default {
         },
         getEstrategias(){
             axios.get('/estrategias-get').then(res=>{
-                console.log(res);
+                // console.log(res);
                 this.estrategias = res.data.estrategias
             }).catch(error => {
                 console.log(error);
@@ -110,7 +110,7 @@ export default {
         saveProduct(){
             if (this.programa.id) {
                 axios.put(`/programas/${this.programa.id}`, this.programa).then(res=>{
-                    console.log(res)
+                    // console.log(res)
                     if (res.data.status) {
                          this.$swalMini('success', `${res.data.message}.`)
                         this.$parent.closeFormModal()
@@ -120,7 +120,7 @@ export default {
                 })
             } else {
                 axios.post('/programas', this.programa).then(res=>{
-                    console.log(res)
+                    // console.log(res)
                     if (res.data.status) {
                          this.$swalMini('success', `${res.data.message}.`)
                         this.$parent.closeFormModal()

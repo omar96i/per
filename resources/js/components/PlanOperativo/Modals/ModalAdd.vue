@@ -5,7 +5,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalFullTitle">{{ column.toUpperCase() }}</h5>
-                    <button type="button" class="btn-close" @click="$parent.closeModal('modalAdd')"></button>
+                    <button type="button" class="btn-close" @click="$parent.closeModal('modalAdd', false)"></button>
                 </div>
                 <div class="modal-body">
                     <form @submit.prevent="saveColumn()" class="col">
@@ -21,11 +21,19 @@
                         </div>
                         <div class="mb-2">
                             <b>Ultima Actualización:</b>
-                            <p>{{  presupuesto.disponibilidad == 0 ? 'No ejecutado' : 'Ejecutado' }}</p>
+                            <p>{{  presupuesto[`${column}`] == 0 ? 'No ejecutado' : 'Ejecutado' }}</p>
                         </div>
-                        <div class="mb-2">
+                        <div class="mb-2" v-if="column == 'disponibilidad'">
                             <b>Presupuesto definitivo $:</b>
                             <p>{{  presupuesto.definitivo }}</p>
+                        </div>
+                        <div class="mb-2" v-if="column == 'registros'">
+                            <b>Presupuesto disponible $:</b>
+                            <p>{{  presupuesto.disponibilidad }}</p>
+                        </div>
+                        <div class="mb-2" v-if="column == 'pagos'">
+                            <b>Presupuesto registrado $:</b>
+                            <p>{{  presupuesto.registros }}</p>
                         </div>
                         <div class="mb-2">
                             <b>Ultima ejecución $:</b>
@@ -76,16 +84,28 @@ export default {
             })
         },
         saveColumn(){
-            axios.put(`/proyecto-presupuestos/${this.presupuesto.id}`, this.presupuesto).then(res=>{
-                console.log(res)
-                if (res.data.status) {
-                    this.$swalMini('success', `${this.column} actualizada con exito!`);
-                    this.$parent.closeModal('modalAdd')
-                }
-            }).catch(error=>{
-                console.log(error.response)
-                this.$swalMini('error', `Se ha producido un error al realizar la acción.`);
-            })
+            let val_max = 0
+            if (this.column == 'disponibilidad') {
+                val_max = this.presupuesto.definitivo
+            }else if(this.column == 'registros'){
+                val_max = this.presupuesto.disponibilidad
+            }else if(this.column == 'pagos'){
+                val_max = this.presupuesto.registros
+            }
+            if (this.presupuesto[`${this.column}`] > val_max) {
+                this.$swalMini('error', `El valor de ${this.column}  supera ${val_max}!`);
+            }else{
+                axios.put(`/proyecto-presupuestos/${this.presupuesto.id}`, this.presupuesto).then(res=>{
+                    console.log(res)
+                    if (res.data.status) {
+                        this.$swalMini('success', `${this.column} actualizada con exito!`);
+                        this.$parent.closeModal('modalAdd')
+                    }
+                }).catch(error=>{
+                    console.log(error.response)
+                    this.$swalMini('error', `Se ha producido un error al realizar la acción.`);
+                })
+            }
         }
     }
 }
