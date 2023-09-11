@@ -31,4 +31,8 @@ class Estrategia extends Model
     public function politica(){
         return $this->belongsTo(Politica::class, 'periodo_id');
     }
+
+    public function programas(){
+        return $this->hasMany(Programa::class, 'estrategia_id');
+    }
 }

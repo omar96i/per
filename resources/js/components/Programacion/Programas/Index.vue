@@ -13,6 +13,7 @@
                         <!-- <th>Periodo</th> -->
                         <th>Hecho</th>
                         <th>Periodo</th>
+                        <th>Estrategia</th>
                         <th>Nombre</th>
                         <th>Peso(%)</th>
                         <th>Descripción</th>
@@ -24,6 +25,7 @@
                         <!-- <td>{{ hecho.periodo }}</td> -->
                         <td>{{ programa.hecho.nombre }}</td>
                         <td>{{ programa.politica.nombre }}</td>
+                        <td>{{ programa.estrategia?.nombre }}</td>
                         <td>{{ programa.nombre }}</td>
                         <td>{{ programa.peso }}</td>
                         <td>{{ programa.descripcion }}</td>
@@ -71,11 +73,12 @@ export default{
         openFormModal(tipo, data){
             this.form_modal = false
             if (tipo == 'insert') {
-                console.log('entro');
                 this.data_programa = {
                     id: '',
                     hecho_id: '',
                     periodo_id: this.periodo.id,
+                    politica_id: '',
+                    estrategia_id: '',
                     nombre: '',
                     peso: '',
                     descripcion: ''
@@ -97,7 +100,7 @@ export default{
         },
         getData(){
             axios.get('/programas-get').then(res=>{
-                console.log(res);
+                // console.log(res);
                 this.programas = res.data.programas
             }).catch(error => {
                 console.log(error);

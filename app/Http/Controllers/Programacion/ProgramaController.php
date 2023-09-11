@@ -22,7 +22,7 @@ class ProgramaController extends Controller
 
     public function get()
     {
-        $programas = Programa::with('hecho', 'politica')->get();
+        $programas = Programa::with('hecho', 'politica', 'estrategia')->get();
         return response()->json(['programas' => $programas]);
     }
 
