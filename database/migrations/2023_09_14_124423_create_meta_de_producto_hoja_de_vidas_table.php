@@ -13,25 +13,22 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('meta_de_producto_evidencias', function (Blueprint $table) {
+        Schema::create('meta_de_producto_hoja_de_vidas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('meta_de_producto_id')->nullable();
-            $table->text('meta_alcanzada')->nullable();
-            $table->text('nueva_actividad')->nullable();
-            $table->string('codigo')->nullable();
+            $table->unsignedBigInteger('meta_producto_id');
             $table->string('linea_base')->nullable();
-            $table->text('definiciones')->nullable();
-            $table->string('medicion')->nullable();
-            $table->string('formula')->nullable();
-            $table->string('variables')->nullable();
+            $table->string('periocidad')->nullable();
             $table->string('fuente')->nullable();
+            $table->string('periodo_fuente')->nullable();
             $table->string('localizacion')->nullable();
             $table->string('poblacion')->nullable();
-            $table->string('periocidad')->nullable();
+            $table->text('definiciones')->nullable();
+            $table->string('valoracion')->nullable();
+            $table->string('medicion')->nullable();
+            $table->string('unidad_medida')->nullable();
+            $table->string('formula')->nullable();
+            $table->string('variables')->nullable();
             $table->text('observaciones')->nullable();
-            $table->text('actividades_realizadas')->nullable();
-            $table->text('archivos')->nullable();
-            $table->string('tipo')->nullable();
             $table->timestamps();
         });
     }
@@ -43,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('meta_de_producto_evidencias');
+        Schema::dropIfExists('meta_de_producto_hoja_de_vidas');
     }
 };

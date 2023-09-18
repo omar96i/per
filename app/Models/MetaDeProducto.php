@@ -21,6 +21,7 @@ class MetaDeProducto extends Model
         'codigo',
         'nombre',
         'indicador_meta',
+        'siglas_indicador',
         'peso',
         'linea_base',
         'year',
@@ -28,6 +29,10 @@ class MetaDeProducto extends Model
         'meta_year_2',
         'meta_year_3',
         'meta_year_4',
+        'ejecucion_year_1',
+        'ejecucion_year_2',
+        'ejecucion_year_3',
+        'ejecucion_year_4',
         'meta_cuatrienio',
         'recurso_year_1',
         'recurso_year_2',
@@ -56,11 +61,19 @@ class MetaDeProducto extends Model
         return $this->belongsTo(Indicador::class, 'indicador_id');
     }
 
+    public function hoja_de_vida(){
+        return $this->hasOne(MetaDeProductoHojaDeVida::class, 'meta_producto_id');
+    }
+
     public function user_asignado(){
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function evidencias(){
-        return $this->hasMany(MetaDeProductoEvidencia::class);
+    public function proyectos(){
+        return $this->hasMany(ProyectoProducto::class, 'meta_producto_id');
+    }
+
+    public function reportes(){
+        return $this->hasMany(MetaDeProductoReporte::class, 'meta_producto_id');
     }
 }

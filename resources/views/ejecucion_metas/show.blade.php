@@ -24,11 +24,11 @@ $containerNav = 'container-fluid';
             <div class="row row-bordered g-0">
                 <!-- Title -->
                 <div class="col-md-12">
-                    <h5 class="card-header m-0 me-2 pb-3">Lista de Metas Asignadas</h5>
+                    <h5 class="card-header m-0 me-2 pb-3">Plan Indicativo - Ejecucion de meta</h5>
                 </div>
                 <div class="col-md-12">
-                    <div class="card-body pt-0" id="app">
-                        <ejecucion-meta-index :periodo="{{$periodo_activo}}"></ejecucion-meta-index>
+                    <div class="card-body" id="app">
+                        <ejecucion-meta-show :meta="{{$meta}}"></ejecucion-meta-show>
                     </div>
                 </div>
             </div>

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('codigo')->nullable();
             $table->text('nombre')->nullable();
             $table->string('indicador_meta')->nullable();
+            $table->string('siglas_indicador')->nullable();
             $table->string('peso')->nullable();
             $table->string('linea_base')->nullable();
             $table->string('year')->nullable();
@@ -31,6 +32,10 @@ return new class extends Migration
             $table->string('meta_year_2')->nullable();
             $table->string('meta_year_3')->nullable();
             $table->string('meta_year_4')->nullable();
+            $table->float('ejecucion_year_1')->nullable();
+            $table->float('ejecucion_year_2')->nullable();
+            $table->float('ejecucion_year_3')->nullable();
+            $table->float('ejecucion_year_4')->nullable();
             $table->string('meta_cuatrienio')->nullable();
             $table->string('recurso_year_1')->nullable();
             $table->string('recurso_year_2')->nullable();

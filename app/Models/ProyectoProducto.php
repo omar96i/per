@@ -24,7 +24,7 @@ class ProyectoProducto extends Model
     }
 
     public function meta_producto(){
-        return $this->belongsTo(MetaDeProducto::class);
+        return $this->belongsTo(MetaDeProducto::class, 'meta_producto_id');
     }
 
     public function dependencia(){

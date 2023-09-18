@@ -183,9 +183,6 @@ export default{
         this.getProyectos()
     },
     methods:{
-        evento(){
-            console.log('hola')
-        },
         getDataSelect(){
             // hechos
             axios.get('/hechos-get').then(res=>{

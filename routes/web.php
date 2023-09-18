@@ -125,9 +125,22 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('metas-productos')->controller(MetaDeProductoController::class)->group(function () {
-        Route::post('/store/evidencias', 'storeEvidencias')->name('metas-productos.store.evidencias');
+        // corregir confusion de reportes y evidencias
         Route::get('/evidencias', 'indexEvidencias')->name('metas-productos.evidencias.index');
-        Route::get('/evidencias/form/{meta}', 'indexEvidenciasForm')->name('metas-productos.evidencias.form.index');
+        Route::get('/evidencias/show/{meta}', 'showMetaEvidencias')->name('show-meta-evidencias.show');
+
+        Route::post('/store/reporte', 'storeReportes')->name('metas-productos.store.reporte');
+        Route::put('/update/reporte/{id}', 'updateReportes')->name('metas-productos.update.reporte');
+        
+        Route::post('/store/evidencias', 'storeEvidencias')->name('metas-productos.store.evidencias');
+        Route::get('/get/evidencias/{reporte}', 'getEvidencias')->name('metas-productos.evidencias.get');
+        Route::delete('/delete/evidencia/{evidencia}', 'deleteEvidencias')->name('metas-productos.evidencias.delete');
+        Route::get('/descargar-archivo/{id}', 'descargar')->name('metas-productos.evidencias.descargar');
+
+        
+        Route::post('/store/hoja-de-vida', 'storeHojaDeVida')->name('metas-productos.store.hojadevida');
+        Route::put('/update/hoja-de-vida/{id}', 'updateHojaDeVida')->name('metas-productos.store.hojadevida');
+
     });
 
     Route::get('/resultados', function(){
@@ -163,7 +176,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('proyecto-presupuestos', ProyectoPresupuestosController::class);
     Route::get('/get-presupuesto/{id}', [ProyectoPresupuestosController::class, 'getPresupuesto'])->name('proyecto-presupuestos.getPresupuesto');
-    // Route::post('/save-presupuesto-column/{id}', [ProyectoPresupuestosController::class, 'savePresupuestoColumn'])->name('proyecto-presupuestos.savePresupuestoColumn');
 
     Route::resource('proyectos-movimientos', ProyectoMovimientosFinancierosController::class);
 
