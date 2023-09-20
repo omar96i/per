@@ -92,6 +92,7 @@ export default{
                     codigo: '',
                     nombre: '',
                     indicador_meta: '',
+                    siglas_indicador: '',
                     peso: '',
                     linea_base: '',
                     year: (new Date).getFullYear(),
@@ -122,7 +123,7 @@ export default{
             }, 300);
         },
         getData(){
-            axios.get('/metas-productos-get').then(res=>{
+            axios.get('/metas/getAll').then(res=>{
                 // console.log(res);
                 this.metas = res.data.metas
             }).catch(error => {
@@ -130,13 +131,13 @@ export default{
             })
         },
         deleteData(id){
-            axios.delete(`/metas-productos/${id}`).then(res=>{
+            axios.delete(`/metas/${id}`).then(res=>{
                 if(res.data.status){
                      this.$swalMini('success', `${res.data.message}.`)
                     this.getData()
                 }
             }).catch(error => {
-                console.log(error);
+                console.log(error.response);
             })
         },
     },

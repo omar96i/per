@@ -57,10 +57,16 @@
                                         <input type="text" class="form-control" id="input-meta" v-model="meta.nombre" required>
                                     </div>
                                 </div>
-                                <div class="mb-3">
+                                <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="input-idicador_meta">Indicador de meta</label>
                                     <div class="input-group input-group-merge">
                                         <input type="text" class="form-control" id="input-idicador_meta" v-model="meta.indicador_meta" required>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label class="form-label" for="input-idicador_meta">Siglas del Indicador</label>
+                                    <div class="input-group input-group-merge">
+                                        <input type="text" class="form-control" id="input-idicador_meta" v-model="meta.siglas_indicador" required>
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -85,37 +91,40 @@
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="input-año">Año</label>
                                     <div class="input-group input-group-merge">
-                                        <input type="number" class="form-control" id="input-año" v-model="meta.year" placeholder="Ingrese un año" min="1900" max="2099" required>
+                                        <select class="form-select" v-model="meta.year" name="" id="">
+                                            <option value="" selected disabled>Seleccionar...</option>
+                                            <option v-for="year in Array.from({length: 70}, (v, i) => i + (2099 - 80))" :value="year">{{ year }}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="input-meta_cuatrienio">Meta cuatrienio</label>
                                     <div class="input-group input-group-merge">
-                                        <input type="text" class="form-control" id="input-meta_cuatrienio" v-model="meta.meta_cuatrienio" required>
+                                        <input type="number" class="form-control" id="input-meta_cuatrienio" v-model="meta.meta_cuatrienio" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="input-meta_year_1">Meta año 1</label>
                                     <div class="input-group input-group-merge">
-                                        <input type="year" class="form-control" id="input-meta_year_1" v-model="meta.meta_year_1" required>
+                                        <input type="number" step=0.01 class="form-control" id="input-meta_year_1" v-model="meta.meta_year_1" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="input-meta_year_2">Meta año 2</label>
                                     <div class="input-group input-group-merge">
-                                        <input type="year" class="form-control" id="input-meta_year_2" v-model="meta.meta_year_2" required>
+                                        <input type="number" step=0.01 class="form-control" id="input-meta_year_2" v-model="meta.meta_year_2" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="input-meta_year_3">Meta año 3</label>
                                     <div class="input-group input-group-merge">
-                                        <input type="year" class="form-control" id="input-meta_year_3" v-model="meta.meta_year_3" required>
+                                        <input type="number" step=0.01 class="form-control" id="input-meta_year_3" v-model="meta.meta_year_3" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="input-meta_year_4">Meta año 4</label>
                                     <div class="input-group input-group-merge">
-                                        <input type="year" class="form-control" id="input-meta_year_4" v-model="meta.meta_year_4" required>
+                                        <input type="number" step=0.01 class="form-control" id="input-meta_year_4" v-model="meta.meta_year_4" required>
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -184,63 +193,47 @@ export default {
         }
     },
     created() {
-        this.getHechos()
-        this.getPoliticas()
-        this.getEstrategias()
-        this.getProgramas()
-        this.getIndicadores()
-        this.getGerentes()
+        this.getDataSelect()
     },
     methods:{
-        getHechos(){
+        getDataSelect(){
             axios.get('/hechos-get').then(res=>{
                 this.hechos = res.data.hechos
             }).catch(error => {
                 console.log(error);
             })
-        },
-        getPoliticas(){
+
             axios.get('/politicas-get').then(res=>{
                 console.log(res);
                 this.politicas = res.data.politicas
             }).catch(error => {
                 console.log(error);
             })
-        },
-        getEstrategias(){
+
             axios.get('/estrategias-get').then(res=>{
                 console.log(res);
                 this.estrategias = res.data.estrategias
             }).catch(error => {
                 console.log(error);
             })
-        },
-        getProgramas(){
+
             axios.get('/programas-get').then(res=>{
                 this.programas = res.data.programas
             }).catch(error => {
                 console.log(error);
             })
-        },
-        getIndicadores(){
-            axios.get('/indicadores-get').then(res=>{
+
+            axios.get('/metas/indicadores').then(res=>{
                 console.log(res);
                 this.indicadores = res.data.indicadores
             }).catch(error => {
                 console.log(error);
             })
         },
-        getGerentes(){
-            // axios.get('/gerentes-get').then(res=>{
-            //     console.log(res);
-            // }).catch(error => {
-            //     console.log(error);
-            // })
-        },
         saveProduct(){
             if (this.meta.id) {
                 console.log(this.meta);
-                axios.put(`/metas-productos/${this.meta.id}`, this.meta).then(res=>{
+                axios.put(`/metas/${this.meta.id}`, this.meta).then(res=>{
                     console.log(res)
                     if (res.data.status) {
                          this.$swalMini('success', `${res.data.message}.`)
@@ -250,7 +243,7 @@ export default {
                     console.log(error.response)
                 })
             } else {
-                axios.post('/metas-productos', this.meta).then(res=>{
+                axios.post('/metas', this.meta).then(res=>{
                     console.log(res)
                     if (res.data.status) {
                          this.$swalMini('success', `${res.data.message}.`)

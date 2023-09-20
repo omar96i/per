@@ -11,6 +11,7 @@ class MetaDeProductoReporte extends Model
 
     protected $fillable = [
        'meta_producto_id',
+       'meta_año',
        'fecha_reporte',
        'meta_alcanzada',
        'actividad',

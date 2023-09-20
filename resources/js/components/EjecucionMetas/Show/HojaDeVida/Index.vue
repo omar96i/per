@@ -20,7 +20,7 @@
                     </div>
                     <div class="col-12 col-sm-6">
                         <label for="siglas" class="form-label">Siglas indicador:</label>
-                        <input :value="meta.indicador_meta" type="text" class="form-control" id="siglas"
+                        <input :value="meta.siglas_indicador" type="text" class="form-control" id="siglas"
                             disabled>
                     </div>
                 </div>
@@ -148,29 +148,30 @@ export default {
         },
         submitForm() {
             if (this.hoja_vida.id) {
-                axios.put(`/metas-productos/update/hoja-de-vida/${this.hoja_vida.id}`, this.formData)
-                    .then(res => {
-                        // console.log(res)
-                        if (res.data.status) {
-                            this.$swalMini('success', `${res.data.message}`);
-                        }
-                    })
-                    .catch(error => {
-                        console.log(error.response)
-                        this.$swalMini('error', `Se ha producido un error al realizar la acción.`);
-                    })
+                axios.put(`/metas/hoja-vida/${this.hoja_vida.id}`, this.hoja_vida)
+                .then(res => {
+                    console.log(res)
+                    if (res.data.status) {
+                        this.$swalMini('success', `${res.data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.log(error.response)
+                    this.$swalMini('error', `Se ha producido un error al realizar la acción.`);
+                })
             } else {
-                axios.post('/metas-productos/store/hoja-de-vida', this.hoja_vida)
-                    .then(res => {
-                        // console.log(res)
-                        if (res.data.status) {
-                            this.$swalMini('success', `${res.data.message}`);
-                        }
-                    })
-                    .catch(error => {
-                        console.log(error.response)
-                        this.$swalMini('error', `Se ha producido un error al realizar la acción.`);
-                    })
+                axios.post('/metas/hoja-vida', this.hoja_vida)
+                .then(res => {
+                    console.log(res)
+                    if (res.data.status) {
+                        this.$swalMini('success', `${res.data.message}`);
+                        this.hoja_vida = res.data.hoja_vida
+                    }
+                })
+                .catch(error => {
+                    console.log(error.response)
+                    this.$swalMini('error', `Se ha producido un error al realizar la acción.`);
+                })
             }
         }
     }

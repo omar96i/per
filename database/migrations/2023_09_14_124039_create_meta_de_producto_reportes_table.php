@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('meta_de_producto_reportes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('meta_producto_id');
+            $table->string('meta_año');
             $table->date('fecha_reporte');
-            $table->text('meta_alcanzada');
+            $table->float('meta_alcanzada');
             $table->text('actividad');
             $table->timestamps();
         });

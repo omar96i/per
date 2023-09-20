@@ -4,6 +4,9 @@ window.axios = require('axios');
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss'
 
+import { Chart as ChartJS, CategoryScale, LinearScale, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale, ChartDataLabels);
 
 import UserIndex from './components/Users/Index.vue';
 import PeriodosIndex from './components/Periodos/Index.vue';

@@ -98,7 +98,7 @@ export default {
     },
     methods: {
         getEvidencias() {
-            axios.get(`/metas-productos/get/evidencias/${this.reporte_id}`)
+            axios.get(`/metas/evidencias/${this.reporte_id}`)
                 .then(res => {
                     this.evidencias = res.data.evidencias
                 })
@@ -115,7 +115,7 @@ export default {
                 formData.append('archivos[]', this.formData.archivos[i]);
             }
 
-            axios.post('/metas-productos/store/evidencias', formData)
+            axios.post('/metas/evidencias/', formData)
                 .then(res => {
                     if (res.data.status) {
                         this.$swalMini('success', `${res.data.message}`);
@@ -143,7 +143,7 @@ export default {
         },
 
         deleteEvidencia(evidencia_id) {
-            axios.delete(`/metas-productos/delete/evidencia/${evidencia_id}`).then(res => {
+            axios.delete(`/metas/evidencias/${evidencia_id}`).then(res => {
                 console.log(res)
                 if (res.data.status) {
                     this.$swalMini('success', `${res.data.message}.`)
@@ -155,7 +155,7 @@ export default {
         },
 
         descargar(id) {
-            window.location.href = `/metas-productos/descargar-archivo/${id}`;
+            window.location.href = `/metas/evidencias/download/${id}`;
         }
     }
 }

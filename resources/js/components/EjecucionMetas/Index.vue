@@ -125,14 +125,14 @@ export default{
             })
         },
         getData(){
-            axios.get('/metas-productos-get-by-user').then(res=>{
+            axios.get('/metas/getAll').then(res=>{
                 this.metas = res.data.metas
             }).catch(error => {
                 console.log(error);
             })
         },
         showMeta(id){
-            window.location = `/metas-productos/evidencias/show/${id}`
+            window.location = `/metas/reportes/${id}`
         }
     },
 }
