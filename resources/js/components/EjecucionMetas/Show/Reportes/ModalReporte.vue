@@ -67,7 +67,7 @@ export default {
             const fecha = new Date(`${this.reporte.fecha_reporte}T00:00:00`);
             this.reporte.meta_año = fecha.getFullYear();
             if (this.reporte?.id) {
-                axios.put(`/metas/reportes/${this.reporte.id}`, this.reporte)
+                axios.put(`/metas/reportes/store/${this.reporte.id}`, this.reporte)
                 .then(res => {
                     // console.log(res)
                     if (res.data.status) {
@@ -81,7 +81,7 @@ export default {
                     this.$parent.closeModal('modalReporte', true)
                 });
             } else {
-                axios.post('/metas/reportes/', this.reporte)
+                axios.post('/metas/reportes/store', this.reporte)
                 .then(res => {
                     // console.log(res)
                     if (res.data.status) {

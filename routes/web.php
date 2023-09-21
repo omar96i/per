@@ -133,8 +133,8 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('reportes')->group(function (){
             Route::get('/{meta}', [ReportesController::class, 'index'])->name('metas.reportes.index');
             Route::get('/get/{id}', [ReportesController::class, 'show'])->name('metas.reportes.get');
-            Route::post('/', [ReportesController::class, 'store'])->name('metas.reportes.store');
-            Route::put('/{id}', [ReportesController::class, 'update'])->name('metas.reportes.update');
+            Route::post('/store', [ReportesController::class, 'store'])->name('metas.reportes.store');
+            Route::put('/store/{id}', [ReportesController::class, 'update'])->name('metas.reportes.update');
             Route::delete('/{reporte}', [ReportesController::class, 'destroy'])->name('metas.reportes.destroy');
         });
 

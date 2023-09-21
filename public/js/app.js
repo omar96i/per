@@ -20530,7 +20530,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   created: function created() {
     var _console, _this$data_reporte;
-    /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("1489569843_0", this.meta.year)));
+    /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("377295809_0", this.meta.year)));
     if ((_this$data_reporte = this.data_reporte) !== null && _this$data_reporte !== void 0 && _this$data_reporte.id) {
       this.reporte = this.data_reporte;
     }
@@ -20542,27 +20542,27 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var fecha = new Date("".concat(this.reporte.fecha_reporte, "T00:00:00"));
       this.reporte.meta_año = fecha.getFullYear();
       if ((_this$reporte = this.reporte) !== null && _this$reporte !== void 0 && _this$reporte.id) {
-        axios.put("/metas/reportes/".concat(this.reporte.id), this.reporte).then(function (res) {
+        axios.put("/metas/reportes/store/".concat(this.reporte.id), this.reporte).then(function (res) {
           // console.log(res)
           if (res.data.status) {
             _this.$swalMini('success', "".concat(res.data.message));
           }
         })["catch"](function (error) {
           var _console2;
-          /* eslint-disable */(_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("1489569843_1", error.response)));
+          /* eslint-disable */(_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("377295809_1", error.response)));
           _this.$swalMini('error', "Se ha producido un error al realizar la acci\xF3n.");
         })["finally"](function (f) {
           _this.$parent.closeModal('modalReporte', true);
         });
       } else {
-        axios.post('/metas/reportes/', this.reporte).then(function (res) {
+        axios.post('/metas/reportes/store', this.reporte).then(function (res) {
           // console.log(res)
           if (res.data.status) {
             _this.$swalMini('success', "".concat(res.data.message));
           }
         })["catch"](function (error) {
           var _console3;
-          /* eslint-disable */(_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("1489569843_2", error.response)));
+          /* eslint-disable */(_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("377295809_2", error.response)));
           _this.$swalMini('error', "Se ha producido un error al realizar la acci\xF3n.");
         })["finally"](function (f) {
           _this.$parent.closeModal('modalReporte', true);
