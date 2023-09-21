@@ -115,7 +115,7 @@ export default {
                 formData.append('archivos[]', this.formData.archivos[i]);
             }
 
-            axios.post('/metas/evidencias/', formData)
+            axios.post('/metas/evidencias', formData)
                 .then(res => {
                     if (res.data.status) {
                         this.$swalMini('success', `${res.data.message}`);

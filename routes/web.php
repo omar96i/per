@@ -134,7 +134,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/{meta}', [ReportesController::class, 'index'])->name('metas.reportes.index');
             Route::get('/get/{id}', [ReportesController::class, 'show'])->name('metas.reportes.get');
             Route::post('/', [ReportesController::class, 'store'])->name('metas.reportes.store');
-            Route::put('/{id}', [ReportesController::class, 'update'])->name('metas.reportes.store');
+            Route::put('/{id}', [ReportesController::class, 'update'])->name('metas.reportes.update');
             Route::delete('/{reporte}', [ReportesController::class, 'destroy'])->name('metas.reportes.destroy');
         });
 
@@ -148,8 +148,8 @@ Route::middleware(['auth'])->group(function () {
 
         // Rutas para Hoja de Vida de Metas
         Route::prefix('hoja-vida')->group(function (){
-            Route::post('/', [HojaDeVidaController::class, 'store'])->name('metas.evidencias.store');
-            Route::put('/{id}', [HojaDeVidaController::class, 'update'])->name('metas.evidencias.update');
+            Route::post('/', [HojaDeVidaController::class, 'store'])->name('metas.hoja-vida.store');
+            Route::put('/{id}', [HojaDeVidaController::class, 'update'])->name('metas.hoja-vida.update');
         });
     });
 
@@ -165,7 +165,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/politicas-get', [PoliticaController::class, 'get'])->name('politicas.get');
 
     Route::resource('estrategias', EstrategiaController::class);
-    Route::get('/estrategias-get', [EstrategiaController::class, 'get'])->name('politicas.get');
+    Route::get('/estrategias-get', [EstrategiaController::class, 'get'])->name('estrategias.get');
 
     Route::resource('programas', ProgramaController::class);
     Route::get('/programas-get', [ProgramaController::class, 'get'])->name('programas.get');

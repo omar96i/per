@@ -20,6 +20,21 @@ class ReportesController extends Controller
         $meta->load('indicador', 'proyectos.proyecto', 'hoja_de_vida');
         // listar los 4 reportes de cada año
         $meta->programacion_meta = $meta->avanceFisico();
+        // if ($meta->indicador_id == 1) {
+        //     $val = 0;
+        //     foreach ($meta->programacion_meta as $rep) {
+        //         if ($val > $rep->meta_alcanzada) {
+        //             $val = $rep->meta_alcanzada;
+        //         }
+        //     }
+        //     $meta->porcentaje_avance = $val * 100;
+        // }else{
+        //     $sum = 0;
+        //     foreach ($meta->meta_alcanzada as $rep) {
+        //         $sum += $rep->meta_alcanzada;
+        //     }
+        //     $meta->porcentaje_avance = $sum * 100;
+        // }
     
         return view('ejecucion_metas.show', ['meta' => $meta]);
     }
