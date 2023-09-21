@@ -25,19 +25,19 @@
                         </div>
                         <div class="mb-2" v-if="column == 'disponibilidad'">
                             <b>Presupuesto definitivo $:</b>
-                            <p>{{  presupuesto.definitivo }}</p>
+                            <p>{{  this.$parent.formatoMoneda(presupuesto.definitivo) }}</p>
                         </div>
                         <div class="mb-2" v-if="column == 'registros'">
                             <b>Presupuesto disponible $:</b>
-                            <p>{{  presupuesto.disponibilidad }}</p>
+                            <p>{{  this.$parent.formatoMoneda(presupuesto.disponibilidad) }}</p>
                         </div>
                         <div class="mb-2" v-if="column == 'pagos'">
                             <b>Presupuesto registrado $:</b>
-                            <p>{{  presupuesto.registros }}</p>
+                            <p>{{ this.$parent.formatoMoneda(presupuesto.registros) }}</p>
                         </div>
                         <div class="mb-2">
                             <b>Ultima ejecución $:</b>
-                            <p>{{  presupuesto[`${column}`] }}</p>
+                            <p>{{  this.$parent.formatoMoneda(ult_ejecutado) }}</p>
                         </div>
                         <div class="row mb-3 align-items-center">
                             <label for="input_valor" class="col-sm-4 col-form-label"><b>Valor {{ column }}$:</b></label>
@@ -67,6 +67,7 @@ export default {
     data() {
         return {
             presupuesto: {},
+            ult_ejecutado: 0,
         }
     },
     created() {
@@ -78,6 +79,7 @@ export default {
                 console.log(res.data);
                 if (res.data.status) {
                     this.presupuesto = res.data.presupuesto
+                    this.ult_ejecutado = this.presupuesto[`${this.column}`]
                 }
             }).catch(error => {
                 console.log(error.response)

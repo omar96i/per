@@ -75,7 +75,7 @@ export default {
             }
         },
         getDataSelect(){
-            axios.get('metas-productos-get').then(res => {
+            axios.get('metas/get').then(res => {
                 // console.log(res.data);
                 this.select_metas_productos = res.data.metas
             }).catch(error => {

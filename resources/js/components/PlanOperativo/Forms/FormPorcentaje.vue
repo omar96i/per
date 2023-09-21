@@ -18,11 +18,11 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>$  {{ proyecto.total_iniciales}}</td>
-                                    <td>$  {{ proyecto.total_definitivos}}</td>
-                                    <td>$  {{ proyecto.total_disponibilidades}}</td>
-                                    <td>$  {{ proyecto.total_registros}}</td>
-                                    <td>$  {{ proyecto.total_pagos}}</td>
+                                    <td>{{ this.$parent.formatoMoneda(proyecto.total_iniciales) }}</td>
+                                    <td>{{ this.$parent.formatoMoneda(proyecto.total_definitivos) }}</td>
+                                    <td>{{ this.$parent.formatoMoneda(proyecto.total_disponibilidades) }}</td>
+                                    <td>{{ this.$parent.formatoMoneda(proyecto.total_registros) }}</td>
+                                    <td>{{ this.$parent.formatoMoneda(proyecto.total_pagos) }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -49,53 +49,86 @@
                                     <td class="p-1">
                                         <div class="input-group mb-1">
                                             <span class="input-group-text" id="input-porcentaje_definitivo">En %</span>
-                                            <input type="text" class="form-control" :class="[{['is-invalid text-danger'] : validarPorcentaje('porcentaje_definitivo') }, 'form-control']" v-model="meta.porcentaje_definitivo" aria-describedby="input-porcentaje_definitivo" required>
+                                            <input type="text" class="form-control"
+                                                :class="[{ ['is-invalid text-danger']: validarPorcentaje('porcentaje_definitivo') }, 'form-control']"
+                                                v-model="meta.porcentaje_definitivo"
+                                                aria-describedby="input-porcentaje_definitivo"
+                                                @input="meta.valor_definitivo = (meta.porcentaje_definitivo * proyecto.total_definitivos) / 100"
+                                                required>
                                             <div class="invalid-feedback">
                                                 Los valores supera el 100 %
                                             </div>
                                         </div>
                                         <div class="input-group input-group-sm">
                                             <span class="input-group-text" id="input-valor_definitivo">En valor $:</span>
-                                            <input type="text" :class="[{'text-danger' : validarPorcentaje('porcentaje_definitivo') }, 'form-control ']" :value="(meta.porcentaje_definitivo / 100) *  proyecto.total_definitivos" aria-describedby="input-valor_definitivo" disabled>
+                                            <input type="text"
+                                                :class="[{ 'text-danger': validarPorcentaje('porcentaje_definitivo') }, 'form-control ']"
+                                                v-model="meta.valor_definitivo" aria-describedby="input-valor_definitivo"
+                                                @input="meta.porcentaje_definitivo = (meta.valor_definitivo * 100) / proyecto.total_definitivos">
                                         </div>
                                     </td>
                                     <td>
                                         <div class="input-group mb-1">
                                             <span class="input-group-text" id="input-porcentaje_disponibilidad">En %</span>
-                                            <input type="text" class="form-control" :class="[{['is-invalid text-danger'] : validarPorcentaje('porcentaje_disponibilidad') }, 'form-control']" v-model="meta.porcentaje_disponibilidad" aria-describedby="input-porcentaje_disponibilidad" required>
+                                            <input type="text" class="form-control"
+                                                :class="[{ ['is-invalid text-danger']: validarPorcentaje('porcentaje_disponibilidad') }, 'form-control']"
+                                                v-model="meta.porcentaje_disponibilidad"
+                                                @input="meta.valor_disponibilidad = (meta.porcentaje_disponibilidad * proyecto.total_disponibilidades) / 100"
+                                                aria-describedby="input-porcentaje_disponibilidad" required>
                                             <div class="invalid-feedback">
-                                                Los valores supera el 100 %
+                                                Los valores superan el 100 %
                                             </div>
                                         </div>
                                         <div class="input-group input-group-sm">
-                                            <span class="input-group-text" id="input-valor_disponibilidad">En valor $:</span>
-                                            <input type="text" :class="[{'text-danger' : validarPorcentaje('porcentaje_disponibilidad') }, 'form-control ']" :value="(meta.porcentaje_disponibilidad / 100) *  proyecto.total_disponibilidades" aria-describedby="input-valor_disponibilidad" disabled>
+                                            <span class="input-group-text" id="input-valor_disponibilidad">En valor
+                                                $:</span>
+                                            <input type="text"
+                                                :class="[{ 'text-danger': validarPorcentaje('porcentaje_disponibilidad') }, 'form-control ']"
+                                                v-model="meta.valor_disponibilidad"
+                                                @input="meta.porcentaje_disponibilidad = (meta.valor_disponibilidad * 100) / proyecto.total_disponibilidades"
+                                                aria-describedby="input-valor_disponibilidad">
                                         </div>
                                     </td>
                                     <td>
                                         <div class="input-group mb-1">
                                             <span class="input-group-text" id="input-porcentaje_registros">En %</span>
-                                            <input type="text" class="form-control" :class="[{['is-invalid text-danger'] : validarPorcentaje('porcentaje_registros') }, 'form-control']" v-model="meta.porcentaje_registros" aria-describedby="input-porcentaje_registros" required>
+                                            <input type="text" class="form-control"
+                                                :class="[{ ['is-invalid text-danger']: validarPorcentaje('porcentaje_registros') }, 'form-control']"
+                                                v-model="meta.porcentaje_registros"
+                                                @input="meta.valor_registros = (meta.porcentaje_registros * proyecto.total_registros) / 100"
+                                                aria-describedby="input-porcentaje_registros" required>
                                             <div class="invalid-feedback">
-                                                Los valores supera el 100 %
+                                                Los valores superan el 100 %
                                             </div>
                                         </div>
                                         <div class="input-group input-group-sm">
                                             <span class="input-group-text" id="input-valor_registro">En valor $:</span>
-                                            <input type="text" :class="[{'text-danger' : validarPorcentaje('porcentaje_registros') }, 'form-control ']" :value="(meta.porcentaje_registros / 100) *  proyecto.total_registros" aria-describedby="input-valor_registro" disabled>
+                                            <input type="text"
+                                                :class="[{ 'text-danger': validarPorcentaje('porcentaje_registros') }, 'form-control ']"
+                                                v-model="meta.valor_registros"
+                                                @input="meta.porcentaje_registros = (meta.valor_registros * 100) / proyecto.total_registros"
+                                                aria-describedby="input-valor_registro">
                                         </div>
                                     </td>
                                     <td>
                                         <div class="input-group mb-1">
                                             <span class="input-group-text" id="input-porcentaje_pagos">En %</span>
-                                            <input type="text" class="form-control" :class="[{['is-invalid text-danger'] : validarPorcentaje('porcentaje_pagos') }, 'form-control']" v-model="meta.porcentaje_pagos" aria-describedby="input-porcentaje_pagos" required>
+                                            <input type="text" class="form-control"
+                                                :class="[{ ['is-invalid text-danger']: validarPorcentaje('porcentaje_pagos') }, 'form-control']"
+                                                v-model="meta.porcentaje_pagos" aria-describedby="input-porcentaje_pagos"
+                                                @input="meta.valor_pagos = (meta.porcentaje_pagos * proyecto.total_pagos) / 100"
+                                                required>
                                             <div class="invalid-feedback">
-                                                Los valores supera el 100 %
+                                                Los valores superan el 100 %
                                             </div>
                                         </div>
                                         <div class="input-group input-group-sm">
                                             <span class="input-group-text" id="input-valor_pagos">En valor $:</span>
-                                            <input type="text" :class="[{'text-danger' : validarPorcentaje('porcentaje_pagos') }, 'form-control ']" :value="(meta.porcentaje_pagos / 100) *  proyecto.total_pagos" aria-describedby="input-valor_pagos" disabled>
+                                            <input type="text"
+                                                :class="[{ 'text-danger': validarPorcentaje('porcentaje_pagos') }, 'form-control ']"
+                                                v-model="meta.valor_pagos"
+                                                @input="meta.porcentaje_pagos = (meta.valor_pagos * 100) / proyecto.total_pagos"
+                                                aria-describedby="input-valor_pagos">
                                         </div>
                                     </td>
                                 </tr>
@@ -106,7 +139,8 @@
             </div>
             <div class="text-center my-2 mt-auto">
                 <button class="btn btn-primary mx-2" type="submit">Guardar</button>
-                <button class="btn btn-outline-secondary" type="button" @click="limpiarPorcentajes()" required>Limpiar</button>
+                <button class="btn btn-outline-secondary" type="button" @click="limpiarPorcentajes()"
+                    required>Limpiar</button>
             </div>
         </form>
         <spinner v-if="false"></spinner>
@@ -116,8 +150,8 @@
 <script>
 export default {
     props: ['proyecto_id'],
-    data(){
-        return{
+    data() {
+        return {
             proyecto: {},
             btn_summit: false
         }
@@ -125,12 +159,12 @@ export default {
     created() {
         this.getProyectoMetas()
     },
-    methods:{
-        validarPorcentaje(column){
+    methods: {
+        validarPorcentaje(column) {
             const sumaColumn = this.proyecto.productos.reduce((acumulador, meta) => acumulador + parseFloat(meta[column]), 0);
             return sumaColumn > 100;
         },
-        getProyectoMetas(){
+        getProyectoMetas() {
             axios.get(`/proyectos-get-all/${this.proyecto_id}`).then(res => {
                 this.proyecto = res.data.proyecto
                 let total = this.proyecto.presupuestos.reduce((acum, actual) => {
@@ -140,7 +174,7 @@ export default {
                     acum.registros += actual.registros;
                     acum.pagos += actual.pagos;
                     return acum
-                }, {inicial: 0, definitivo: 0, disponibilidad: 0, registros: 0, pagos: 0})
+                }, { inicial: 0, definitivo: 0, disponibilidad: 0, registros: 0, pagos: 0 })
                 this.proyecto['total_iniciales'] = total.inicial
                 this.proyecto['total_definitivos'] = total.definitivo
                 this.proyecto['total_disponibilidades'] = total.disponibilidad
@@ -151,7 +185,7 @@ export default {
                 console.log(error);
             })
         },
-        limpiarPorcentajes(){
+        limpiarPorcentajes() {
             this.proyecto.productos.forEach(meta => {
                 meta.porcentaje_definitivo = 0
                 meta.porcentaje_disponibilidad = 0
@@ -159,7 +193,7 @@ export default {
                 meta.porcentaje_pagos = 0
             });
         },
-        savePorcentajes(){
+        savePorcentajes() {
             if (!this.validarPorcentaje('porcentaje_definitivo') && !this.validarPorcentaje('porcentaje_disponibilidad') && !this.validarPorcentaje('porcentaje_registros') && !this.validarPorcentaje('porcentaje_pagos')) {
                 axios.post('/save-porcentaje-metas', this.proyecto.productos).then(res => {
                     if (res.data.status) {
@@ -169,7 +203,7 @@ export default {
                     console.log(error.response)
                     this.$swalMini('error', `Se ha producido un error al realizar la acción.`);
                 })
-            }else{
+            } else {
                 this.$swalMini('error', `Verifica todos los porcentajes`);
             }
         }

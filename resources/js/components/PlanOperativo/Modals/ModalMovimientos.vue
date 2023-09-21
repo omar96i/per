@@ -49,7 +49,8 @@
                                     <thead>
                                         <tr class="table-primary">
                                             <th>Tipo Movimiento</th>
-                                            <th>Valor</th>
+                                            <th>Valor Movimiento</th>
+                                            <th>Total</th>
                                             <th>Fecha</th>
                                             <th>Acta de Aprovación</th>
                                             <th>Opción</th>
@@ -58,11 +59,12 @@
                                     <tbody>
                                         <tr v-for="movimiento in presupuesto.movimiento_financieros">
                                             <td>{{ movimiento.tipo_movimiento }}</td>
-                                            <td>{{ movimiento.valor }}</td>
+                                            <td>{{ this.$parent.formatoMoneda(movimiento.valor) }}</td>
+                                            <td>{{ this.$parent.formatoMoneda(movimiento.total) }}</td>
                                             <td>{{ (new Date(movimiento.created_at)).toLocaleString() }}</td>
                                             <td>{{ movimiento.acta_aprovacion }}</td>
                                             <td class="text-center d-flex">
-                                                <button class="btn btn-danger btn-sm"><i class='bx bxs-trash' @click="deleteMovimiento(movimiento.id)"></i></button>
+                                                <button class="btn btn-danger btn-sm" :disabled="movimiento.tipo_movimiento == 'inicial'"><i class='bx bxs-trash' @click="deleteMovimiento(movimiento.id)"></i></button>
                                             </td>
                                         </tr>
                                     </tbody>

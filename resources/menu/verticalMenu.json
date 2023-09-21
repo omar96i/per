@@ -88,12 +88,6 @@
         "name": "Ejecución",
         "icon": "menu-icon tf-icons bx bx-calendar-check",
         "slug": "Programacion"
-    },
-    {
-        "url": "/resultados",
-        "name": "Resultados",
-        "icon": "menu-icon tf-icons bx bxs-bar-chart-alt-2",
-        "slug": "Resultados"
     }
   ]
 

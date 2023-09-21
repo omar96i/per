@@ -12,7 +12,7 @@
                         <div class="row">
                             <div class="col-12 mb-3">
                                 <label for="fecha_reporte" class="form-label">Fecha del reporte</label>
-                                <input v-model="reporte.fecha_reporte" type="date" class="form-control" id="fecha_reporte" required>
+                                <input v-model="reporte.fecha_reporte" type="date" class="form-control" id="fecha_reporte" required disabled>
                             </div>
                             <!-- <div class="col-12 mb-3">
                                 <label for="meta_año" class="form-label">Meta Año</label>
@@ -50,14 +50,13 @@ export default {
             reporte: {
                 meta_producto_id: this.meta.id,
                 meta_año: '',
-                fecha_reporte: '',
+                fecha_reporte: new Date().toISOString().split('T')[0],
                 meta_alcanzada: '',
                 actividad: '',
             },
         };
     },
     created() {
-        console.log(this.meta.year);
         if (this.data_reporte?.id) {
             this.reporte = this.data_reporte
         }

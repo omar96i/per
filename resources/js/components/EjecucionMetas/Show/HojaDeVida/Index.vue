@@ -20,14 +20,13 @@
                     </div>
                     <div class="col-12 col-sm-6">
                         <label for="siglas" class="form-label">Siglas indicador:</label>
-                        <input :value="meta.siglas_indicador" type="text" class="form-control" id="siglas"
-                            disabled>
+                        <input :value="meta.siglas_indicador" type="text" class="form-control" id="siglas" disabled>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-12 col-sm-6">
                         <label for="linea_base" class="form-label">Linea base:</label>
-                        <input v-model="hoja_vida.linea_base" type="text" class="form-control" id="linea_base">
+                        <input v-model="hoja_vida.linea_base" type="text" class="form-control" id="linea_base" disabled>
                     </div>
                     <div class="col-12 col-sm-6">
                         <div class="mb-3">

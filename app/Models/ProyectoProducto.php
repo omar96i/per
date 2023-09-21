@@ -17,6 +17,10 @@ class ProyectoProducto extends Model
         'porcentaje_disponibilidad',
         'porcentaje_registros',
         'porcentaje_pagos',
+        'valor_definitivo',
+        'valor_disponibilidad',
+        'valor_registros',
+        'valor_pagos',
     ];
 
     public function proyecto(){

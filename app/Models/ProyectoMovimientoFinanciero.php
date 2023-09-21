@@ -12,6 +12,7 @@ class ProyectoMovimientoFinanciero extends Model
     protected $fillable = [
         'proyecto_presupuesto_id',
         'valor',
+        'total',
         'tipo_movimiento',
         'acta_aprovacion'
     ];

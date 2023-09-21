@@ -12,12 +12,9 @@ use App\Http\Controllers\Roles\RolesController;
 use App\Http\Controllers\Permisos\PermisosController;
 use App\Http\Controllers\Programacion\EstrategiaController;
 use App\Http\Controllers\Programacion\HechoController;
-use App\Http\Controllers\Programacion\MetaDeProductoController;
 use App\Http\Controllers\Programacion\PoliticaController;
 use App\Http\Controllers\Programacion\ProgramaController;
-use App\Http\Controllers\Proyecto\ProyectoController;
 use App\Http\Controllers\Proyecto\ProyectoMovimientosFinancierosController;
-use App\Http\Controllers\Proyecto\ProyectoPresupuestoController;
 use App\Http\Controllers\Proyecto\ProyectoPresupuestosController;
 use App\Http\Controllers\Proyecto\ProyectoProductosController;
 use App\Http\Controllers\Proyecto\ProyectosController;
@@ -123,7 +120,8 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('metas')->group(function () {
         Route::get('/', [MetasController::class, 'index'])->name('metas.index');
         Route::get('/ejecucion', [MetasController::class, 'indexEjecucion'])->name('metas.ejecucion.index');
-        Route::get('/getAll', [MetasController::class, 'indexData'])->name('metas.get');
+        Route::get('/get', [MetasController::class, 'get'])->name('metas.get');
+        Route::post('/getAll', [MetasController::class, 'indexData'])->name('metas.getAll');
         Route::get('/indicadores', [MetasController::class, 'getIndicadores'])->name('indicadores.get');
         Route::post('/', [MetasController::class, 'store'])->name('metas.store');
         Route::put('/{meta}', [MetasController::class, 'update'])->name('metas.update');
@@ -132,6 +130,7 @@ Route::middleware(['auth'])->group(function () {
         // Rutas para Reportes de Metas
         Route::prefix('reportes')->group(function (){
             Route::get('/{meta}', [ReportesController::class, 'index'])->name('metas.reportes.index');
+            Route::get('/getData/{meta}', [ReportesController::class, 'indexData'])->name('metas.reportes.indexData');
             Route::get('/get/{id}', [ReportesController::class, 'show'])->name('metas.reportes.get');
             Route::post('/store', [ReportesController::class, 'store'])->name('metas.reportes.store');
             Route::put('/store/{id}', [ReportesController::class, 'update'])->name('metas.reportes.update');

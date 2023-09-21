@@ -48,7 +48,8 @@
                 <div class="input-group input-group-merge">
                     <select class="form-select" v-model="proyecto.vigencia" name="" id="">
                         <option value="" selected disabled>Seleccionar...</option>
-                        <option v-for="year in Array.from({length: 70}, (v, i) => i + (2099 - 80))" :value="year">{{ year }}</option>
+                        <!-- <option v-for="year in Array.from({length: 70}, (v, i) => i + (2099 - 80))" :value="year">{{ year }}</option> -->
+                        <option v-for="(item, index) in 4" :key="index">{{ periodo_year + index }}</option>
                     </select>
                 </div>
             </div>
@@ -65,7 +66,7 @@
 
 <script>
 export default {
-    props: ['proyecto_id'],
+    props: ['proyecto_id', 'periodo_year'],
     data(){
         return{
             select_hechos: [],
@@ -78,7 +79,7 @@ export default {
                 programa_id: '',
                 estrategia_id: '',
                 periodo_id: '',
-                vigencia: (new Date).getFullYear(),
+                vigencia: '',
                 nombre: '',
             },
         }

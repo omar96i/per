@@ -42,6 +42,8 @@ class ProyectoMovimientosFinancierosController extends Controller
 
         $presupuesto->definitivo = ProyectoMovimientoFinanciero::TotalMovimientos($presupuesto->id);
         $presupuesto->save();
+        $movimiento->total = $presupuesto->definitivo;
+        $movimiento->save();
 
         return response()->json(['status' => true, 'message' => 'Creado correctamente.']);
     }

@@ -79,18 +79,18 @@
                         <tr v-if="proyecto.presupuestos.length > 0" v-for="(presupuesto, index) in proyecto.presupuestos" :key="index">
                             <td rowspan="0" v-if="index == 0">{{ proyecto.nombre }}</td>
                             <td>{{presupuesto.codigo}}</td>
-                            <td>{{presupuesto.inicial}}</td>
+                            <td>{{formatoMoneda(presupuesto.inicial)}}</td>
                             <td class="p-1">
-                                <button type="button" class="col-12 btn btn-label-secondary text-nowrap"  @click="openModalMovimientos(presupuesto.id)"><i class='bx bx-plus-circle bx-tada bx-rotate-90 mx-1' ></i>{{presupuesto.definitivo}}</button>
+                                <button type="button" class="col-12 btn btn-label-secondary text-nowrap"  @click="openModalMovimientos(presupuesto.id)"><i class='bx bx-plus-circle bx-tada bx-rotate-90 mx-1' ></i>{{formatoMoneda(presupuesto.definitivo)}}</button>
                             </td>
                             <td class="p-1">
-                                <button type="button" class="col-12 btn btn-label-secondary text-nowrap"  @click="openModalAdd(presupuesto.id, 'disponibilidad')"><i class='bx bx-plus-circle bx-tada bx-rotate-90 mx-1' ></i>{{presupuesto.disponibilidad}}</button>
+                                <button type="button" class="col-12 btn btn-label-secondary text-nowrap"  @click="openModalAdd(presupuesto.id, 'disponibilidad')"><i class='bx bx-plus-circle bx-tada bx-rotate-90 mx-1' ></i>{{formatoMoneda(presupuesto.disponibilidad)}}</button>
                             </td>
                             <td class="p-1">
-                                <button type="button" class="col-12 btn btn-label-secondary text-nowrap" @click="openModalAdd(presupuesto.id, 'registros')"><i class='bx bx-plus-circle bx-tada bx-rotate-90 mx-1' ></i>{{presupuesto.registros}}</button>
+                                <button type="button" class="col-12 btn btn-label-secondary text-nowrap" @click="openModalAdd(presupuesto.id, 'registros')"><i class='bx bx-plus-circle bx-tada bx-rotate-90 mx-1' ></i>{{formatoMoneda(presupuesto.registros)}}</button>
                             </td>
                             <td class="p-1">
-                                <button type="button" class="col-12 btn btn-label-secondary text-nowrap" @click="openModalAdd(presupuesto.id, 'pagos')"><i class='bx bx-plus-circle bx-tada bx-rotate-90 mx-1' ></i>{{presupuesto.pagos}}</button>
+                                <button type="button" class="col-12 btn btn-label-secondary text-nowrap" @click="openModalAdd(presupuesto.id, 'pagos')"><i class='bx bx-plus-circle bx-tada bx-rotate-90 mx-1' ></i>{{formatoMoneda(presupuesto.pagos)}}</button>
                             </td>
                             <td rowspan="0" v-if="index == 0">
                                 <p v-for="producto in proyecto.productos">
@@ -122,11 +122,11 @@
                         </tr>
                         <tr class="table-primary">
                             <td class="text-nowrap">Total presupuestos:</td>
-                            <td>{{ proyecto.total_iniciales }}</td>
-                            <td>{{ proyecto.total_definitivos }}</td>
-                            <td>{{ proyecto.total_disponibilidades }}</td>
-                            <td>{{ proyecto.total_registros }}</td>
-                            <td>{{ proyecto.total_pagos }}</td>
+                            <td>{{ formatoMoneda(proyecto.total_iniciales) }}</td>
+                            <td>{{ formatoMoneda(proyecto.total_definitivos) }}</td>
+                            <td>{{ formatoMoneda(proyecto.total_disponibilidades) }}</td>
+                            <td>{{ formatoMoneda(proyecto.total_registros) }}</td>
+                            <td>{{ formatoMoneda(proyecto.total_pagos) }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -272,6 +272,7 @@ export default{
         closeModal(ModalId, reload = true){
             $(`#${ModalId}`).modal('hide')
             setTimeout(() => {
+                this.modal_add = false
                 this.modal_general = false
                 this.modal_movimientos = false
                 if (reload) {
@@ -279,6 +280,14 @@ export default{
                 }
             }, 300);
         },
+        formatoMoneda(valor) {
+            return new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(valor);
+        }
     },
 }
 </script>

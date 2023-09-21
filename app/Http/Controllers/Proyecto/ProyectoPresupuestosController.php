@@ -40,6 +40,7 @@ class ProyectoPresupuestosController extends Controller
         $movimiento->proyecto_presupuesto_id = $presupuesto->id;
         $movimiento->tipo_movimiento = 'inicial';
         $movimiento->valor = $presupuesto->inicial;
+        $movimiento->total = $presupuesto->inicial;
         $movimiento->save();
 
         $presupuesto->definitivo = ProyectoMovimientoFinanciero::TotalMovimientos($presupuesto->id);

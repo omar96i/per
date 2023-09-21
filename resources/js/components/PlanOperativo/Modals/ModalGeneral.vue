@@ -27,7 +27,7 @@
 
                         <!-- datos generales -->
                         <div class="tab-pane fade show active" id="form_1" role="tabpanel" aria-labelledby="form_1_tab">
-                            <form-proyecto :proyecto_id="proyecto_id" @set-id="setIdProyecto"></form-proyecto>
+                            <form-proyecto :proyecto_id="proyecto_id" :periodo_year="parseInt(periodo.fecha_ini.split('-')[0])" @set-id="setIdProyecto"></form-proyecto>
                         </div>
 
                         <!-- metas y preupuestos, se podria dividir en 2 el tab -->
@@ -91,6 +91,14 @@ export default {
         setIdProyecto(new_id){
             this.proyecto_id = new_id
         },
+        formatoMoneda(valor) {
+            return new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(valor);
+        }
     }
 }
 

@@ -39,6 +39,15 @@ class ReportesController extends Controller
         return view('ejecucion_metas.show', ['meta' => $meta]);
     }
 
+    public function indexData(MetaDeProducto $meta)
+    {
+        $meta->load('indicador', 'proyectos.proyecto', 'hoja_de_vida');
+        // listar los 4 reportes de cada año
+        $meta->programacion_meta = $meta->avanceFisico();
+    
+        return response()->json(['meta' => $meta]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

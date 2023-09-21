@@ -3,45 +3,45 @@
         <div class="my-1">
             <h5>Periodo establecido: <b> {{ periodo.nombre }} </b> <br> desde: <b> {{ periodo.fecha_ini }} </b> hasta: <b> {{ periodo.fecha_fin }} </b></h5>
         </div>
-        <div class="col-12 row">
+        <form @submit.prevent="getData()" class="col-12 row">
             <div class="col">
                 <label>Hecho:</label>
-                <select class="form-select" name="" v-model="hecho_id" required>
+                <select class="form-select" name="" v-model="consulta.hecho_id" @change="clearSelect('hecho_id')" required>
                     <option value="" selected disabled>Seleccionar...</option>
                     <option v-for="(item, index) in select_hechos" :key="index" :value="item.id">{{ item.nombre }}</option>
                 </select>
             </div>
             <div class="col">
                 <label>Politica:</label>
-                <select class="form-select" name="" v-model="politica_id" required>
+                <select class="form-select" name="" v-model="consulta.politica_id" @change="clearSelect('politica_id')" required>
                     <option value="" selected disabled>Seleccionar...</option>
                     <template v-for="(item, index) in select_politicas" :key="index">
-                        <option v-if="hecho_id == item.hecho_id" :value="item.id">{{ item.nombre }}</option>
+                        <option v-if="consulta.hecho_id == item.hecho_id" :value="item.id">{{ item.nombre }}</option>
                     </template>
                 </select>
             </div>
             <div class="col">
                 <label>Estrategia:</label>
-                <select class="form-select" name="" v-model="estrategia_id" required>
+                <select class="form-select" name="" v-model="consulta.estrategia_id" @change="clearSelect('estrategia_id')">
                     <option value="" selected disabled>Seleccionar...</option>
                     <template v-for="(item, index) in select_estrategias" :key="index">
-                        <option v-if="politica_id == item.politica_id" :value="item.id">{{ item.nombre }}</option>
+                        <option v-if="consulta.politica_id == item.politica_id" :value="item.id">{{ item.nombre }}</option>
                     </template>
                 </select>
             </div>
             <div class="col">
                 <label>Programa:</label>
-                <select class="form-select" name="" v-model="programa_id" required>
+                <select class="form-select" name="" v-model="consulta.programa_id" required>
                     <option value="" selected disabled>Seleccionar...</option>
                     <template v-for="(item, index) in select_programas" :key="index">
-                        <option v-if="politica_id == item.politica_id" :value="item.id">{{ item.nombre }}</option>
+                        <option v-if="consulta.politica_id == item.politica_id" :value="item.id">{{ item.nombre }}</option>
                     </template>
                 </select>
             </div>
             <div class="col row align-items-end">
-                <button class="btn btn-outline-primary" type="button">Consultar</button>
+                <button class="btn btn-outline-primary" type="submit">Consultar</button>
             </div>
-        </div>
+        </form>
         <div class="col-12 my-3">
             <div class="table-responsive">
                 <table class="table table-bordered table-periodo" width="100%" cellspacing="0" >
@@ -78,17 +78,18 @@ export default{
             select_estrategias: [],
             select_programas: [],
 
-            hecho_id: '',
-            politica_id: '',
-            estrategia_id: '',
-            programa_id: '',
+            consulta: {
+                hecho_id: '',
+                politica_id: '',
+                estrategia_id: '',
+                programa_id: '',
+            },
 
             metas: [],
         }
     },
     created(){
         this.getDataSelect()
-        this.getData()
     },
     methods:{
         getDataSelect(){
@@ -125,7 +126,7 @@ export default{
             })
         },
         getData(){
-            axios.get('/metas/getAll').then(res=>{
+            axios.post('/metas/getAll', this.consulta).then(res=>{
                 this.metas = res.data.metas
             }).catch(error => {
                 console.log(error);
@@ -133,6 +134,18 @@ export default{
         },
         showMeta(id){
             window.location = `/metas/reportes/${id}`
+        },
+        clearSelect(input){
+            if (input == 'hecho_id') {
+                this.consulta.politica_id = ''
+                this.consulta.estrategia_id = ''
+                this.consulta.programa_id = ''
+            }else if(input == 'politica_id') {
+                this.consulta.estrategia_id = ''
+                this.consulta.programa_id = ''
+            }else if(input == 'estrategia_id'){
+                this.consulta.programa_id = ''
+            }
         }
     },
 }

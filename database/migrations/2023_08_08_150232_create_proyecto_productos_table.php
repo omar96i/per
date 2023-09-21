@@ -22,6 +22,10 @@ return new class extends Migration
             $table->float('porcentaje_disponibilidad')->default(0);
             $table->float('porcentaje_registros')->default(0);
             $table->float('porcentaje_pagos')->default(0);
+            $table->float('valor_definitivo')->default(0);
+            $table->float('valor_disponibilidad')->default(0);
+            $table->float('valor_registros')->default(0);
+            $table->float('valor_pagos')->default(0);
             $table->timestamps();
         });
     }

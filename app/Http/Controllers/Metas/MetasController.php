@@ -25,10 +25,23 @@ class MetasController extends Controller
         $periodo_activo = Periodo::getPeriodoActivo(auth()->user()->id);
         return view('ejecucion_metas.index', compact('periodo_activo'));
     }
-
-    public function indexData()
+    
+    public function get()
     {
-        $metas = MetaDeProducto::with('hecho', 'politica', 'programa', 'periodo')->where('user_id', auth()->user()->id)->get();
+        $metas = MetaDeProducto::all();
+    
+        return response()->json(['metas' => $metas]);
+    }
+
+    public function indexData(Request $request)
+    {
+        $metas = MetaDeProducto::with('hecho', 'politica', 'programa', 'periodo')
+                    ->where('user_id', auth()->user()->id)
+                    ->where('hecho_id', $request->hecho_id)
+                    ->where('politica_id', $request->politica_id)
+                    // ->where('estrategia_id', $request->estrategia_id)
+                    ->where('programa_id', $request->programa_id)
+                    ->get();
         return response()->json(['metas' => $metas]);
     }
 
