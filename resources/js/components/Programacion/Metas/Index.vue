@@ -26,9 +26,9 @@
                 <tbody>
                     <tr v-for="(meta, index) in metas" :key="index">
                         <!-- <td>{{ hecho.periodo }}</td> -->
-                        <td>{{ meta.hecho.nombre }}</td>
-                        <td>{{ meta.politica.nombre }}</td>
-                        <td>{{ meta.programa.nombre }}</td>
+                        <td>{{ meta.hecho?.nombre }}</td>
+                        <td>{{ meta.politica?.nombre }}</td>
+                        <td>{{ meta.programa?.nombre }}</td>
                         <td>{{ meta.codigo }}</td>
                         <td>{{ meta.nombre }}</td>
                         <td>{{ meta.indicador_meta }}</td>
@@ -123,8 +123,8 @@ export default{
             }, 300);
         },
         getData(){
-            axios.get('/metas/getAll').then(res=>{
-                // console.log(res);
+            axios.get('/metas/get').then(res=>{
+                console.log(res);
                 this.metas = res.data.metas
             }).catch(error => {
                 console.log(error);

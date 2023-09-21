@@ -14,13 +14,13 @@
                                 <label for="fecha_reporte" class="form-label">Fecha del reporte</label>
                                 <input v-model="reporte.fecha_reporte" type="date" class="form-control" id="fecha_reporte" required disabled>
                             </div>
-                            <!-- <div class="col-12 mb-3">
+                            <div class="col-12 mb-3">
                                 <label for="meta_año" class="form-label">Meta Año</label>
                                 <select class="form-select" name="meta_año" id="meta_año"  v-model="reporte.meta_año">
                                     <option value="" selected disable>Selecciona...</option>
-                                    <option v-for="(año, index) in 4" :key="index" :value="año">{{ `Meta del año ${parseInt(meta.year) + index}` }}</option>
+                                    <option v-for="(año, index) in 4" :key="index" :value="parseInt(meta.year) + index">{{ `Meta del año ${parseInt(meta.year) + index}` }}</option>
                                 </select>
-                            </div> -->
+                            </div>
                             <div class="col-12 mb-3">
                                 <label for="meta_alcanzada" class="form-label">Meta Alcanzada</label>
                                 <input v-model="reporte.meta_alcanzada" type="number" step=0.001 class="form-control" id="meta_alcanzada" required>
@@ -64,7 +64,7 @@ export default {
     methods: {
         submitForm() {
             const fecha = new Date(`${this.reporte.fecha_reporte}T00:00:00`);
-            this.reporte.meta_año = fecha.getFullYear();
+            // this.reporte.meta_año = fecha.getFullYear();
             if (this.reporte?.id) {
                 axios.put(`/metas/reportes/store/${this.reporte.id}`, this.reporte)
                 .then(res => {

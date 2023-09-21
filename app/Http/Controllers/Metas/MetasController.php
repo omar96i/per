@@ -28,7 +28,7 @@ class MetasController extends Controller
     
     public function get()
     {
-        $metas = MetaDeProducto::all();
+        $metas = MetaDeProducto::with('hecho', 'politica', 'programa', 'periodo')->get();
     
         return response()->json(['metas' => $metas]);
     }

@@ -20665,7 +20665,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var _this$reporte,
         _this = this;
       var fecha = new Date("".concat(this.reporte.fecha_reporte, "T00:00:00"));
-      this.reporte.meta_año = fecha.getFullYear();
+      // this.reporte.meta_año = fecha.getFullYear();
       if ((_this$reporte = this.reporte) !== null && _this$reporte !== void 0 && _this$reporte.id) {
         axios.put("/metas/reportes/store/".concat(this.reporte.id), this.reporte).then(function (res) {
           // console.log(res)
@@ -20674,7 +20674,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           }
         })["catch"](function (error) {
           var _console;
-          /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("3994068349_0", error.response)));
+          /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("1010621118_0", error.response)));
           _this.$swalMini('error', "Se ha producido un error al realizar la acci\xF3n.");
         })["finally"](function (f) {
           _this.$parent.closeModal('modalReporte', true);
@@ -20687,7 +20687,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           }
         })["catch"](function (error) {
           var _console2;
-          /* eslint-disable */(_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("3994068349_1", error.response)));
+          /* eslint-disable */(_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("1010621118_1", error.response)));
           _this.$swalMini('error', "Se ha producido un error al realizar la acci\xF3n.");
         })["finally"](function (f) {
           _this.$parent.closeModal('modalReporte', true);
@@ -22964,12 +22964,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     getData: function getData() {
       var _this2 = this;
-      axios.get('/metas/getAll').then(function (res) {
-        // console.log(res);
+      axios.get('/metas/get').then(function (res) {
+        var _console;
+        /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("1411692216_0", res)));
         _this2.metas = res.data.metas;
       })["catch"](function (error) {
-        var _console;
-        /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("939261241_0", error)));
+        var _console2;
+        /* eslint-disable */(_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("1411692216_1", error)));
       });
     },
     deleteData: function deleteData(id) {
@@ -22980,8 +22981,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           _this3.getData();
         }
       })["catch"](function (error) {
-        var _console2;
-        /* eslint-disable */(_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("939261241_1", error.response)));
+        var _console3;
+        /* eslint-disable */(_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("1411692216_2", error.response)));
       });
     }
   }
@@ -26078,17 +26079,30 @@ var _hoisted_10 = {
   "class": "col-12 mb-3"
 };
 var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "meta_año",
+  "class": "form-label"
+}, "Meta Año", -1 /* HOISTED */);
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "",
+  selected: "",
+  disable: ""
+}, "Selecciona...", -1 /* HOISTED */);
+var _hoisted_13 = ["value"];
+var _hoisted_14 = {
+  "class": "col-12 mb-3"
+};
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "meta_alcanzada",
   "class": "form-label"
 }, "Meta Alcanzada", -1 /* HOISTED */);
-var _hoisted_12 = {
+var _hoisted_16 = {
   "class": "col-12 mb-3"
 };
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "actividad",
   "class": "form-label"
 }, "Nueva Actividad", -1 /* HOISTED */);
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "text-center"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "submit",
@@ -26103,7 +26117,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return _ctx.$parent.closeModal('modalReporte', false);
     })
   })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-    onSubmit: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+    onSubmit: _cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.submitForm && $options.submitForm.apply($options, arguments);
     }, ["prevent"])),
     enctype: "multipart/form-data"
@@ -26116,8 +26130,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: "fecha_reporte",
     required: "",
     disabled: ""
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.reporte.fecha_reporte]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"col-12 mb-3\">\r\n                                <label for=\"meta_año\" class=\"form-label\">Meta Año</label>\r\n                                <select class=\"form-select\" name=\"meta_año\" id=\"meta_año\"  v-model=\"reporte.meta_año\">\r\n                                    <option value=\"\" selected disable>Selecciona...</option>\r\n                                    <option v-for=\"(año, index) in 4\" :key=\"index\" :value=\"año\">{{ `Meta del año ${parseInt(meta.year) + index}` }}</option>\r\n                                </select>\r\n                            </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.reporte.fecha_reporte]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "class": "form-select",
+    name: "meta_año",
+    id: "meta_año",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+      return $data.reporte.meta_año = $event;
+    })
+  }, [_hoisted_12, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(4, function (año, index) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+      key: index,
+      value: parseInt($props.meta.year) + index
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)("Meta del a\xF1o ".concat(parseInt($props.meta.year) + index)), 9 /* TEXT, PROPS */, _hoisted_13);
+  }), 64 /* STABLE_FRAGMENT */))], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.reporte.meta_año]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
       return $data.reporte.meta_alcanzada = $event;
     }),
     type: "number",
@@ -26125,13 +26151,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "form-control",
     id: "meta_alcanzada",
     required: ""
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.reporte.meta_alcanzada]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.reporte.meta_alcanzada]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [_hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     "class": "form-control",
-    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return $data.reporte.actividad = $event;
     }),
     id: "actividad"
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.reporte.actividad]])])]), _hoisted_14], 32 /* HYDRATE_EVENTS */)])])])])], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */);
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.reporte.actividad]])])]), _hoisted_18], 32 /* HYDRATE_EVENTS */)])])])])], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */);
 }
 
 /***/ }),
@@ -28931,9 +28957,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $options.openFormModal('insert', null);
     })
   }, " Nuevo registro ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.metas, function (meta, index) {
+    var _meta$hecho, _meta$politica, _meta$programa;
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       key: index
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <td>{{ hecho.periodo }}</td> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(meta.hecho.nombre), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(meta.politica.nombre), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(meta.programa.nombre), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(meta.codigo), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(meta.nombre), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(meta.indicador_meta), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <td>{{ meta.indicador }}</td> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(meta.indicador_id), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(meta.peso), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(meta.linea_base), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <td>{{ hecho.periodo }}</td> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_meta$hecho = meta.hecho) === null || _meta$hecho === void 0 ? void 0 : _meta$hecho.nombre), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_meta$politica = meta.politica) === null || _meta$politica === void 0 ? void 0 : _meta$politica.nombre), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_meta$programa = meta.programa) === null || _meta$programa === void 0 ? void 0 : _meta$programa.nombre), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(meta.codigo), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(meta.nombre), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(meta.indicador_meta), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <td>{{ meta.indicador }}</td> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(meta.indicador_id), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(meta.peso), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(meta.linea_base), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
       type: "button",
       "class": "btn btn-info btn-circle btn-sm me-1",
       onClick: function onClick($event) {
