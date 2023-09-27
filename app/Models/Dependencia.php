@@ -19,4 +19,8 @@ class Dependencia extends Model
         'vision',
         'organigrama'
     ];
+
+    public function proyecto_productos(){
+        return $this->hasMany(ProyectoProducto::class);
+    }
 }

@@ -1,24 +1,20 @@
 <template>
-    <div class="col-12">
+    <!-- <div class="col-12">
         <div class="col-12">
             <button class="btn btn-primary m-1" :class="{'active' :loadTable}" @click="selectType('permisos')">Permisos</button>
             <button class="btn btn-primary" :class="{'active' :loadTableRoles }" @click="selectType('roles')">Roles</button>
         </div>
-
-
-    </div>
-    <div class="col-12" v-if="type == 'permisos'">
+    </div> -->
+    <!-- <div class="col-12" v-if="type == 'permisos'">
         <table-permisos-vue></table-permisos-vue>
-    </div>
-    <div class="col-12" v-if="type == 'roles'">
+    </div> -->
+    <div class="col-12">
         <table-roles-vue></table-roles-vue>
     </div>
 
 
 </template>
 <script>
-    import axios from "axios";
-
     import TableRolesVue from './TableRoles.vue'
     import TablePermisosVue from './TablePermisos.vue'
 

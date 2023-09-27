@@ -1,8 +1,10 @@
 <template>
     <div class="col-12">
-        <h5 class="my-1">Periodo establecido desde: 01/01/2021 hasta: 31/12/2024</h5>
+        <div class="mt-2">
+            <h5>Periodo establecido: <b> {{ periodo.nombre }} </b> <br> desde: <b> {{ periodo.fecha_ini }} </b> hasta: <b> {{ periodo.fecha_fin }} </b></h5>
+        </div>
         <div class="col-12">
-            <button type="button" class="btn btn-info my-2" @click="openFormModal('insert', null)">
+            <button type="button" class="btn btn-info my-3" @click="openFormModal('insert', null)">
                 Nuevo registro
             </button>
         </div>
@@ -10,7 +12,6 @@
             <table class="table table-bordered table-periodo" width="100%" cellspacing="0" >
                 <thead>
                     <tr>
-                        <!-- <th>Periodo</th> -->
                         <th>Nombre</th>
                         <th>Peso(%)</th>
                         <th>Descripción</th>
@@ -19,11 +20,10 @@
                 </thead>
                 <tbody>
                     <tr v-for="(hecho, index) in hechos" :key="index">
-                        <!-- <td>{{ hecho.periodo }}</td> -->
                         <td>{{ hecho.nombre }}</td>
                         <td>{{ hecho.peso }}</td>
                         <td>{{ hecho.descripcion }}</td>
-                        <td class="text-center">
+                        <td class="d-flex text-center">
                             <button type="button" class="btn btn-info btn-circle btn-sm me-1" @click="openFormModal('edit', hecho)"><i class='bx bxs-edit' ></i></button>
                             <button class="btn btn-danger btn-circle btn-sm"  @click="deleteData(hecho.id)"><i class='bx bxs-trash' ></i></button>
                         </td>
@@ -34,9 +34,11 @@
         <form-modal v-if="form_modal" :data_hecho="this.data_hecho"></form-modal>
     </div>
 </template>
+
 <script>
 import FormModal from './FormModal.vue'
 export default{
+    props: ['periodo'],
     components: {
         FormModal
     },
@@ -49,6 +51,18 @@ export default{
     },
     created(){
         this.getData()
+        if (!this.periodo) {
+            this.$swal.fire({
+                icon: 'error',
+                title: 'Sin periodo activo',
+                text: 'Por favor, active o asigne un período antes de añadir hechos.',
+                showConfirmButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = '/periodo';
+                }
+            })
+        }
     },
     methods:{
         openFormModal(tipo, data){
@@ -56,6 +70,7 @@ export default{
             if (tipo == 'insert') {
                 this.data_hecho = {
                     id: '',
+                    periodo_id: this.periodo.id,
                     nombre: '',
                     peso: '',
                     descripcion: ''
@@ -86,7 +101,7 @@ export default{
         deleteData(id){
             axios.delete(`/hechos/${id}`).then(res=>{
                 if(res.data.status){
-                    alert(res.data.message)
+                     this.$swalMini('success', `${res.data.message}.`)
                     this.getData()
                 }
             }).catch(error => {

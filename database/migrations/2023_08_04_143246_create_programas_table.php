@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('periodo_id');
             $table->unsignedBigInteger('hecho_id');
             $table->unsignedBigInteger('politica_id');
+            $table->unsignedBigInteger('estrategia_id')->nullable();
             $table->string('nombre');
             $table->string('peso');
             $table->text('descripcion');

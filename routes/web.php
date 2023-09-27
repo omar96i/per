@@ -1,28 +1,24 @@
 <?php
+
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Unidad\UnidadController;
 use App\Http\Controllers\Periodo\PeriodoController;
 use App\Http\Controllers\Dependencia\DependenciaController;
+use App\Http\Controllers\Metas\EvidenciasController;
+use App\Http\Controllers\Metas\HojaDeVidaController;
+use App\Http\Controllers\Metas\MetasController;
+use App\Http\Controllers\Metas\ReportesController;
 use App\Http\Controllers\Roles\RolesController;
 use App\Http\Controllers\Permisos\PermisosController;
+use App\Http\Controllers\Programacion\EstrategiaController;
 use App\Http\Controllers\Programacion\HechoController;
-use App\Http\Controllers\Programacion\MetaDeProductoController;
 use App\Http\Controllers\Programacion\PoliticaController;
 use App\Http\Controllers\Programacion\ProgramaController;
-use App\Http\Controllers\Proyecto\ProyectoController;
 use App\Http\Controllers\Proyecto\ProyectoMovimientosFinancierosController;
-use App\Http\Controllers\Proyecto\ProyectoPresupuestoController;
 use App\Http\Controllers\Proyecto\ProyectoPresupuestosController;
 use App\Http\Controllers\Proyecto\ProyectoProductosController;
 use App\Http\Controllers\Proyecto\ProyectosController;
-use App\Models\Users;
-use App\Models\Unidades;
-use App\Models\Periodos;
-use App\Models\Dependencias;
-use App\Models\Roles;
-use App\Models\Permisos;
-use App\Models\ProyectoMovimientoFinanciero;
-use App\Models\ProyectoProducto;
+use App\Models\Periodo;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -39,21 +35,21 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/test', function () {
-    $user = new User([
-        'nombre' => 'admin',
-        'apellido' => 'admin',
-        'email' => 'admin@hotmail.com',
-        'documento' => '12345',
-        'usuario' => 'admin',
-        'password' => '12345678',
-
-    ]);
+    $user = User::find(1);
+    $user->password = '12345';
     $user->save();
     return $user;
 });
+Route::get('/test1', function () {
+    return $data = Periodo::where('estado', 'activo')
+        ->with(['users' => function ($query) {
+            $query->where('user_id', 1);
+        }])
+        ->first();
+});
 // Main Page Route
 
-Route::get('/login', [App\Http\Controllers\Auth\AuthController::class, 'login'])->name('login-index');
+Route::get('/login', [App\Http\Controllers\Auth\AuthController::class, 'login'])->name('login');
 Route::redirect('/', '/login', 301);
 
 Route::post('/login', [App\Http\Controllers\Auth\AuthController::class, 'log'])->name('login.submit');
@@ -120,13 +116,43 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/getData/{permisos}', 'getData')->name('permisos.get.data');
     });
 
-    Route::prefix('metas-productos')->controller(MetaDeProductoController::class)->group(function () {
-        Route::post('/store/evidencias', 'storeEvidencias')->name('metas-productos.store.evidencias');
-        Route::get('/evidencias', 'indexEvidencias')->name('metas-productos.evidencias.index');
-        Route::get('/evidencias/form/{meta}', 'indexEvidenciasForm')->name('metas-productos.evidencias.form.index');
+    // metas
+    Route::prefix('metas')->group(function () {
+        Route::get('/', [MetasController::class, 'index'])->name('metas.index');
+        Route::get('/ejecucion', [MetasController::class, 'indexEjecucion'])->name('metas.ejecucion.index');
+        Route::get('/get', [MetasController::class, 'get'])->name('metas.get');
+        Route::post('/getAll', [MetasController::class, 'indexData'])->name('metas.getAll');
+        Route::get('/indicadores', [MetasController::class, 'getIndicadores'])->name('indicadores.get');
+        Route::post('/', [MetasController::class, 'store'])->name('metas.store');
+        Route::put('/{meta}', [MetasController::class, 'update'])->name('metas.update');
+        Route::delete('/{meta}', [MetasController::class, 'destroy'])->name('metas.destroy');
+        
+        // Rutas para Reportes de Metas
+        Route::prefix('reportes')->group(function (){
+            Route::get('/{meta}', [ReportesController::class, 'index'])->name('metas.reportes.index');
+            Route::get('/getData/{meta}', [ReportesController::class, 'indexData'])->name('metas.reportes.indexData');
+            Route::get('/get/{id}', [ReportesController::class, 'show'])->name('metas.reportes.get');
+            Route::post('/store', [ReportesController::class, 'store'])->name('metas.reportes.store');
+            Route::put('/store/{id}', [ReportesController::class, 'update'])->name('metas.reportes.update');
+            Route::delete('/{reporte}', [ReportesController::class, 'destroy'])->name('metas.reportes.destroy');
+        });
+
+        // Rutas para Evidencias de Metas
+        Route::prefix('evidencias')->group(function (){
+            Route::get('/{reporte}', [EvidenciasController::class, 'show'])->name('metas.evidencias.show');
+            Route::post('/', [EvidenciasController::class, 'store'])->name('metas.evidencias.store');
+            Route::delete('/{evidencia}', [EvidenciasController::class, 'destroy'])->name('metas.evidencias.destroy');
+            Route::get('/download/{id_file}', [EvidenciasController::class, 'descargar'])->name('metas.evidencias.download');
+        });
+
+        // Rutas para Hoja de Vida de Metas
+        Route::prefix('hoja-vida')->group(function (){
+            Route::post('/', [HojaDeVidaController::class, 'store'])->name('metas.hoja-vida.store');
+            Route::put('/{id}', [HojaDeVidaController::class, 'update'])->name('metas.hoja-vida.update');
+        });
     });
 
-    Route::get('/resultados', function(){
+    Route::get('/resultados', function () {
         return view('resultados.index');
     })->name('resultados');
 
@@ -137,12 +163,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('politicas', PoliticaController::class);
     Route::get('/politicas-get', [PoliticaController::class, 'get'])->name('politicas.get');
 
+    Route::resource('estrategias', EstrategiaController::class);
+    Route::get('/estrategias-get', [EstrategiaController::class, 'get'])->name('estrategias.get');
+
     Route::resource('programas', ProgramaController::class);
     Route::get('/programas-get', [ProgramaController::class, 'get'])->name('programas.get');
 
-    Route::resource('metas-productos', MetaDeProductoController::class);
-    Route::get('/metas-productos-get', [MetaDeProductoController::class, 'get'])->name('metas-productos.get');
-    Route::get('/metas-productos-get-by-user', [MetaDeProductoController::class, 'getByUser'])->name('metas-productos.get.by.user');
 
     //plan operativo anual
     Route::resource('proyectos', ProyectosController::class);
@@ -150,10 +176,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/proyectos-get-all/{id}', [ProyectosController::class, 'getAll'])->name('proyectos.get.all');
 
     Route::resource('proyectos-productos', ProyectoProductosController::class);
+    Route::post('/save-porcentaje-metas', [ProyectoProductosController::class, 'savePorcentajesMetas'])->name('savePorcentajesMetas');
 
     Route::resource('proyecto-presupuestos', ProyectoPresupuestosController::class);
+    Route::get('/get-presupuesto/{id}', [ProyectoPresupuestosController::class, 'getPresupuesto'])->name('proyecto-presupuestos.getPresupuesto');
 
     Route::resource('proyectos-movimientos', ProyectoMovimientosFinancierosController::class);
 });
-
-

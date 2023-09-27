@@ -6,16 +6,7 @@ $containerNav = 'container-fluid';
 
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Periodo')
-
-@section('vendor-style')
-@endsection
-
-@section('vendor-script')
-@endsection
-
-@section('page-script')
-@endsection
+@section('title', 'Periodos')
 
 @section('content')
 <div class="row">
@@ -24,10 +15,10 @@ $containerNav = 'container-fluid';
             <div class="row row-bordered g-0">
                 <!-- Title -->
                 <div class="col-md-12">
-                    <h5 class="card-header m-0 me-2 pb-3">Periodo</h5>
+                    <h5 class="card-header m-0 me-2 pb-3">Periodos</h5>
                 </div>
                 <div class="col-md-12">
-                    <div class="card-body" id="app">
+                    <div class="card-body pt-0">
                         <periodo-index></periodo-index>
                     </div>
                 </div>

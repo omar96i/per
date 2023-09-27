@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Proyecto;
 
 use App\Http\Controllers\Controller;
 use App\Models\ProyectoMovimientoFinanciero;
+use App\Models\ProyectoPresupuesto;
 use Illuminate\Http\Request;
 
 class ProyectoMovimientosFinancierosController extends Controller
@@ -36,7 +37,11 @@ class ProyectoMovimientosFinancierosController extends Controller
      */
     public function store(Request $request)
     {
-        ProyectoMovimientoFinanciero::create($request->all());
+        $movimiento = ProyectoMovimientoFinanciero::create($request->all());
+        
+        $presupuesto = ProyectoPresupuesto::where('id', $movimiento->proyecto_presupuesto_id)->first();
+        $presupuesto->definitivo = ProyectoMovimientoFinanciero::TotalMovimientos($presupuesto->id);
+        $presupuesto->save();
 
         return response()->json(['status' => true, 'message' => 'Creado correctamente.']);
     }
@@ -85,7 +90,12 @@ class ProyectoMovimientosFinancierosController extends Controller
      */
     public function destroy($id)
     {
-        ProyectoMovimientoFinanciero::find($id)->delete();
+        $movimiento = ProyectoMovimientoFinanciero::find($id);
+        $movimiento->delete();
+        
+        $presupuesto = ProyectoPresupuesto::find($movimiento->proyecto_presupuesto_id);
+        $presupuesto->definitivo = ProyectoMovimientoFinanciero::TotalMovimientos($presupuesto->id);
+        $presupuesto->save();
 
         return response()->json(['status' => true, 'message' => 'Eliminado correctamente.']);
     }

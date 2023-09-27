@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Programacion;
 
 use App\Http\Controllers\Controller;
+use App\Models\Periodo;
 use App\Models\Programa;
 use Illuminate\Http\Request;
 
@@ -15,12 +16,13 @@ class ProgramaController extends Controller
      */
     public function index()
     {
-        return view('programacion.programas.index');
+        $periodo_activo = Periodo::getPeriodoActivo(auth()->user()->id);
+        return view('programacion.programas.index', compact('periodo_activo'));
     }
 
     public function get()
     {
-        $programas = Programa::with('hecho', 'politica')->get();
+        $programas = Programa::with('hecho', 'politica', 'estrategia')->get();
         return response()->json(['programas' => $programas]);
     }
 

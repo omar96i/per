@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -13,13 +14,15 @@ class UserController extends Controller
     }
 
     public function get(){
-        return response()->json(['status' => true, 'user' => User::get()]);
+        return response()->json(['status' => true, 'user' => User::with('roles')->get()]);
     }
     public function getData(User $user){
         return response()->json(['user' => $user]);
     }
     public function update(User $user, Request $request){
+        $role = Role::find($request->rol);
         $user->update($request->all());
+        $user->syncRoles($role->name);
         $user->save();
         return response()->json(['saved' => true]);
     }
@@ -36,5 +39,4 @@ class UserController extends Controller
         $user->delete();
         return response()->json(['status' => true]);
     }
-    
 }

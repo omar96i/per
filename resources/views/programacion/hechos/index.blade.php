@@ -6,7 +6,7 @@ $containerNav = 'container-fluid';
 
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'User')
+@section('title', 'Hechos')
 
 @section('vendor-style')
 @endsection
@@ -27,8 +27,8 @@ $containerNav = 'container-fluid';
                     <h5 class="card-header m-0 me-2 pb-3">Hechos</h5>
                 </div>
                 <div class="col-md-12">
-                    <div class="card-body" id="app">
-                        <hechos-index></hechos-index>
+                    <div class="card-body pt-0" id="app">
+                        <hechos-index :periodo="{{$periodo_activo}}"></hechos-index>
                     </div>
                 </div>
             </div>

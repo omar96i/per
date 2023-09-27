@@ -17,11 +17,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('proyecto_id');
             $table->string('codigo');
-            $table->string('inicial');
-            $table->string('definitivo');
-            $table->string('certificado');
-            $table->string('comprometido');
-            $table->string('ordenes_de_pago');
+            $table->float('inicial', 15,2);
+            $table->float('definitivo', 15,2)->default(0);
+            $table->float('disponibilidad', 15,2)->default(0);
+            $table->float('registros', 15,2)->default(0);
+            $table->float('pagos')->default(0);
             $table->timestamps();
         });
     }

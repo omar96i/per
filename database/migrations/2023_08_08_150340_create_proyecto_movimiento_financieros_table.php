@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('proyecto_movimiento_financieros', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('proyecto_presupuesto_id');
-            $table->string('tipo_movimiento');
-            $table->string('valor');
+            $table->enum('tipo_movimiento', ['inicial', 'adicion', 'reduccion', 'creditos', 'contracreditos']);
+            $table->float('valor');
+            $table->string('acta_aprovacion')->nullable();
             $table->timestamps();
         });
     }

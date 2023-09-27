@@ -12,33 +12,33 @@
                     <div class="modal-body py-0">
                             <div class="card-body row">
                                 <div class="mb-3">
-                                    <label class="form-label" for="basic-default-fullname">Selecciona un Hecho</label>
-                                    <select class="form-select" name="" v-model="politica.hecho_id">
+                                    <label class="form-label" for="select_hechos">Selecciona un Hecho</label>
+                                    <select id="select_hechos" class="form-select" name="" v-model="politica.hecho_id" required>
                                         <option v-for="(hecho, index) in hechos" :key="index" :value="hecho.id">{{ hecho.nombre }}</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="basic-default-fullname">Nombre</label>
-                                    <div class="input-group input-group-merge">
-                                        <input type="text" class="form-control" v-model="politica.nombre" >
+                                    <label class="form-label" for="input-nombre">Nombre</label>
+                                    <div id="input-nombre" class="input-group input-group-merge">
+                                        <input type="text" class="form-control" v-model="politica.nombre" required>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="basic-default-fullname">Peso (%)</label>
-                                    <div class="input-group input-group-merge">
-                                        <input type="number" class="form-control" v-model="politica.peso">
+                                    <label class="form-label" for="input-peso">Peso (%)</label>
+                                    <div id="input-peso" class="input-group input-group-merge">
+                                        <input type="number" class="form-control" v-model="politica.peso" required>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="basic-default-fullname">Descripción</label>
-                                    <div class="input-group input-group-merge">
-                                        <input type="text" class="form-control" v-model="politica.descripcion">
+                                    <label class="form-label" for="input-descripcion">Descripción</label>
+                                    <div id="input-descripcion" class="input-group input-group-merge">
+                                        <input type="text" class="form-control" v-model="politica.descripcion" required>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary me-1" @click="$parent.closeFormModal()">Close</button>
+                        <button type="button" class="btn btn-outline-secondary me-1" @click="$parent.closeFormModal()">Cerrar</button>
                         <button type="submit" class="btn btn-primary">{{ !this.politica.id ?  'Agregar' : 'Editar' }}</button>
                     </div>
                 </form>
@@ -77,7 +77,7 @@ export default {
                 axios.put(`/politicas/${this.politica.id}`, this.politica).then(res=>{
                     console.log(res)
                     if (res.data.status) {
-                        alert(res.data.message)
+                        this.$swalMini('success', `${res.data.message}.`);
                         this.$parent.closeFormModal()
                     }
                 }).catch(error=>{
@@ -87,10 +87,11 @@ export default {
                 axios.post('/politicas', this.politica).then(res=>{
                     console.log(res)
                     if (res.data.status) {
-                        alert(res.data.message)
+                        this.$swalMini('success', `${res.data.message}.`);
                         this.$parent.closeFormModal()
                     }
                 }).catch(error=>{
+                    this.$swalMini('error', `Se ha producido un error al realizar la acción.`);
                     console.log(error.response)
                 })
             }

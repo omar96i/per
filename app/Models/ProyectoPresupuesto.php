@@ -14,9 +14,9 @@ class ProyectoPresupuesto extends Model
         'codigo',
         'inicial',
         'definitivo',
-        'certificado',
-        'comprometido',
-        'ordenes_de_pago',
+        'disponibilidad',
+        'registros',
+        'pagos',
     ];
 
     public function proyecto(){

@@ -22,7 +22,7 @@ class AuthController extends Controller
     public function log(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required|email',
+            'usuario' => 'required',
             'password' => 'required',
         ]);
 

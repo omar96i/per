@@ -21,13 +21,14 @@ class UnidadController extends Controller
     public function update(Unidad $unidad, Request $request){
         $unidad->update($request->all());
         $unidad->save();
-        return response()->json(['saved' => true]);
+        return response()->json(['status' => true]);
     }
 
 
     public function store(Request $request){
         $unidad = Unidad::create($request->post());
         return response()->json([
+            'status' => true,
             'unidad'=>$unidad
         ]);
     }

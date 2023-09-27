@@ -16,7 +16,7 @@
 .app-brand-text.demo {
   font-size: 1.75rem;
   letter-spacing: -0.5px;
-  text-transform: lowercase;
+  /* text-transform: lowercase; */
 }
 
 /* ! For .layout-navbar-fixed added fix padding top tpo .layout-page */
@@ -104,4 +104,12 @@
 .layout-demo-info {
   text-align: center;
   margin-top: 1rem;
+}
+.swal2-container {
+    z-index: 9999; /* Asegura que el modal aparezca por encima de otros elementos */
+}
+.btn-label-secondary {
+    background: #ebeef0;
+    border-color: transparent;
+    color: #8592a3;
 }

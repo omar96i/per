@@ -1,7 +1,7 @@
 <template>
     <div class="col-12">
         <div class="col-12">
-            <h5 class="my-1">Periodo establecido desde: 01/01/2021 hasta: 31/12/2024</h5>
+            <h5>Periodo establecido: <b> {{ periodo.nombre }} </b> <br> desde: <b> {{ periodo.fecha_ini }} </b> hasta: <b> {{ periodo.fecha_fin }} </b></h5>
             <button type="button" class="btn btn-info my-2" @click="openFormModal('insert', null)">
                 Nuevo registro
             </button>
@@ -26,12 +26,12 @@
                 <tbody>
                     <tr v-for="(meta, index) in metas" :key="index">
                         <!-- <td>{{ hecho.periodo }}</td> -->
-                        <td>{{ meta.hecho.nombre }}</td>
-                        <td>{{ meta.politica.nombre }}</td>
-                        <td>{{ meta.programa.nombre }}</td>
+                        <td>{{ meta.hecho?.nombre }}</td>
+                        <td>{{ meta.politica?.nombre }}</td>
+                        <td>{{ meta.programa?.nombre }}</td>
                         <td>{{ meta.codigo }}</td>
                         <td>{{ meta.nombre }}</td>
-                        <td>{{ meta.indicador_meta }}</td>
+                        <td>{{ meta.indicador.nombre }}</td>
                         <!-- <td>{{ meta.indicador }}</td> -->
                         <td>{{ meta.indicador_id }}</td>
                         <td>{{ meta.peso }}</td>
@@ -50,6 +50,7 @@
 <script>
 import FormModal from './FormModal.vue'
 export default{
+    props: ['periodo'],
     components: {
         FormModal
     },
@@ -62,23 +63,36 @@ export default{
     },
     created(){
         this.getData()
+        if (!this.periodo) {
+            this.$swal.fire({
+                icon: 'error',
+                title: 'Sin periodo activo',
+                text: 'Por favor, active o asigne un período antes de añadir hechos.',
+                showConfirmButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = '/periodo';
+                }
+            })
+        }
     },
     methods:{
         openFormModal(tipo, data){
             this.form_modal = false
             if (tipo == 'insert') {
-                console.log('entro');
                 this.data_meta = {
                     id: '',
-                    periodo_id: '',
+                    periodo_id: this.periodo.id,
                     hecho_id: '',
                     politica_id: '',
+                    estrategia_id: '',
                     programa_id: '',
                     indicador_id: '',
                     user_id: '',
                     codigo: '',
                     nombre: '',
                     indicador_meta: '',
+                    siglas_indicador: '',
                     peso: '',
                     linea_base: '',
                     year: (new Date).getFullYear(),
@@ -109,7 +123,7 @@ export default{
             }, 300);
         },
         getData(){
-            axios.get('/metas-productos-get').then(res=>{
+            axios.get('/metas/get').then(res=>{
                 console.log(res);
                 this.metas = res.data.metas
             }).catch(error => {
@@ -117,13 +131,13 @@ export default{
             })
         },
         deleteData(id){
-            axios.delete(`/metas-productos/${id}`).then(res=>{
+            axios.delete(`/metas/${id}`).then(res=>{
                 if(res.data.status){
-                    alert(res.data.message)
+                     this.$swalMini('success', `${res.data.message}.`)
                     this.getData()
                 }
             }).catch(error => {
-                console.log(error);
+                console.log(error.response);
             })
         },
     },

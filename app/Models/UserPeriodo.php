@@ -14,7 +14,6 @@ class UserPeriodo extends Model
     protected $fillable = [
         'user_id',
         'periodo_id',
-        'tipo_acceso'
     ];
 
     public function user(){

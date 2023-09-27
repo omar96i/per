@@ -1,9 +1,7 @@
 <template>
-    <div class="col-12 text-center">
-    </div>
     <div class="col-12">
         <div class="col-12">
-            <button type="button" class="btn btn-info m-1" data-bs-toggle="modal" data-bs-target="#modalUser" @click="action('insert')">
+            <button type="button" class="btn btn-info my-3" data-bs-toggle="modal" data-bs-target="#modalUser" @click="action(null)">
                 Nuevo registro
             </button>
         </div>
@@ -17,22 +15,9 @@
                         <th>E-Mail</th>
                         <th>Documento</th>
                         <th>Usuario</th>
-                        <th>Password</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <!-- <th></th> -->
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>E-Mail</th>
-                        <th>Documento</th>
-                        <th>Usuario</th>
-                        <th>Password</th>
-                        <th>Acciones</th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     <tr v-for="(user, index) in users" :key="index">
                         <td>{{ user.nombre }}</td>
@@ -40,10 +25,9 @@
                         <td>{{ user.email }}</td>
                         <td>{{ user.documento }}</td>
                         <td >{{ user.usuario }}</td>
-                        <td>{{ user.password }}</td>
-                        <td class="text-center">
-                            <button type="button" class="btn btn-info btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#modalUser" @click="action('edit',user.id)"><i class='bx bxs-edit' ></i></button>
-                            <button class="btn btn-danger btn-circle btn-sm"  @click="deleteData(user.id)"><i class='bx bxs-trash' ></i></button>
+                        <td class="d-flex text-center">
+                            <button type="button" class="btn btn-info btn-circle btn-sm mx-2" data-bs-toggle="modal" data-bs-target="#modalUser" @click="action(user)"><i class='bx bxs-edit' ></i></button>
+                            <button class="btn btn-danger btn-circle btn-sm"  @click="deleteUser(user.id)"><i class='bx bxs-trash' ></i></button>
                         </td>
                     </tr>
                 </tbody>
@@ -64,48 +48,31 @@
         },
         data(){
             return{
-
-                items: {},
                 loading: false,
-                load: false,
-                users:{},
-                roles: []
+                users: []
             }
         },
         created(){
-            this.getData()
-            this.getRoles()
+            this.getUsers()
         },
-
         methods:{
-
-            action(tipo,id){
-                this.$refs.modal_form.setData(tipo,id, this.roles)
+            action(data_user){
+                this.$refs.modal_form.setData(data_user)
             },
-
-            getData(){
+            getUsers(){
                 axios.get('/user/get').then(res=>{
                     this.users = res.data.user
                     this.load=true
                     this.loading=true
                 })
             },
-
-            deleteData(id){
+            deleteUser(id){
                 axios.get(`/user/delete/${id}`).then(res=>{
                     if(res.data.status){
-                        this.getData()
+                        this.getUsers()
                     }
                 })
             },
-
-            getRoles(){
-                axios.get('/roles/get').then(res=>{
-                    this.roles = res.data.roles
-                })
-            }
-
-
         },
     }
 

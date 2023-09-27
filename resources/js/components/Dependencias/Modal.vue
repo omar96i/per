@@ -1,7 +1,7 @@
 <template>
     <!-- Modal -->
     <div class="modal fade" id="modalDependencia" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content" v-if="!loading_data">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalFullTitle">Formulario de registro</h5>
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 <div class="modal-footer" v-if="!loading">
                     <button type="button" id="cierrame" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                     Close
@@ -68,13 +68,11 @@
 
     import axios from 'axios';
     export default {
-              
+
         props:['id', 'tipo'],
-        
+
         data(){
             return{
-                
-                
                 dependencia:{
                     nombre:"",
                     descripcion:"",
@@ -82,35 +80,26 @@
                     mision:"",
                     vision:"",
                     organigrama:""
-                
                 },
                 data:{},
                 ruta: '',
                 tipo: 'insert',
                 loading: false,
                 loading_data : false,
-                
-                
             }
         },
-        
         methods:{
-
             getData(id){
-            axios.get(`/dependencia/getData/${id}`).then(res=>{
-                this.dependencia = res.data.dependencia;
-                
-                console.log("Datos Dependencia", this.dependencia)
-                this.loading_data = false
-            }).catch(res=>{
-                
-                console.log(res.response)
-            })
+                axios.get(`/dependencia/getData/${id}`).then(res=>{
+                    this.dependencia = res.data.dependencia;
+                    console.log("Datos Dependencia", this.dependencia)
+                    this.loading_data = false
+                }).catch(res=>{
+                    console.log(res.response)
+                })
             },
-            
             setData(tipo, id){
                 console.log(tipo + ' ' + id)
-                
                 if(tipo == 'insert'){
                     this.loading_data = true
                     this.resetData()
@@ -129,35 +118,27 @@
                     this.loading_data = false
                 },200)
             },
-
             action(){
-            this.loading = true
-            
-
-        
-            axios.post((this.tipo == 'insert') ? '/dependencia/store' : `/dependencia/update/${this.dependencia.id}`,this.dependencia).then(res=>{
-                this.loading = false
-                console.log(res.data)
-                
-                if(res.data.status){
-                    this.alert('Registro', (this.tipo=='insert') ? 'Agregado' : 'Actualizado', 'success')
-                }
-                this.$parent.getData()
-                
-                setTimeout(()=>{
-                   document.getElementById("cierrame").click()  
-                },200)
-                
-                
-            }).catch(res=>{
-                this.alert('Registro', 'Error en el servidor', 'error')
-                console.log(res.response)
-                this.loading = false
-            })
+                this.loading = true
+                axios.post((this.tipo == 'insert') ? '/dependencia/store' : `/dependencia/update/${this.dependencia.id}`,this.dependencia).then(res=>{
+                    this.loading = false
+                    console.log(res.data)
+                    if(res.data.status){
+                        this.$swalMini('success', `Dependencia ${this.tipo=='insert' ? 'creada' : 'actualizada'} con exito.`);
+                    }
+                    this.$parent.getData()
+                    setTimeout(()=>{
+                        document.getElementById("cierrame").click()
+                    },200)
+                }).catch(res=>{
+                    this.$swalMini('error', `Se ha producido un error al realizar la acción.`);
+                    console.log(res.response)
+                    this.loading = false
+                })
             }
         }
-        
-       
+
+
 }
-                
+
 </script>

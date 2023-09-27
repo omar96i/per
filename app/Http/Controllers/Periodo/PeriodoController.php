@@ -25,7 +25,6 @@ class PeriodoController extends Controller
             }])
         ->first();
 
-
         return response()->json(['periodo' => $periodo]);
     }
 
@@ -62,14 +61,18 @@ class PeriodoController extends Controller
     }
 
     public function asignar(Request $request){
+        // validar que no exista la relacion
+        if (UserPeriodo::where([['user_id', $request->user_id], ['periodo_id', $request->periodo_id]])->exists()) {
+            return response()->json(['status' => false, 'message' => 'El usuario ya ha sido asignado']);
+        }
         $relacion = new UserPeriodo($request->all());
         $relacion->save();
         return response()->json(['status' => true, 'periodo' => Periodo::with('users.user')->find($request->periodo_id)]);
     }
 
     public function deleteAsignacion(UserPeriodo $relacion){
-        $periodo = Periodo::with('users.user')->find($relacion->periodo_id);
         $relacion->delete();
+        $periodo = Periodo::with('users.user')->find($relacion->periodo_id);
         return response()->json(['status' => true, 'periodo' => $periodo]);
     }
 

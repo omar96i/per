@@ -12,6 +12,7 @@ class Proyecto extends Model
     protected $fillable = [
         'hecho_id',
         'politica_id',
+        'estrategia_id',
         'programa_id',
         'periodo_id',
         'vigencia',

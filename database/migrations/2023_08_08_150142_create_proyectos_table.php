@@ -17,9 +17,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('hecho_id');
             $table->unsignedBigInteger('politica_id');
+            $table->unsignedBigInteger('estrategia_id');
             $table->unsignedBigInteger('programa_id');
             $table->unsignedBigInteger('periodo_id');
-            $table->date('vigencia');
+            $table->year('vigencia');
             $table->string('nombre');
             $table->timestamps();
         });

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Programacion;
 
 use App\Http\Controllers\Controller;
 use App\Models\Hecho;
+use App\Models\Periodo;
+use App\Models\UserPeriodo;
 use Illuminate\Http\Request;
 
 class HechoController extends Controller
@@ -15,7 +17,8 @@ class HechoController extends Controller
      */
     public function index()
     {
-        return view('programacion.hechos.index');
+        $periodo_activo = Periodo::getPeriodoActivo(auth()->user()->id);
+        return view('programacion.hechos.index', compact('periodo_activo'));
     }
 
     public function get()
