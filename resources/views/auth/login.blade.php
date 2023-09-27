@@ -29,8 +29,8 @@
           <form id="formAuthentication" class="mb-3" action="{{route('login.submit')}}" method="POST">
             @csrf
             <div class="mb-3">
-              <label for="email" class="form-label">Correo electronico</label>
-              <input type="text" class="form-control" id="email" name="email" placeholder="Ingresa tu correo" autofocus>
+              <label for="usuario" class="form-label">Nombre de usuario</label>
+              <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Ingresa tu correo" autofocus>
             </div>
             <div class="mb-3 form-password-toggle">
               <div class="d-flex justify-content-between">

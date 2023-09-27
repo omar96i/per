@@ -9,14 +9,14 @@
                 </div>
                 <div class="modal-body">
                     <div class="nav-align-top mb-4">
-                        <ul class="nav nav-tabs" role="tablist">
+                        <ul class="nav nav-pills" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+                                <button type="button" class="nav-link active border border-bottom-0 border-gray rounded" role="tab" data-bs-toggle="tab"
                                     data-bs-target="#navs-graficos" aria-controls="navs-graficos"
                                     aria-selected="true">Graficas de Avance Físicos y Financieros</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                                <button type="button" class="nav-link border border-bottom-0 border-gray rounded" role="tab" data-bs-toggle="tab"
                                     data-bs-target="#navs-reportes" aria-controls="navs-reportes" aria-selected="false"
                                     tabindex="-1">Avances físicos, Actividades realizadas y evidencias</button>
                             </li>
@@ -96,21 +96,24 @@
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6">
+                                        <div v-if="alert" class="alert alert-primary" role="alert">
+                                            <i class='bx bx-info-circle'></i> Da clic en la actividad para ver las evidencias
+                                        </div>
                                         <div class="nav-align-top mb-4">
-                                            <ul class="nav nav-tabs" role="tablist">
+                                            <ul class="nav nav-pills" role="tablist">
                                                 <li class="nav-item" role="presentation">
-                                                    <button type="button" class="nav-link active" role="tab"
+                                                    <button type="button" class="nav-link border border-bottom-0 border-gray rounded active" role="tab"
                                                         data-bs-toggle="tab" data-bs-target="#navs-documentos"
                                                         aria-controls="navs-documentos"
                                                         aria-selected="true">Documentos</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
-                                                    <button type="button" class="nav-link" role="tab"
+                                                    <button type="button" class="nav-link border border-bottom-0 border-gray rounded" role="tab"
                                                         data-bs-toggle="tab" data-bs-target="#navs-fotos"
                                                         aria-controls="navs-fotos" aria-selected="true">Fotos</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
-                                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                                                    <button type="button" class="nav-link border border-bottom-0 border-gray rounded" role="tab" data-bs-toggle="tab"
                                                         data-bs-target="#navs-videos" aria-controls="navs-videos"
                                                         aria-selected="false" tabindex="-1">Videos</button>
                                                 </li>
@@ -167,6 +170,7 @@ export default {
     data() {
         return {
             evidencias: [],
+            alert: true
         };
     },
     created() {
@@ -174,6 +178,7 @@ export default {
     },
     methods: {
         getEvidencias(id) {
+            this.alert = false
             axios.get(`/metas/evidencias/${id}`)
                 .then(res => {
                     this.evidencias = res.data.evidencias

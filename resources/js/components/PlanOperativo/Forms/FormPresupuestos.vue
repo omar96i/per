@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-12 col-md-6">
                     <label for="input-inicial">Valor Inicial $:</label>
-                    <input id="input-inicial" class="form-control" type="text" placeholder="Ingresa el valor inicial"  v-model="form_presupuesto.inicial" required> <!-- poner formato mneda en este input -->
+                    <input id="input-inicial" class="form-control" type="text" placeholder="Ingresa el valor inicial" @input="inputFormatoMoneda" v-model="form_presupuesto.inicial" required> <!-- poner formato mneda en este input -->
                 </div>
                 <div class="col-12 text-center my-3">
                     <button v-if="form_presupuesto.id" class="btn btn-outline-secondary mx-1" type="button" @click="resetForm()">Cancelar</button>
@@ -30,7 +30,7 @@
                 <tbody>
                     <tr v-for="presupuesto in lista_presupuestos">
                         <td>{{ presupuesto.codigo }}</td>
-                        <td>{{ presupuesto.inicial }}</td>
+                        <td>{{ this.$parent.formatoMoneda(presupuesto.inicial) }}</td>
                         <td class="text-center d-flex">
                             <button type="button" class="btn btn-info btn-sm me-1"><i class='bx bxs-edit' @click="editPresupuesto(presupuesto)"></i></button>
                             <button class="btn btn-danger btn-sm" @click="deletePresupuestos(presupuesto.id)"><i class='bx bxs-trash' ></i></button>
@@ -62,6 +62,26 @@ export default {
         }
     },
     methods:{
+        inputFormatoMoneda(event){
+            const valor = event.target.value;
+            this.FormatoMoneda(valor)
+        },
+        FormatoMoneda(valor) {
+            // Eliminar todos los caracteres no numéricos, excepto comas y puntos
+            const valorLimpio = valor.replace(/[^0-9,.]/g, '');
+
+            // Reemplazar comas y puntos por vacío para obtener solo los dígitos
+            const valorSoloDigitos = valorLimpio.replace(/[,.]/g, '');
+
+            // Formatear el número con separadores de miles
+            const valorFormateado = valorSoloDigitos.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+            this.form_presupuesto.inicial = valorFormateado;
+        },
+        removeFormatoMoneda(valor) {
+            const valor_clean = valor.replace(/,/g, ''); // Eliminar comas
+            this.form_presupuesto.inicial = parseInt(valor_clean, 10); // Convertir a entero
+        },
         resetForm(){
             this.form_presupuesto = {
                 proyecto_id: '',
@@ -81,6 +101,7 @@ export default {
             this.form_presupuesto = presupuesto
         },
         savePresupuestos(){
+            this.removeFormatoMoneda(this.form_presupuesto.inicial)
             if (this.form_presupuesto.id) {
                 axios.put(`/proyecto-presupuestos/${this.form_presupuesto.id}`, this.form_presupuesto).then(res=>{
                     // console.log(res)

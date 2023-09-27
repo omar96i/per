@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('periodo_id')->nullable();
             $table->unsignedBigInteger('hecho_id')->nullable();
             $table->unsignedBigInteger('politica_id')->nullable();
+            $table->unsignedBigInteger('estrategia_id')->nullable();
             $table->unsignedBigInteger('programa_id')->nullable();
             $table->unsignedBigInteger('indicador_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();

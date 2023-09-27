@@ -18,66 +18,91 @@ class RolesSeeder extends Seeder
      */
     public function run()
     {
-        $role1 = Role::create(['name'=>'Admin']);
-        $role2 = Role::create(['name'=>'Usuario']);
+        $role1 = Role::create(['name'=>'superadmin']);
+        $role2 = Role::create(['name'=>'administrador']);
+        $role3 = Role::create(['name'=>'subgerencia.financiera']);
+        $role4 = Role::create(['name'=>'subgerencia.planeacion']);
+        $role5 = Role::create(['name'=>'subgerencia.proyectos']);
 
 
         //Usuario
-        Permission::create(['name'=>'User.ver'])->assignRole($role1);
-        Permission::create(['name'=>'User.crear'])->assignRole($role1);
-        Permission::create(['name'=>'User.editar'])->assignRole($role1);
-        Permission::create(['name'=>'User.eliminar'])->assignRole($role1);
-
-        // roles
-        Permission::create(['name'=>'Roles.ver'])->assignRole($role1);
-        Permission::create(['name'=>'Roles.crear'])->assignRole($role1);
-        Permission::create(['name'=>'Roles.editar'])->assignRole($role1);
-        Permission::create(['name'=>'Roles.eliminar'])->assignRole($role1);
+        Permission::create(['name'=>'ver_usuario'])->assignRole($role1, $role2);
+        Permission::create(['name'=>'crear_usuario'])->assignRole($role1, $role2);
+        Permission::create(['name'=>'editar_usuario'])->assignRole($role1, $role2);
+        Permission::create(['name'=>'eliminar_usuario'])->assignRole($role1, $role2);
 
         //Administracion
-        Permission::create(['name'=>'Administracion.ver'])->syncRoles([$role1,$role2]);
-        Permission::create(['name'=>'Administracion.crear'])->syncRoles([$role1,$role2]);
-        Permission::create(['name'=>'Administracion.editar'])->syncRoles([$role1,$role2]);
-        Permission::create(['name'=>'Administracion.eliminar'])->syncRoles([$role1,$role2]);
+        Permission::create(['name'=>'ver_administracion'])->syncRoles([$role1, $role2]);
+        Permission::create(['name'=>'crear_administracion'])->syncRoles([$role1, $role2]);
+        Permission::create(['name'=>'editar_administracion'])->syncRoles([$role1, $role2]);
+        Permission::create(['name'=>'eliminar_administracion'])->syncRoles([$role1, $role2]);
 
         // Programacion
-        Permission::create(['name'=>'Programacion.ver'])->syncRoles([$role1,$role2]);
-        Permission::create(['name'=>'Programacion.crear'])->syncRoles([$role1,$role2]);
-        Permission::create(['name'=>'Programacion.editar'])->syncRoles([$role1,$role2]);
-        Permission::create(['name'=>'Programacion.eliminar'])->syncRoles([$role1,$role2]);
+        Permission::create(['name'=>'ver_programacion'])->syncRoles([$role1, $role2, $role5]);
+        Permission::create(['name'=>'crear_programacion'])->syncRoles([$role1, $role2, $role5]);
+        Permission::create(['name'=>'editar_programacion'])->syncRoles([$role1, $role2, $role5]);
+        Permission::create(['name'=>'eliminar_programacion'])->syncRoles([$role1, $role2, $role5]);
 
         //PlanOperativo
-        Permission::create(['name'=>'PlanOperativo.ver'])->syncRoles([$role1,$role2]);
-        Permission::create(['name'=>'PlanOperativo.crear'])->syncRoles([$role1,$role2]);
-        Permission::create(['name'=>'PlanOperativo.editar'])->syncRoles([$role1,$role2]);
-        Permission::create(['name'=>'PlanOperativo.eliminar'])->syncRoles([$role1,$role2]);
+        Permission::create(['name'=>'ver_plan_operativo'])->syncRoles([$role1, $role3, $role5]);
+        Permission::create(['name'=>'crear_plan_operativo'])->syncRoles([$role1, $role3, $role5]);
+        Permission::create(['name'=>'editar_plan_operativo'])->syncRoles([$role1, $role3, $role5]);
+        Permission::create(['name'=>'eliminar_plan_operativo'])->syncRoles([$role1, $role3, $role5]);
 
-        //resultados
-        Permission::create(['name'=>'Resultados.ver'])->syncRoles([$role1,$role2]);
-        Permission::create(['name'=>'Resultados.crear'])->syncRoles([$role1,$role2]);
-        Permission::create(['name'=>'Resultados.editar'])->syncRoles([$role1,$role2]);
-        Permission::create(['name'=>'Resultados.eliminar'])->syncRoles([$role1,$role2]);
+        //Ejecucion
+        Permission::create(['name'=>'ver_ejecucion'])->syncRoles([$role1, $role4]);
+        Permission::create(['name'=>'crear_ejecucion'])->syncRoles([$role1, $role4]);
+        Permission::create(['name'=>'editar_ejecucion'])->syncRoles([$role1, $role4]);
+        Permission::create(['name'=>'eliminar_ejecucion'])->syncRoles([$role1, $role4]);
 
-        $admin = User::create([
-            'nombre' => 'admin',
-            'apellido' => 'admin',
-            'email' => 'admin@hotmail.com',
-            'documento' => '12345',
-            'usuario' => 'admin',
-            'password' => '12345',
+        $user1 = User::create([
+            'nombre' => 'Super Administrador',
+            'apellido'=>'',
+            'documento'=>'',
+            'email' => 'superadmin@gmail.com',
+            'usuario'=>'superadmin',
+            'password' => 'sup3r4adm1n2024',
         ]);
-        $admin->assignRole($role1);
+        $user1->assignRole($role1);
 
-        $usuario = User::create([
-            'nombre' => 'felipe',
-            'apellido' => 'felipe',
-            'email' => 'felipe@hotmail.com',
-            'documento' => '12345',
-            'usuario' => 'felipe',
-            'password' => '12345',
-        ]);
-        $usuario->assignRole($role2);
+        $user2 = User::create([
+            'nombre' => 'Administrador',
+            'apellido'=>'',
+            'documento'=>'',
+            'email' => 'administrador@gmail.com',
+            'usuario'=>'administrador',
+            'password' => '4dm1n1str4d0r2024',
+		]);
+        $user2->assignRole($role2);
 
+        $user3 = User::create([
+            'nombre' => 'Subgerencia Financiara',
+            'apellido'=>'',
+            'documento'=>'',
+            'email' => 'subgerencia.financiera@gmail.com',
+            'usuario'=>'subgerencia.financiera',
+            'password' => 'f1n4nc13r42024',
+		]);
+        $user3->assignRole($role3);
 
+        $user4 = User::create([
+            'nombre' => 'Subgerencia Planeacion',
+            'apellido'=>'',
+            'documento'=>'',
+            'email' => 'subgerencia.planeacion@gmail.com',
+            'usuario'=>'subgerencia.planeacion',
+            'password' => 'pl4n34c10n2024',
+		]);
+        $user4->assignRole($role4);
+
+        $user5 = User::create([
+            'nombre' => 'Subgerencia Proyectos',
+            'apellido'=>'',
+            'documento'=>'',
+            'email' => 'subgerencia.proyectos@gmail.com',
+            'usuario'=>'subgerencia.proyectos',
+            'password' => 'pr0y3ct0s2024',
+		]);
+        $user5->assignRole($role5);
     }
 }

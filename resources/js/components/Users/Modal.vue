@@ -20,7 +20,7 @@
                             <div class="mb-3 col col-md-6">
                                 <label class="form-label" for="input-lastname">Apellido</label>
                                 <div class="input-group input-group-merge">
-                                    <input id="input-lastname" type="text" class="form-control" v-model="user.apellido" required>
+                                    <input id="input-lastname" type="text" class="form-control" v-model="user.apellido">
                                 </div>
                             </div>
                             <div class="col col-md-6">
@@ -32,7 +32,7 @@
                             <div class="col col-md-6">
                                 <label class="form-label" for="input-documento">Documento</label>
                                 <div class="input-group input-group-merge">
-                                    <input id="input-documento" type="text" class="form-control" v-model="user.documento" required>
+                                    <input id="input-documento" type="text" class="form-control" v-model="user.documento">
                                 </div>
                             </div>
 
@@ -48,7 +48,7 @@
                             <div class="mb-3">
                                 <label class="form-label" for="input-password">{{ user?.id ? 'Actualizar' : ''}} Contraseña</label>
                                 <div class="input-group input-group-merge">
-                                    <input id="input-password" type="text" class="form-control" v-model="user.password" required>
+                                    <input id="input-password" type="text" class="form-control" v-model="user.password" required placeholder="Cambia o ingresa la contraseña anterior">
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -141,15 +141,15 @@
                     console.log(res.data)
                     if(res.data.status){
                         // this.alert('Registro', (this.tipo=='insert') ? 'Agregado' : 'Actualizado', 'success')
-                        alert('actializado con exito')
+                        this.$swalMini('success', `Guardado con exito.`)
+                        this.$parent.getUsers()
                     }
-                    this.$parent.getUsers()
                     setTimeout(()=>{
                         document.getElementById("cierrame").click()
                     },200)
                 }).catch(res=>{
                     console.log(res.response)
-                    this.alert('Registro', 'Error en el servidor', 'error')
+                    this.$swalMini('error', `Error en el servidor`)
                     this.loading = false
                 })
             }

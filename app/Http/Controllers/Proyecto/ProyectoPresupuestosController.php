@@ -22,6 +22,19 @@ class ProyectoPresupuestosController extends Controller
     public function getPresupuesto($id)
     {
         $presupuesto = ProyectoPresupuesto::where('id', $id)->with('proyecto', 'movimiento_financieros')->first();
+        $total = 0;
+        foreach ($presupuesto->movimiento_financieros as $movimiento) {
+            if ($movimiento->tipo_movimiento == 'adicion' || 
+                $movimiento->tipo_movimiento == 'creditos' || 
+                $movimiento->tipo_movimiento == 'inicial') {
+                $total += $movimiento->valor;
+            } elseif ($movimiento->tipo_movimiento == 'reduccion' || 
+                      $movimiento->tipo_movimiento == 'contracreditos') {
+                $total -= $movimiento->valor;
+            }
+            $movimiento->total = $total;
+        }
+        
 
         return response()->json(['status' => true, 'presupuesto' => $presupuesto]);
     }
@@ -40,7 +53,6 @@ class ProyectoPresupuestosController extends Controller
         $movimiento->proyecto_presupuesto_id = $presupuesto->id;
         $movimiento->tipo_movimiento = 'inicial';
         $movimiento->valor = $presupuesto->inicial;
-        $movimiento->total = $presupuesto->inicial;
         $movimiento->save();
 
         $presupuesto->definitivo = ProyectoMovimientoFinanciero::TotalMovimientos($presupuesto->id);

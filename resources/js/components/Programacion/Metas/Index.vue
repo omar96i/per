@@ -31,7 +31,7 @@
                         <td>{{ meta.programa?.nombre }}</td>
                         <td>{{ meta.codigo }}</td>
                         <td>{{ meta.nombre }}</td>
-                        <td>{{ meta.indicador_meta }}</td>
+                        <td>{{ meta.indicador.nombre }}</td>
                         <!-- <td>{{ meta.indicador }}</td> -->
                         <td>{{ meta.indicador_id }}</td>
                         <td>{{ meta.peso }}</td>

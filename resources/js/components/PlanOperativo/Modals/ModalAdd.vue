@@ -42,7 +42,7 @@
                         <div class="row mb-3 align-items-center">
                             <label for="input_valor" class="col-sm-4 col-form-label"><b>Valor {{ column }}$:</b></label>
                             <div class="col-sm-8">
-                            <input type="number" class="form-control" id="input_valor" v-model="presupuesto[`${column}`]">
+                            <input type="number" class="form-control" id="input_valor" @input="inputFormatoMoneda" v-model="presupuesto[`${column}`]">
                             </div>
                         </div>
                         <div class="text-center my-2 mt-auto">
@@ -74,6 +74,26 @@ export default {
         this.getPresupuesto()
     },
     methods: {
+        inputFormatoMoneda(event){
+            const valor = event.target.value;
+            this.FormatoMoneda(valor)
+        },
+        FormatoMoneda(valor) {
+            // Eliminar todos los caracteres no numéricos, excepto comas y puntos
+            const valorLimpio = valor.replace(/[^0-9,.]/g, '');
+
+            // Reemplazar comas y puntos por vacío para obtener solo los dígitos
+            const valorSoloDigitos = valorLimpio.replace(/[,.]/g, '');
+
+            // Formatear el número con separadores de miles
+            const valorFormateado = valorSoloDigitos.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+            this.presupuesto[`${column}`] = valorFormateado;
+        },
+        removeFormatoMoneda(valor) {
+            const valor_clean = valor.replace(/,/g, ''); // Eliminar comas
+            this.presupuesto[`${column}`] = parseInt(valor_clean); // Convertir a entero
+        },
         getPresupuesto(){
             axios.get(`/get-presupuesto/${this.presupuesto_id}`).then(res => {
                 console.log(res.data);
@@ -97,6 +117,7 @@ export default {
             if (this.presupuesto[`${this.column}`] > val_max) {
                 this.$swalMini('error', `El valor de ${this.column}  supera ${val_max}!`);
             }else{
+                removeFormatoMoneda(this.presupuesto[`${this.column}`])
                 axios.put(`/proyecto-presupuestos/${this.presupuesto.id}`, this.presupuesto).then(res=>{
                     console.log(res)
                     if (res.data.status) {

@@ -46,7 +46,7 @@
                 @endphp
 
                 {{-- main menu --}}
-                @can($menu->slug.'.ver')
+                @can('ver_'.$menu->slug)
                     <li class="menu-item {{ $activeClass }}">
                         <a href="{{ isset($menu->url) ? url($menu->url) : 'javascript:void(0);' }}"
                             class="{{ isset($menu->submenu) ? 'menu-link menu-toggle' : 'menu-link' }}"

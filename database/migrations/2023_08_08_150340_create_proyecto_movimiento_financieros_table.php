@@ -17,8 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('proyecto_presupuesto_id');
             $table->enum('tipo_movimiento', ['inicial', 'adicion', 'reduccion', 'creditos', 'contracreditos']);
-            $table->float('valor', 15,2);
-            $table->float('total', 15,2);
+            $table->float('valor');
             $table->string('acta_aprovacion')->nullable();
             $table->timestamps();
         });

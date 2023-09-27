@@ -38,12 +38,10 @@ class ProyectoMovimientosFinancierosController extends Controller
     public function store(Request $request)
     {
         $movimiento = ProyectoMovimientoFinanciero::create($request->all());
+        
         $presupuesto = ProyectoPresupuesto::where('id', $movimiento->proyecto_presupuesto_id)->first();
-
         $presupuesto->definitivo = ProyectoMovimientoFinanciero::TotalMovimientos($presupuesto->id);
         $presupuesto->save();
-        $movimiento->total = $presupuesto->definitivo;
-        $movimiento->save();
 
         return response()->json(['status' => true, 'message' => 'Creado correctamente.']);
     }

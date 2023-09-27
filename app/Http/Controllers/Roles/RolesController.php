@@ -18,20 +18,30 @@ class RolesController extends Controller
     }
 
     public function getData(Role $roles){
-        return response()->json(['roles' => $roles, 'permisos' => Permission::get()]);
+        return response()->json(['roles' => $roles->load('permissions')]);
     }
 
     public function update(Role $roles, Request $request){
         $roles->update($request->all());
         $roles->save();
+        $permissions = $request->permissions;
+        $roles->syncPermissions($permissions);
         return response()->json(['saved' => true]);
     }
 
 
     public function store(Request $request){
-        $roles = Role::create($request->post());
+        $request->permissions;
+        $role = Role::create([
+            'name' => $request->name,
+        ]);
+
+        $permissions = $request->permissions;
+        $role->syncPermissions($permissions);
+
         return response()->json([
-            'roles'=>$roles
+            'role' => $role,
+            'message' => 'Rol creado exitosamente.',
         ]);
     }
 
